@@ -26,4 +26,7 @@ public class PayInsurance {
     private @NonNull Long ins_id;
 	private @NonNull double amount;
     
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Insurance_staff.class)
+    @JoinColumn(name = "STAFF_ID", insertable = true)
+    private Insurance_staff staffID;
 }
