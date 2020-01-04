@@ -26,9 +26,13 @@ public class CreateInsurance {
 	@SequenceGenerator(name="CreateInsurance_seq",sequenceName="CreateInsurance_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CreateInsurance_seq")
 	@Column(name="CreateInsurance_ID",unique = true, nullable = true)
-	private @NonNull Long id;
+	private @NonNull Long CreateInsurance_id;
+	private @NonNull String CreateInsurance_name;
+	private @NonNull String CreateInsurance_details;
+	private @NonNull Double CreateInsurance_price;
 
 
-	
+
+
 
 }
