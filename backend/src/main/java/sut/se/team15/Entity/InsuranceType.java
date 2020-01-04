@@ -6,14 +6,13 @@ import javax.persistence.Id;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.FetchType;
 
-import javax.persistence.OneToMany;
+
+
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import java.util.Collection;
-//import java.util.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +27,7 @@ public class InsuranceType {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="InsuranceType_seq")
 	@Column(name="InsuranceType_ID",unique = true, nullable = true)
 	private @NonNull Long InsuranceType_id;
+	private @NonNull String InsuranceType_name;
 	
-
 
 }
