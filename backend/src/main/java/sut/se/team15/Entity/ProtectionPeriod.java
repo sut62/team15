@@ -1,4 +1,4 @@
-package com.okta.springbootvue.entity;
+package sut.se.team15.Entity;
 
 import lombok.*;
 
@@ -29,7 +29,5 @@ public class ProtectionPeriod {
 	private @NonNull Long ProtectionPeriod_id;
 	
 
-	@OneToMany(fetch = FetchType.EAGER)
-    private Collection<ProtectionPeriod> protectionPeriod;
 	
 }

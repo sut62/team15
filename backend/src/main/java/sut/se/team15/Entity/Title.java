@@ -1,4 +1,4 @@
-package com.cpe.backend.entity;
+package sut.se.team15.Entity;
 
 import lombok.*;
 
@@ -29,16 +29,5 @@ public class Title {
 	private @NonNull Long id;
 	private @NonNull String Title;
 
-	@OneToMany(fetch = FetchType.EAGER)
-	private Collection<Register> register;
 
-	/*public Title(String TitleName){
-		this.TitleName = TitleName;
-	}
-	public void  setTitlename(String TitleName){
-		this.TitleName = TitleName;
-	}
-	public String getTitlename(){
-		return TitleName;
-	}*/
 }

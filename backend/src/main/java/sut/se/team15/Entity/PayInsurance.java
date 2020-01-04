@@ -23,7 +23,7 @@ public class PayInsurance {
     @SequenceGenerator(name = "payinsurance_seq", sequenceName = "payinsurance_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payinsurance_seq")
     @Column(name = "PAYINSURANCE_ID", unique = true, nullable = true)
-    private @NonNull Long id;
-    private @NonNull Double amount;
+    private @NonNull Long ins_id;
+	private @NonNull double amount;
     
 }
