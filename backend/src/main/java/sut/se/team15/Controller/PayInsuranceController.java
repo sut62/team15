@@ -26,6 +26,8 @@ public class PayInsuranceController{
     private final PayInsuranceRepository payinsuranceRepository;
     @Autowired
     private Insurance_staffRepository insurance_staffRepository;
+    
+    
    
 
     PayInsuranceController(PayInsuranceRepository payinsuranceRepository) {
@@ -37,9 +39,10 @@ public class PayInsuranceController{
         return payinsuranceRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/payinsurances/{staff_ids}/{amount}")
+    @PostMapping("/payinsurances/{reg_id}/{staff_ids}/{amount}")
     public PayInsurance newPayInsurance(PayInsurance newpayinsurance,
-    
+
+    @PathVariable long reg_id,
     @PathVariable long staff_ids,
     @PathVariable Double amount
   
