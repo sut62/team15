@@ -36,9 +36,27 @@ public class Register {
 	private @NonNull String password;
 	private @NonNull String FristName;
     private @NonNull String LastName;
-    private @NonNull LocalDate RegisterDate;
+    private @NonNull LocalDate BirthDay;
+    private @NonNull Long Age;
+    private @NonNull String Career;
+    private @NonNull String Disease;
+    private @NonNull String PhoneNumber;
+    private @NonNull String Address;
+    private @NonNull Long PostalCode;
+  
 	
 
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
+    @JoinColumn(name = "Status_ID", insertable = true)
+    private Status status;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Province.class)
+    @JoinColumn(name = "Activity_ID", insertable = true)
+    private Province province;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Title.class)
+    @JoinColumn(name = "Title_ID", insertable = true)
+    private Title title;
 
  
 }
