@@ -1,4 +1,4 @@
-package com.okta.springbootvue.entity;
+package sut.se.team15.Entity;
 
 import lombok.*;
 
@@ -29,6 +29,5 @@ public class Price {
 	private @NonNull Long Price_id;
 	private @NonNull String Price_name;
 
-	@OneToMany(fetch = FetchType.EAGER)
-    private Collection<CreateInsurance> createInsurance;
+	
 }

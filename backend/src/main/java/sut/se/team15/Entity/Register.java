@@ -1,4 +1,4 @@
-package com.cpe.backend.entity;
+package sut.se.team15.Entity;
 
 import lombok.*;
 
@@ -39,17 +39,6 @@ public class Register {
     private @NonNull LocalDate RegisterDate;
 	
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Age.class)
-    @JoinColumn(name = "Age_ID", insertable = true)
-    private Age age;
-
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Province.class)
-    @JoinColumn(name = "Activity_ID", insertable = true)
-    private Province province;
-
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Title.class)
-    @JoinColumn(name = "Title_ID", insertable = true)
-    private Title title;
 
  
 }

@@ -1,4 +1,4 @@
-package com.cpe.backend.entity;
+package sut.se.team15.Entity;
 
 import lombok.*;
 
@@ -30,6 +30,4 @@ public class Age {
 	private @NonNull Long id;
 	
 
-	@OneToMany(fetch = FetchType.EAGER)
-	private Collection<Register> register;
 }

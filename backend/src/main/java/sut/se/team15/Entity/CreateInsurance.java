@@ -1,4 +1,4 @@
-package com.okta.springbootvue.entity;
+package sut.se.team15.Entity;
 
 import lombok.*;
 
@@ -29,17 +29,6 @@ public class CreateInsurance {
 	private @NonNull Long id;
 
 
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = InsuranceType.class)
-    @JoinColumn(name = "InsuranceType_ID", insertable = true)
-	private InsuranceType insuranceType;
 	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Price.class)
-    @JoinColumn(name = "Price_ID", insertable = true)
-	private Price price;
-
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ProtectionPeriod.class)
-    @JoinColumn(name = "ProtectionPeriod_ID", insertable = true)
-	private ProtectionPeriod protectionPeriod;	
-
 
 }

@@ -1,4 +1,4 @@
-package com.okta.springbootvue.entity;
+package sut.se.team15.Entity;
 
 import lombok.*;
 
@@ -30,6 +30,5 @@ public class InsuranceType {
 	private @NonNull Long InsuranceType_id;
 	
 
-	@OneToMany(fetch = FetchType.EAGER)
-    private Collection<CreateInsurance> createInsurance;
+
 }

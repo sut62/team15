@@ -1,4 +1,4 @@
-package com.cpe.backend.entity;
+package sut.se.team15.Entity;
 
 import lombok.*;
 
@@ -26,7 +26,7 @@ public class Insurance_staff {
 	@SequenceGenerator(name = "insurance_staff_seq", sequenceName = "insurance_staff_seq")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "insurance_staff_seq")
 	@Column(name = "INSURANCE_STAFF_ID", unique = true, nullable = true)
-	private @NonNull Long insurance_staff_id;
-	private @NonNull String insurance_staff_name;
+	private @NonNull Long staff_id;
+	private @NonNull String staff_name;
 
 }
