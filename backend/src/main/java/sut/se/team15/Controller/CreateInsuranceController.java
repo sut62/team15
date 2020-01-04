@@ -26,7 +26,7 @@ public class CreateInsuranceController {
     @Autowired
     private final CreateInsuranceRepository createInsuranceRepository;
 
-    CreateInsuranceController(final CreateInsuranceRepository createInsuranceRepository) {
+    CreateInsuranceController(CreateInsuranceRepository createInsuranceRepository) {
         this.createInsuranceRepository = createInsuranceRepository;
     }
 
@@ -36,8 +36,8 @@ public class CreateInsuranceController {
     }
 
     @PostMapping("/CreateInsurance/{Name}/{Details}/{InsuranceType}/{Price}/{PaymentPeriod}")
-    public CreateInsurance newCreateInsurance(final CreateInsurance newCreateInsurance, @PathVariable final String Name,
-            @PathVariable final String Details, @PathVariable final String InsuranceType,  @PathVariable final Double Price, @PathVariable final String PaymentPeriod) {
+    public CreateInsurance newCreateInsurance(CreateInsurance newCreateInsurance, @PathVariable String Name,
+            @PathVariable String Details, @PathVariable String InsuranceType,  @PathVariable Double Price, @PathVariable String PaymentPeriod) {
 
         
 
