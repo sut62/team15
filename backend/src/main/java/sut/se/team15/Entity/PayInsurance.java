@@ -29,4 +29,13 @@ public class PayInsurance {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Insurance_staff.class)
     @JoinColumn(name = "STAFF_ID", insertable = true)
     private Insurance_staff staffID;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Register.class)
+    @JoinColumn(name = "REGISTER_ID", insertable = true)
+    private Register regID;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = CreateInsurance.class)
+    @JoinColumn(name = "INSURANCE_ID", insertable = true)
+    private CreateInsurance insID;
+    
 }
