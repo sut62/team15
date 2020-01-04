@@ -35,19 +35,23 @@ public class RegisterInsuranceController {
         return registerInsuranceRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/registerInsurance/{id}/{PersonId}/{id}/{Name}/{Surname}")
-    public RegisterInsurance newRegisterInsurance(RegisterInsurance newRegisterInsurance, @PathVariable long id, @PathVariable long id,
-            @PathVariable long PersonId, @PathVariable String Name, @PathVariable String Surname) {
+    @PostMapping("/registerInsurance/{Insurance_id}/{Person_id}/{Title_id}/{FirtName}/{Surname}")
+    public RegisterInsurance newRegisterInsurance(RegisterInsurance newRegisterInsurance, 
+    @PathVariable long Insurance_id, 
+     @PathVariable long Person_id,
+    @PathVariable long Title_id,
+    @PathVariable String Firtname, 
+    @PathVariable String Surname) {
 
-        CreateInsurance createInsurance = createInsuranceRepository.findById(id);
-        Title title = titleRepository.findById(id);
-        Person person  = personRepository.findById(PersonId);
+        CreateInsurance createInsurance = createInsuranceRepository.findById(Insurance_id);
+        Title title = titleRepository.findById(Title_id);
+        Person person  = personRepository.findById(Person_id);
 
       
         newRegisterInsurance.setCreateInsurance(createInsurance);
         newRegisterInsurance.setPerson(person);
         newRegisterInsurance.setTitle(title);
-        newRegisterInsurance.setName(Name);
+        newRegisterInsurance.setName(Firtname);
         newRegisterInsurance.setSurname(Surname);
        
 
