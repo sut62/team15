@@ -27,6 +27,5 @@ public class PaymentPeriod {
 	private @NonNull Long PaymentPeriod_id;
 	private @NonNull String PaymentPeriod_name;
 
-	
-	
+
 }

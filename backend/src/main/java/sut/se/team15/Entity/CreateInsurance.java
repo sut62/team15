@@ -28,9 +28,23 @@ public class CreateInsurance {
 	@Column(name="CreateInsurance_ID",unique = true, nullable = true)
 	private @NonNull Long CreateInsurance_id;
 	private @NonNull String CreateInsurance_name;
-	private @NonNull String CreateInsurance_details;
-	private @NonNull Double CreateInsurance_price;
+	private @NonNull String CreateInsurance_accidentCoverage;
+	private @NonNull String CreateInsurance_diseaseCoverage;
+	private @NonNull String CreateInsurance_protectionRights;
+	private @NonNull String CreateInsurance_termOfProtection;
+	private @NonNull Double CreateInsurance_insurancePremium;
 
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = InsuranceType.class)
+    @JoinColumn(name = "InsuranceType_ID", insertable = true)
+    private InsuranceType InsuranceTypeId;
+
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ContractDueDate.class)
+    @JoinColumn(name = "ContractDueDate_ID", insertable = true)
+	private ContractDueDate ContractDueDateId;
+	
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = PaymentPeriod.class)
+    @JoinColumn(name = "PaymentPeriod_ID", insertable = true)
+	private PaymentPeriod PaymentPeriodId;
 
 
 
