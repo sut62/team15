@@ -39,14 +39,14 @@ public class RegisterController {
         return registerRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/Register/{User}/{Password}/{Title_ID}/{FristName}/{LastName}/{BirthDay}/{Age}/{Status_ID}/{Career}/{Disease}/{PhoneNumber}/{Address}/{Province_ID}/{PostalCode}")
+    @PostMapping("/Register/{User}/{Password}/{Title_ID}/{FirstName}/{LastName}/{BirthDays}/{Age}/{Status_ID}/{Career}/{Disease}/{PhoneNumber}/{Address}/{Province_ID}/{PostalCode}")
     public Register newRegister(Register newRegister,
             @PathVariable String User,
             @PathVariable String Password, 
             @PathVariable long Title_ID, 
-            @PathVariable String FristName,
+            @PathVariable String FirstName,
             @PathVariable String LastName, 
-            @PathVariable String BirthDay, 
+            @PathVariable String BirthDays, 
             @PathVariable long Age,
             @PathVariable long Status_ID, 
             @PathVariable String Career, 
@@ -62,23 +62,23 @@ public class RegisterController {
         Title title = titleRepository.findById(Title_ID);
         Status status = statusRepository.findById(Status_ID);   
         Province province = provinceRepository.findById(Province_ID);
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDays = LocalDate.parse(BirthDay, formatter);
+        LocalDate BirthDay = LocalDate.parse(BirthDays, formatter);
         
         
         newRegister.setUser_id(User);
         newRegister.setPassword(Password);
         newRegister.setTitle(title);
-        newRegister.setFristName(FristName);
+        newRegister.setFirstName(FirstName);
         newRegister.setLastName(LastName);
-        newRegister.setBirthDay(BirthDays);
+        newRegister.setBirthDay(BirthDay);
         newRegister.setAge(Age);
         newRegister.setStatus(status);
         newRegister.setCareer(Career);
         newRegister.setDisease(Disease);
         newRegister.setPhoneNumber(PhoneNumber);
         newRegister.setAddress(Address);
-        newRegister.setCareer(Career);
         newRegister.setProvince(province);
         newRegister.setPostalCode(PostalCode);
 
