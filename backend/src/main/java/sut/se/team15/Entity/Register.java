@@ -34,7 +34,7 @@ public class Register {
     private @NonNull Long id;
     private @NonNull String user_id;
 	private @NonNull String password;
-	private @NonNull String FristName;
+	private @NonNull String FirstName;
     private @NonNull String LastName;
     private @NonNull LocalDate BirthDay;
     private @NonNull Long Age;
