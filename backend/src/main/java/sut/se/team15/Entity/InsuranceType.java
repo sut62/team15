@@ -29,5 +29,4 @@ public class InsuranceType {
 	private @NonNull Long InsuranceType_id;
 	private @NonNull String InsuranceType_name;
 	
-
 }
