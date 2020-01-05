@@ -17,6 +17,8 @@ public class CreateInsuranceDataloader implements ApplicationRunner {
 	private InsuranceTypeRepository insuranceTypeRepository;
 	@Autowired
 	private PaymentPeriodRepository paymentPeriodRepository;
+	@Autowired
+    private ContractDueDateRepository contractDueDateRepository;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -33,11 +35,16 @@ public class CreateInsuranceDataloader implements ApplicationRunner {
 			paymentPeriodRepository.save(paymentPerioddb);
 		});
 
-		
+		Stream.of("1 ปี", "2 ปี","4 ปี", "6 ปี", "10 ปี").forEach(contractDueDates -> {
+			ContractDueDate contractDueDatedb = new ContractDueDate();
+			contractDueDatedb.setContractDueDate_name(contractDueDates);
+			contractDueDateRepository.save(contractDueDatedb);
+		});
 		
 
         insuranceTypeRepository.findAll().forEach(System.out::println);
 		paymentPeriodRepository.findAll().forEach(System.out::println);
+		contractDueDateRepository.findAll().forEach(System.out::println);
 
 	};
 }
