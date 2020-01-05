@@ -35,12 +35,12 @@ public class RegisterInsuranceController {
         return registerInsuranceRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/registerInsurance/{Insurance_id}/{Person_id}/{Title_id}/{FirtName}/{Surname}")
+    @PostMapping("/registerInsurance/{Insurance_id}/{Person_id}/{Title_id}/{Firstname}/{Surname}")
     public RegisterInsurance newRegisterInsurance(RegisterInsurance newRegisterInsurance, 
     @PathVariable long Insurance_id, 
      @PathVariable long Person_id,
     @PathVariable long Title_id,
-    @PathVariable String Firtname, 
+    @PathVariable String Firstname, 
     @PathVariable String Surname) {
 
         CreateInsurance createInsurance = createInsuranceRepository.findById(Insurance_id);
@@ -51,7 +51,7 @@ public class RegisterInsuranceController {
         newRegisterInsurance.setCreateInsurance(createInsurance);
         newRegisterInsurance.setPerson(person);
         newRegisterInsurance.setTitle(title);
-        newRegisterInsurance.setName(Firtname);
+        newRegisterInsurance.setName(Firstname);
         newRegisterInsurance.setSurname(Surname);
        
 
