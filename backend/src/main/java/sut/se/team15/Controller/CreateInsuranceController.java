@@ -22,6 +22,8 @@ public class CreateInsuranceController {
     private InsuranceTypeRepository insuranceTypeRepository;
     @Autowired
     private PaymentPeriodRepository paymentPeriodRepository;
+    @Autowired
+    private ContractDueDateRepository contractDueDateRepository;
 
     @Autowired
     private final CreateInsuranceRepository createInsuranceRepository;
@@ -35,15 +37,27 @@ public class CreateInsuranceController {
         return createInsuranceRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/CreateInsurance/{Name}/{Details}/{InsuranceType}/{Price}/{PaymentPeriod}")
+    @PostMapping("/CreateInsurance/{Name}/{AccidentCoverage}/{DiseaseCoverage}/{ProtectionRights}/{TermOfProtection}/{InsurancePremium}/{InsuranceType_id}/{PaymentPeriod_id}/{ContractDueDate_id}")
     public CreateInsurance newCreateInsurance(CreateInsurance newCreateInsurance, @PathVariable String Name,
-            @PathVariable String Details, @PathVariable String InsuranceType,  @PathVariable Double Price, @PathVariable String PaymentPeriod) {
+            @PathVariable String AccidentCoverage, @PathVariable String DiseaseCoverage,
+            @PathVariable String ProtectionRights, @PathVariable String TermOfProtection,
+            @PathVariable Double InsurancePremium, @PathVariable long InsuranceType_id, @PathVariable long PaymentPeriod_id,
+            @PathVariable long ContractDueDate_id) {
 
-        
+        InsuranceType insuranceTypeID = insuranceTypeRepository.findById(InsuranceType_id);
+        PaymentPeriod paymentPeriodID = paymentPeriodRepository.findById(PaymentPeriod_id);
+        ContractDueDate contractDueDateID = contractDueDateRepository.findById(ContractDueDate_id);
+
+        newCreateInsurance.setInsuranceTypeId(insuranceTypeID);
+        newCreateInsurance.setPaymentPeriodId(paymentPeriodID);
+        newCreateInsurance.setContractDueDateId(contractDueDateID);
 
         newCreateInsurance.setCreateInsurance_name(Name);
-        newCreateInsurance.setCreateInsurance_details(Details);
-        newCreateInsurance.setCreateInsurance_price(Price);
+        newCreateInsurance.setCreateInsurance_accidentCoverage(AccidentCoverage);
+        newCreateInsurance.setCreateInsurance_diseaseCoverage(DiseaseCoverage);
+        newCreateInsurance.setCreateInsurance_protectionRights(ProtectionRights);
+        newCreateInsurance.setCreateInsurance_termOfProtection(TermOfProtection);
+        newCreateInsurance.setCreateInsurance_insurancePremium(InsurancePremium);
 
         return createInsuranceRepository.save(newCreateInsurance);
     }
