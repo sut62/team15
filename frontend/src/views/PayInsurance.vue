@@ -40,7 +40,7 @@
                 :items="Register"
                 label="รายชื่อสมาชิกประกันสุขภาพ"
                 v-model="PayInsurance.RegID"
-                item-text="fristName"
+                item-text="firstName"
                 item-value="id"
                 :rules="[(v) => !!v || 'Item is required']"
               ></v-select>
