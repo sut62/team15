@@ -11,7 +11,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RegisterDataloader implements ApplicationRunner {
+public class UserDataloader implements ApplicationRunner {
 
 	@Autowired
 	private StatusRepository statusRepository;
