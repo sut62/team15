@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-public class RegisterController {
+public class UserController {
 
     @Autowired
-    private final RegisterRepository registerRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     private ProvinceRepository provinceRepository;
@@ -30,18 +30,18 @@ public class RegisterController {
     @Autowired
     private TitleRepository titleRepository;
 
-    RegisterController(RegisterRepository registerRepository) {
-        this.registerRepository = registerRepository;
+    UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @GetMapping("/Register")
-    public Collection<Register> register() {
-        return registerRepository.findAll().stream().collect(Collectors.toList());
+    @GetMapping("/User")
+    public Collection<User> register() {
+        return userRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/Register/{User}/{Password}/{Title_ID}/{FirstName}/{LastName}/{BirthDays}/{Age}/{Status_ID}/{Career}/{Disease}/{PhoneNumber}/{Address}/{Province_ID}/{PostalCode}")
-    public Register newRegister(Register newRegister,
-            @PathVariable String User,
+    @PostMapping("/User/{UserId}/{Password}/{Title_ID}/{FirstName}/{LastName}/{BirthDays}/{Age}/{Status_ID}/{Career}/{Disease}/{PhoneNumber}/{Address}/{Province_ID}/{PostalCode}")
+    public User newUser(User newUser,
+            @PathVariable String UserId,
             @PathVariable String Password, 
             @PathVariable long Title_ID, 
             @PathVariable String FirstName,
@@ -67,22 +67,22 @@ public class RegisterController {
         LocalDate BirthDay = LocalDate.parse(BirthDays, formatter);
         
         
-        newRegister.setUser_id(User);
-        newRegister.setPassword(Password);
-        newRegister.setTitle(title);
-        newRegister.setFirstName(FirstName);
-        newRegister.setLastName(LastName);
-        newRegister.setBirthDay(BirthDay);
-        newRegister.setAge(Age);
-        newRegister.setStatus(status);
-        newRegister.setCareer(Career);
-        newRegister.setDisease(Disease);
-        newRegister.setPhoneNumber(PhoneNumber);
-        newRegister.setAddress(Address);
-        newRegister.setProvince(province);
-        newRegister.setPostalCode(PostalCode);
+        newUser.setUserid(UserId);
+        newUser.setPassword(Password);
+        newUser.setTitle(title);
+        newUser.setFirstName(FirstName);
+        newUser.setLastName(LastName);
+        newUser.setBirthDay(BirthDay);
+        newUser.setAge(Age);
+        newUser.setStatus(status);
+        newUser.setCareer(Career);
+        newUser.setDisease(Disease);
+        newUser.setPhoneNumber(PhoneNumber);
+        newUser.setAddress(Address);
+        newUser.setProvince(province);
+        newUser.setPostalCode(PostalCode);
 
 
-        return registerRepository.save(newRegister);
+        return userRepository.save(newUser);
     }
 }
