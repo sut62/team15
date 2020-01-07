@@ -6,13 +6,13 @@ import javax.persistence.Id;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.FetchType;
+//import javax.persistence.FetchType;
 
-import javax.persistence.OneToMany;
+//import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import java.util.Collection;
+//import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,8 +29,8 @@ public class Title {
 	private @NonNull Long id;
 	private @NonNull String Title;
 
-	@OneToMany(fetch = FetchType.EAGER)
-	private Collection<Register> register;
+	/*@OneToMany(fetch = FetchType.EAGER)
+	private Collection<User> user;*/
 
 	/*public Title(String TitleName){
 		this.TitleName = TitleName;
