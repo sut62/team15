@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar dark  color="#388E3C" max-width="mx-auto" max-height="100">
+    <v-toolbar dark  color="#00838F" max-width="mx-auto" max-height="100">
       <v-layout justify-center></v-layout>
       <v-toolbar-title>สมัครสมาชิกประกันสุขภาพ</v-toolbar-title>
       <v-layout justify-center></v-layout>
@@ -8,12 +8,12 @@
     <v-flex class="mt-0">
       <v-card max-width="1200" class="mx-auto">
         <v-img
-      src="http://imparcialoaxaca.mx/wp-content/uploads/2019/05/tratamiento-psicoterapia-psicoterapeuta.jpg"
+      src="https://image.freepik.com/vetores-gratis/design-de-modelo-de-papel-de-parede-medico-abstrato_53876-61805.jpg"
       lazy-src="https://picsum.photos/id/11/10/6"
       aspect-ratio="2"
       class="grey lighten-2"
       max-width="mx-auto"
-      max-height="760" >
+      max-height="mx-auto" >
         <v-form>
           <v-container>
           <v-card max-width = "mx-auto" class="mx-auto" color= "transparent"  > 
@@ -25,7 +25,7 @@
               <v-col cols="12" sm="6" md="4">
                 <v-text-field
                   outlined
-                  v-model="User"
+                  v-model="Userid"
                   label="User (เลขบัตรประจำตัวประชาชน)*"
                   prepend-icon="account_circle"
                 ></v-text-field>
@@ -40,7 +40,7 @@
               <v-col class="d-flex" cols="12" sm="2">
                 <v-select
                   :items="Title"
-                  v-model="Register.Title_ID"
+                  v-model="User.Title_ID"
                   label="คำนำหน้า"
                   item-text="title"
                   item-value="id"
@@ -85,7 +85,7 @@
               <v-col class="d-flex" cols="12" sm="3">
                 <v-select
                   :items="Status"
-                  v-model="Register.Status_ID"
+                  v-model="User.Status_ID"
                   label="สถานะภาพ"
                   item-text="statusName"
                   item-value="id"
@@ -111,7 +111,7 @@
               <v-col class="d-flex" cols="12" sm="3">
                 <v-select
                   :items="Province"
-                  v-model="Register.Province_ID"
+                  v-model="User.Province_ID"
                   label="จังหวัด"
                   item-text="provinceName"
                   item-value="id"
@@ -125,7 +125,7 @@
             <v-card-actions>
               <v-col>
                 <div class="text-center">
-                  <v-btn rounded large color="success" @click="saveRegister">Save</v-btn>
+                  <v-btn rounded large color="#00838F" @click="saveUser">Save</v-btn>
                   <v-btn color="##55B82" @click="$router.push('/')" text large>cancel</v-btn>
                 </div>
               </v-col>
@@ -148,11 +148,11 @@
 import http from "../api/http-common";
 
 export default {
-  name: "Register",
+  name: "User",
 
   data() {
     return {
-      Register: {
+      User: {
         Title_ID: String,
         Status_ID: String,
         Province_ID: String
@@ -163,7 +163,7 @@ export default {
       Title: [],
       Status: [],
       Province: [],
-      User: "",
+      Userid: "",
       Password: "",
       FirstName: "",
       LastName: "",
@@ -215,17 +215,16 @@ export default {
         });
     },
     // function เมื่อกดปุ่ม ยืนยัน
-    saveRegister() {
-      console.log ("save")
-      console.log (this.User)
+    saveUser() {
+      
       http
         .post(
-          "/Register/" +
-            this.User +
+          "/User/" +
+            this.Userid +
             "/" +
             this.Password +
             "/" +
-            this.Register.Title_ID +
+            this.User.Title_ID +
             "/" +
             this.FirstName +
             "/" +
@@ -235,7 +234,7 @@ export default {
             "/" +
             this.Age +
             "/" +
-            this.Register.Status_ID +
+            this.User.Status_ID +
             "/" +
             this.Career +
             "/" +
@@ -245,11 +244,11 @@ export default {
             "/" +
             this.Address +
             "/" +
-            this.Register.Province_ID +
+            this.User.Province_ID +
             "/" +
             this.PostalCode,
 
-          this.Register
+          this.User
         )
         .then(response => {
           console.log(response);
@@ -267,7 +266,7 @@ export default {
     this.getProvince();
   }
 };
-</script>
+</script>  
 
 
 
