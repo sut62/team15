@@ -27,7 +27,7 @@ public class PayInsuranceController{
     @Autowired
     private Insurance_staffRepository insurance_staffRepository;
     @Autowired
-    private RegisterRepository registerRepository;
+    private UserRepository userRepository;
     @Autowired
     private CreateInsuranceRepository createInsuranceRepository;
     
@@ -52,7 +52,7 @@ public class PayInsuranceController{
   
     ){
         CreateInsurance insurance = createInsuranceRepository.findById(insurance_id);
-        Register member = registerRepository.findById(reg_id);
+        User member = userRepository.findById(reg_id);
         Insurance_staff staffid = insurance_staffRepository.findById(staff_ids);
         
         newpayinsurance.setInsID(insurance);
