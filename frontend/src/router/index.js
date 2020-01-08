@@ -3,11 +3,13 @@ import VueRouter from 'vue-router'
 
 import MainLogin from '../components/MainLogin.vue' 
 import UserLogin from '../components/UserLogin.vue'
+import HomeAdmin from "../components/HomeAdmin.vue"
+import SingInAdmin from "../components/SingInAdmin.vue"
 
 import CreateInsurance from '../views/CreateInsurance.vue'
 import Hospital from '../views/Hospital.vue'
 import PayInsurance from '../views/PayInsurance.vue'
-import Register from '../views/Register.vue'
+import User from '../views/User.vue'
 
 import Home from '../views/Home.vue'
 import RegisterInsurance from '../views/RegisterInsurance.vue'
@@ -42,9 +44,9 @@ const routes = [
     component: PayInsurance
   },
   {
-    path: '/Register',
-    name: 'Register',
-    component: Register
+    path: '/User',
+    name: 'User',
+    component: User
   }, 
   {
     path: '/Home',
@@ -61,6 +63,17 @@ const routes = [
     name: 'PrivilegeInsurance',
     component: PrivilegeInsurance
   },
+  {
+    path: '/HomeAdmin',
+    name: 'HomeAdmin',
+    component: HomeAdmin
+  },
+
+  {
+    path: '/SingInAdmin',
+    name: 'SingInAdmin',
+    component: SingInAdmin
+  }
   
 ]
 
