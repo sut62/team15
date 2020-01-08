@@ -10,7 +10,7 @@
       aspect-ratio="1"
       class="grey lighten-2"
       max-width="mx-auto"
-      max-height="900"
+      max-height="1000"
    >
 
         <div class="pink darken-1 text-center">
@@ -19,25 +19,22 @@
           </v-layout>
         </div>
     <v-flex class="mt-5">
-   <v-card class="mx-auto" max-width="800">
-   <v-simple-table height="300px">
-    <template v-slot:default>
-      <thead class="pink lighten-4">
-        <tr  >
-          <th style="font-size: 20px" class="text-left" >กรมธรรม์</th>
-          <th style="font-size: 20px" class="text-left">รายละเอียด</th>
-        </tr>
-      
-      </thead>
-      <tbody>
-        <tr v-for="item in Insurance" :key="item.name">
-          <td>{{ item.name }}</td>
-          <td>{{ item.detail }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
-   </v-card>
+   <v-card class="mx-auto" max-width="1000">
+          <div class="pink lighten-4 text-center">
+             <v-layout justify-center>
+            <v-card-title  style="font-size: 23px">กรมธรรม์</v-card-title>
+           </v-layout>
+          </div>
+          <v-data-table
+            :headers="header"
+            :items="insurances"
+            :items-per-page="4"
+            class="elevation-1" 
+            height="240"
+          ></v-data-table>
+          
+        </v-card>
+
      </v-flex>
         <v-container>
           <v-row>
@@ -123,7 +120,6 @@
 <script>
  import http from "../api/http-common";
  import ToolBars from "../components/ToolBars";
-
 export default {
   name: "registerInsurance",
   components: {
@@ -136,6 +132,22 @@ export default {
         Personid: "",
         Titleid: ""
       },
+        header: [
+        {
+          text: 'ชื่อกรมธรรม์',
+          align: 'left',
+          sortable: false,
+          value: "createInsurance_name"
+        },
+        { text: 'ประเภทกรมธรรม์' , value: "insuranceTypeId.insuranceType_name"},
+        { text: 'คุ้มครองอุบัติเหตุ' , value: "createInsurance_accidentCoverage"},
+        { text: 'คุ้มครองโรค' , value: "createInsurance_diseaseCoverage"},
+        { text: 'สิทธิ์การคุ้มครอง' , value: "createInsurance_protectionRights"},
+        { text: 'เงื่อนไขการคุ้มครอง' , value: "createInsurance_termOfProtection"},
+        { text: 'วันครบกำหนดสัญญา' , value: "contractDueDateId.contractDueDate_name"},
+        { text: 'เบี้ยประกัน' ,        value: "createInsurance_insurancePremium"},
+        { text: 'ระยะเวลาชำระเบี้ยประกัน' , value: "paymentPeriodId.paymentPeriod_name"}
+        ],
     insurances: [],
     person: [],
     title: [],
@@ -143,15 +155,17 @@ export default {
     surname: ""
     };
   },
-
   methods: {
      /* eslint-disable no-console */
     getCreateInsurance(){
+      
       http
         .get("/CreateInsurance")
         .then(reponse => {
           this.insurances = reponse.data;
-          console.log(reponse.data);
+         
+          console.log( reponse.data);
+          
         })
         .catch(e => {
           console.log(e);
@@ -224,5 +238,4 @@ export default {
       this.getTitle();
     }
 };
-
 </script>
