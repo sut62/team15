@@ -1,9 +1,9 @@
 package sut.se.team15.Dataloader;
 
-import java.util.stream.Stream;
-
 import sut.se.team15.Entity.PurposeRequest;
 import sut.se.team15.Repository.PurposeRequestRepository;
+
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
