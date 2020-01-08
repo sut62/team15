@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,4 +31,17 @@ public class PrivilegeInsurance {
     @Column(name = "Privilege_Insurance_ID", unique = true, nullable = true)
 
     private @NonNull Long id;
+    private @NonNull LocalDate privilegeDate;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Hospital.class)
+    @JoinColumn(name = "Hospital_ID", insertable = true)
+    private Hospital hospital;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = PurposeRequest.class)
+    @JoinColumn(name = "Purpose_Request_ID", insertable = true)
+    private PurposeRequest purposeRequest;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = RegisterInsurance.class)
+    @JoinColumn(name = "RegisterInsurance_ID", insertable = true)
+    private RegisterInsurance registerInsurance;
 }
