@@ -5,7 +5,7 @@
     color="#D31145">
       <v-toolbar-title>PayInsurance</v-toolbar-title>
       <v-spacer />
-      <v-menu bottom left>
+     <v-menu bottom left>
         <template v-slot:activator="{ on }">
           <v-btn dark icon v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -16,25 +16,25 @@
           <v-list>
             <v-list-item @click="$router.push('/HomeAdmin')">
               <v-col class="8">
-                <v-icon>person</v-icon>
+                <v-icon>home</v-icon>
               </v-col>
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item>
             <v-list-item @click="$router.push('/Hospital')">
               <v-col class="8">
-                <v-icon>person</v-icon>
+                <v-icon>apartment</v-icon>
               </v-col>
               <v-list-item-title>Hospital</v-list-item-title>
             </v-list-item>
             <v-list-item @click="$router.push('/CreateInsurance')">
               <v-col class="8">
-                <v-icon>person</v-icon>
+                <v-icon>add_to_photos</v-icon>
               </v-col>
               <v-list-item-title>CreateInsurance</v-list-item-title>
             </v-list-item>
             <v-list-item @click="$router.push('/PayInsurance')">
               <v-col class="8">
-                <v-icon>person</v-icon>
+                <v-icon>call_to_action</v-icon>
               </v-col>
               <v-list-item-title>PayInsurance</v-list-item-title>
             </v-list-item>
