@@ -263,7 +263,7 @@ PaymentPeriod_id: "",
         .then(response => {
           console.log(response);
           alert("บันทึกสำเร็จ");
-          this.$router.push('/userlogin')
+          
         })
         .catch(e => {
           console.log(e);
