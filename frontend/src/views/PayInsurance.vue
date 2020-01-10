@@ -143,9 +143,9 @@ export default {
   methods: {
     /* eslint-disable no-console */
        getRegister() {
-      console.log("register");
+      console.log("User");
       http
-        .get("/Register")
+        .get("/User")
         .then(response => {
           this.Register = response.data;
           console.log(response.data);
