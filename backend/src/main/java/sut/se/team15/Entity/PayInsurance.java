@@ -12,6 +12,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Column;
 
+import javax.validation.constraints.*;
 import javax.persistence.Entity;
 
 @Data
@@ -24,7 +25,11 @@ public class PayInsurance {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payinsurance_seq")
     @Column(name = "PAYINSURANCE_ID", unique = true, nullable = true)
     private @NonNull Long ins_id;
-	private @NonNull double amount;
+
+    @NotNull
+	@Max(999999)
+    @Min(100)
+	private  Double amount;
     
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Insurance_staff.class)
     @JoinColumn(name = "STAFF_ID", insertable = true)
