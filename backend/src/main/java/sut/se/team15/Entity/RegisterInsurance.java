@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -24,8 +25,8 @@ public class RegisterInsurance {
 	@SequenceGenerator(name = "RegisterInsurance_seq", sequenceName = "RegisterInsurance_seq")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RegisterInsurance_seq")
 	@Column(name = "RegisterInsurance_ID", unique = true, nullable = true)
-	private @NonNull Long RegisterInsuranceId;
-
+	private  Long RegisterInsuranceId;
+	
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = CreateInsurance.class)
 	@JoinColumn(name = "CreateInsuranceId", insertable = true)
 	private CreateInsurance CreateInsurance;
@@ -35,13 +36,18 @@ public class RegisterInsurance {
 	private Person person;
 
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Title.class)
-	@JoinColumn(name = "id", insertable = true)
+	@JoinColumn(name = "Titleid", insertable = true)
 	private  Title title;
+	
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
+	@JoinColumn(name = "Userid", insertable = true)
+	private  User user;
 
-	@Column(name = "Name")
-	private @NonNull String name;
+	@NotNull
+	@Size(min = 2 ,max = 200)
+	private  String name;
 
-	@Column(name = "Surname")
-	private @NonNull String surname;
-    
+	@NotNull
+	@Size(min = 5 ,max = 200)
+	private String surname;
 }
