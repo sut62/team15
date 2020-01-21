@@ -3,7 +3,7 @@
     <v-app-bar app clipped-left dark color="#A60814">
       <v-toolbar-title style="font-size: 25px">CreateInsurance</v-toolbar-title>
       <v-spacer />
-      <v-menu bottom left>
+     <v-menu bottom left>
         <template v-slot:activator="{ on }">
           <v-btn dark icon v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -134,13 +134,95 @@
             <v-row></v-row>
           </v-container>
           <v-divider></v-divider>
+          <template>
+  <div class="text-center">
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          rounded large
+           color="#A60814"
+          v-on="on"
+          @click="dialog = false"
+        >
+          Save
+        </v-btn>
+      </template>
 
-          <v-card-actions>
-            <v-col>
-              <v-btn rounded large color="#A60814" @click="save">Save</v-btn>
-              <v-btn @click="cancel" text large>cancel</v-btn>
-            </v-col>
-          </v-card-actions>
+      <v-card>
+        <v-card-title
+          class="red accent-4"
+          primary-title
+        >
+          บันทึกสำเร็จ 
+        </v-card-title>
+
+       
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+             @click="save"
+           
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+     
+
+     <v-dialog
+      v-model="dialog1"
+      width="500"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          rounded large
+           class ="ma-10" 
+          v-on="on"
+          @click="dialog1 = false"
+        >
+          Cancel
+        </v-btn>
+      </template>
+
+      <v-card>
+        <v-card-title
+          class="black"
+          primary-title
+        >
+          Cancel
+        </v-card-title>
+
+     
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+           
+            text
+             @click="cancel"
+           
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
+         
         </v-card>
       </v-col>
     </v-content>
@@ -156,6 +238,8 @@ import http from "../api/http-common";
 export default {
   data() {
     return {
+      dialog: false,
+      dialog1: false,
       items: [
         { icon: "home", text: "Home", route: "/Main" },
         { icon: "exit_to_app", text: "Sign Out", route: "/" }
@@ -262,8 +346,8 @@ PaymentPeriod_id: "",
         )
         .then(response => {
           console.log(response);
-          alert("บันทึกสำเร็จ");
-          
+          //alert("บันทึกสำเร็จ");
+           window.location.reload();
         })
         .catch(e => {
           console.log(e);
