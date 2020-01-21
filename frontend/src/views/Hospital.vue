@@ -1,11 +1,11 @@
 <template>
   <v-app id="inspire">
     <v-app-bar app clipped-left>
-      <v-row/>
+      <v-row />
       <v-toolbar-title>Register Hospital</v-toolbar-title>
       <v-spacer />
-      
-       <v-menu bottom left>
+
+      <v-menu bottom left>
         <template v-slot:activator="{ on }">
           <v-btn dark icon v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -48,74 +48,85 @@
         </v-card>
       </v-menu>
     </v-app-bar>
- <div
-        class="img-background"
-        v-bind:style="{'background-image': 'url(' + require('../assets/background.jpg') + ')'}"
-      >
-    <v-content>
-      <v-col align="center">
-        <v-card eight="mx-auto" width="800" dark>
-          <v-card-text>
-            <v-col>
+    <div
+      class="img-background"
+      v-bind:style="{'background-image': 'url(' + require('../assets/background.jpg') + ')'}"
+    >
+      <v-content>
+        <v-col align="center">
+          <v-card eight="mx-auto" width="800" dark>
+            <v-card-text>
               <v-col>
-                <v-row>
-                  <v-col class="d-flex" cols="12" sm="8">
-                    <v-text-field label="Hospital Name" v-model="HospitalName"></v-text-field>
-                  </v-col>
-                  <v-col class="d-flex" cols="12" sm="4">
-                    <v-select
-                      :items="Type"
-                      label="Hospital Type"
-                      v-model="Hospital.TypeID"
-                      item-text="typeName"
-                      item-value="id"
-                      :rules="[(v) => !!v || 'Item is required']"
-                      outlined
-                    ></v-select>
-                  </v-col>
-                </v-row>
-                <v-text-field color="white" label="Location Details" v-model="LocationDetails"></v-text-field>
-                <v-row>
-                  <v-col class="d-flex" cols="12" sm="4">
-                    <v-select
-                      :items="Region"
-                      label="Region"
-                      v-model="Hospital.RegionID"
-                      item-text="regionName"
-                      item-value="id"
-                      :rules="[(v) => !!v || 'Item is required']"
-                      outlined
-                    ></v-select>
-                  </v-col>
-                  <v-col class="d-flex" cols="12" sm="8">
-                    <v-select
-                      :items="Province"
-                      label="Province"
-                      v-model="Hospital.ProvinceID"
-                      item-text="provinceName"
-                      item-value="id"
-                      :rules="[(v) => !!v || 'Item is required']"
-                      outlined
-                    ></v-select>
-                  </v-col>
-                </v-row>
-                <v-text-field color="white" label="Telephone number" v-model="TelephoneNumber"></v-text-field>
+                <v-col>
+                  <v-row>
+                    <v-col class="d-flex" cols="12" sm="8">
+                      <v-text-field label="Hospital Name" v-model="HospitalName"></v-text-field>
+                    </v-col>
+                    <v-col class="d-flex" cols="12" sm="4">
+                      <v-select
+                        :items="Type"
+                        label="Hospital Type"
+                        v-model="Hospital.TypeID"
+                        item-text="typeName"
+                        item-value="id"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        outlined
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                  <v-text-field color="white" label="Location Details" v-model="LocationDetails"></v-text-field>
+                  <v-row>
+                    <v-col class="d-flex" cols="12" sm="4">
+                      <v-select
+                        :items="Region"
+                        label="Region"
+                        v-model="Hospital.RegionID"
+                        item-text="regionName"
+                        item-value="id"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        outlined
+                      ></v-select>
+                    </v-col>
+                    <v-col class="d-flex" cols="12" sm="8">
+                      <v-select
+                        :items="Province"
+                        label="Province"
+                        v-model="Hospital.ProvinceID"
+                        item-text="provinceName"
+                        item-value="id"
+                        :rules="[(v) => !!v || 'Item is required']"
+                        outlined
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                  <v-text-field color="white" label="Telephone number" v-model="TelephoneNumber"></v-text-field>
+                </v-col>
               </v-col>
-            </v-col>
-          </v-card-text>
+            </v-card-text>
 
-          <v-divider></v-divider>
+            <v-divider></v-divider>
 
-          <v-card-actions>
-            <v-col>
-              <v-btn rounded large color="success" @click="save">Save</v-btn>
-              <v-btn color="#ffffff" @click="$router.push('/')" text large>cancel</v-btn>
-            </v-col>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-content>
-  </div>
+            <v-card-actions>
+              <v-col>
+                <v-btn rounded large color="success" @click="save">Save</v-btn>
+                <v-btn color="#ffffff" @click="$router.push('/')" text large>cancel</v-btn>
+              </v-col>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+
+        <v-dialog v-model="dialog" max-width="290">
+          <v-card>
+            <v-card-text>Successfully</v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="green darken-1" text @click="dialog = false">close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-content>
+    </div>
 
     <v-footer app>
       <v-spacer />
@@ -129,6 +140,7 @@ import http from "../api/http-common";
 export default {
   data() {
     return {
+      dialog: false,
       Hospital: {
         TypeID: "",
         ProvinceID: "",
@@ -200,7 +212,8 @@ export default {
         )
         .then(responses => {
           console.log(responses);
-          alert("Successfully");
+
+          this.dialog = true;
         })
         .catch(e => {
           console.log(e);
