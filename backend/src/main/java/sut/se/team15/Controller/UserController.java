@@ -39,6 +39,13 @@ public class UserController {
         return userRepository.findAll().stream().collect(Collectors.toList());
     }
 
+    @GetMapping("/UserLogin/{userid}/{password}")
+    public User UserLogin(@PathVariable String userid, @PathVariable String password) {
+        return userRepository.findAll().stream()
+                .filter(s -> s.getUserid().equals(userid) && s.getPassword().equals(password))
+                .collect(Collectors.toList()).get(0);
+    }
+
     @PostMapping("/User/{UserId}/{Password}/{Title_ID}/{FirstName}/{LastName}/{BirthDays}/{Age}/{Status_ID}/{Career}/{Disease}/{PhoneNumber}/{Address}/{Province_ID}/{PostalCode}")
     public User newUser(User newUser,
             @PathVariable String UserId,
