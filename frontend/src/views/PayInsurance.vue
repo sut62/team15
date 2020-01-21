@@ -106,7 +106,50 @@
 
           <v-card-actions>
             <v-col>
-               <v-btn rounded large color="#D31145" @click="savePay">Save</v-btn>
+                
+                 
+                  <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          rounded large color="#D31145"
+          dark
+          v-on="on"
+           @click="savePay"
+        >
+          save
+        </v-btn>
+      </template>
+
+      <v-card>
+        <v-card-title
+          color="#D31145"
+          primary-title
+        >
+          PayInsurance
+        </v-card-title>
+
+        <v-card-text>
+          PayInsurance is successfully. 
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
                 <v-btn  @click="cancel" text large>cancel</v-btn>
             </v-col>
           </v-card-actions>
@@ -125,6 +168,7 @@ import http from "../api/http-common";
 export default {
   data() {
     return {
+      dialog: false,
       items: [
         { icon: "home", text: "Home", route: "/Main" },
         { icon: "exit_to_app", text: "Sign Out", route: "/" }
@@ -200,7 +244,7 @@ export default {
         .then(responses => {
           console.log(responses);
           window.location.reload();
-          alert("successfully");
+         
         })
         .catch(e => {
           console.log(e);
