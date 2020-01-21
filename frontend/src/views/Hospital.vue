@@ -117,6 +117,7 @@
 
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
+            <br/>
             <v-card-text>Successfully</v-card-text>
 
             <v-card-actions>
