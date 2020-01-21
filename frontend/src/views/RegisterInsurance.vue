@@ -37,10 +37,25 @@
 
      </v-flex>
         <v-container>
+           <v-row>
+            <v-col class="d-flex" cols="12" sm="5">
+              <v-select  
+              v-model="RegisterInsurances.Userid"
+              id="Userid"
+              :items="user"
+               label="เลือกเลขบัตรประชาชนของสมาชิก" 
+               item-value="id"
+               item-text="userid"
+               prepend-icon="credit_card"
+               dense outlined>
+              </v-select>
+            </v-col>
+          </v-row>
           <v-row>
             <v-col class="d-flex" cols="12" sm="5">
               <v-select  
               v-model="RegisterInsurances.Insuranceid"
+               id="Insuranceselect"
               :items="insurances"
                label="เลือกกรมธรรม์" 
                item-value="createInsurance_id"
@@ -54,6 +69,7 @@
             <v-col class="d-flex" cols="12" sm="5">
               <v-select
                v-model="RegisterInsurances.Personid"
+                id="Personid"
                 :items="person"
                 label="เลือกบุคคลที่ซื้อกรมธรรม์"
                 item-value="personId"
@@ -68,29 +84,32 @@
             <v-col class="d-flex" cols="12" sm="2">
               <v-select 
                 v-model="RegisterInsurances.Titleid"
+                 id="Titleid"
                 :items="title"
                 item-value="id"
                 item-text="title"
                 label="คำนำหน้า"
                 prepend-icon = "person"
-                 hint="กรณีที่ไม่ใช่ตนเอง"
+                 
                 outlined
               ></v-select>
             </v-col>
             <v-col cols="12" sm="4">
               <v-text-field outlined
+               id="Firstname"
                label="ชื่อ(บุคคลที่ซื้อกรมธรรม์ให้)"
                prepend-icon="clear_all"
                v-model="firstname"
-               hint="กรณีที่ไม่ใช่ตนเอง"
+              
                ></v-text-field>
             
             </v-col>
             <v-col cols="12" sm="5">
               <v-text-field    
+               id="Surname"
               outlined label="นามสกุล(บุคคลที่ซื้อกรมธรรม์ให้)"
                prepend-icon="clear_all" 
-               hint="กรณีที่ไม่ใช่ตนเอง"
+               
               v-model="surname"
                ></v-text-field>
             
@@ -99,16 +118,91 @@
           
           <template>
             <div class="text-center">
-              <v-btn @click="saveRegisterInsurance" color="indigo" dark large>
-                Save
-                <v-icon right >mdi-content-save</v-icon>
+              <v-dialog
+                v-model="dialog"
+                width="500"
+              >
+            <template v-slot:activator="{ on }">
+              <v-btn
+                color="indigo" 
+                dark large
+                v-on="on"
+                @click="dialog = false"
+              >
+                 Save 
+              <v-icon right >mdi-content-save</v-icon>
               </v-btn>
-              <v-btn class="ma-10" @click="cancel" color="red darken-1" dark large>
-                Cancel
-                 <v-icon right >highlight_off</v-icon>
+              </template>
+
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+          
+        >
+         บันทึกข้อมูลสำเร็จ 
+        </v-card-title>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+             @click="saveRegisterInsurance"
+           
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+     <v-dialog
+              
+                v-model="dialog1"
+                width="500"
+              >
+            <template v-slot:activator="{ on }">
+              <v-btn
+                class="ma-10"
+                color="red darken-1" 
+                dark large
+                v-on="on"
+                  @click="dialog1 = false"
+              >
+                 Cancel
+              <v-icon right >highlight_off</v-icon>
               </v-btn>
-            </div>
-           </template>
+              </template>
+
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+         Clear
+        </v-card-title>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="cancel"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  
+  </div>
+</template>
+         
           </v-container>
          </v-img>
       </div>
@@ -127,10 +221,14 @@ export default {
   },
   data() {
     return {
+      dialog: false,
+      dialog1: false,
       RegisterInsurances: {
         Insuranceid: "",
         Personid: "",
-        Titleid: ""
+        Titleid: "",
+        Userid:"",
+        
       },
         header: [
         {
@@ -151,6 +249,7 @@ export default {
     insurances: [],
     person: [],
     title: [],
+    user:[],
     firstname: "",
     surname: ""
     };
@@ -195,6 +294,20 @@ export default {
           console.log(e);
         });
     },
+     getUser(){
+      
+      http
+        .get("/User")
+        .then(reponse => {
+          this.user = reponse.data;
+         
+          console.log( reponse.data);
+          
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
     saveRegisterInsurance() {
       console.log("save");
       console.log(this.RegisterInsurances.Insuranceid);
@@ -206,6 +319,8 @@ export default {
       http
         .post(
           "/registerInsurance/"+
+            this.RegisterInsurances.Userid +
+            "/" +
             this.RegisterInsurances.Insuranceid +
             "/" +
             this.RegisterInsurances.Personid +
@@ -219,7 +334,6 @@ export default {
          )
          .then(response => {
           console.log(response);
-          alert("บันทึกข้อมูลสำเร็จ");
           window.location.reload();
         })
         .catch(e => {
@@ -233,6 +347,7 @@ export default {
   },
   
    mounted() {
+     this.getUser();
       this.getCreateInsurance();
       this.getPerson();
       this.getTitle();
