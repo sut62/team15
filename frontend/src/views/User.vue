@@ -6,17 +6,16 @@
       <v-layout justify-center></v-layout>
     </v-toolbar>
     <v-flex class="mt-0">
-      <v-card max-width="1200" class="mx-auto">
+      <v-card class="desing-card2">
         <v-img
       src="https://image.freepik.com/vetores-gratis/design-de-modelo-de-papel-de-parede-medico-abstrato_53876-61805.jpg"
       lazy-src="https://picsum.photos/id/11/10/6"
       aspect-ratio="2"
       class="grey lighten-2"
-      max-width="mx-auto"
-      max-height="mx-auto" >
+      >
         <v-form>
           <v-container>
-          <v-card max-width = "mx-auto" class="mx-auto" color= "transparent"  > 
+        
             <v-col>
             <v-row>
               <v-col class="d-flex" cols="12" sm="4"></v-col>
@@ -25,6 +24,7 @@
               <v-col cols="12" sm="6" md="4">
                 <v-text-field
                   outlined
+                  id="Userid"
                   v-model="Userid"
                   label="User (เลขบัตรประจำตัวประชาชน)*"
                   prepend-icon="account_circle"
@@ -32,6 +32,8 @@
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-text-field 
+                id="Password"
+                type="password"
                 v-model="Password"
                 label="Password*" prepend-icon="lock" outlined></v-text-field>
               </v-col>
@@ -41,6 +43,7 @@
                 <v-select
                   :items="Title"
                   v-model="User.Title_ID"
+                  id="Title"
                   label="คำนำหน้า"
                   item-text="title"
                   item-value="id"
@@ -50,11 +53,14 @@
               </v-col>
               <v-col cols="12" sm="6" md="3">
                 <v-text-field
+                id="FirstName"
                 v-model="FirstName" 
                 label="ชื่อ*" outlined></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="3">
-                <v-text-field v-model="LastName" label="นามสกุล*" outlined></v-text-field>
+                <v-text-field 
+                id="LastName"
+                v-model="LastName" label="นามสกุล*" outlined></v-text-field>
               </v-col>
             </v-row>
             <v-row>
@@ -69,6 +75,7 @@
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
+                      id="BirthDay"
                       v-model="BirthDays"
                       label="วัน เดือน ปี เกิด"
                       prepend-icon="event"
@@ -80,10 +87,13 @@
                 </v-menu>
               </v-col>
               <v-col cols="12" sm="6" md="2">
-                <v-text-field v-model="Age" label="อายุ*" outlined></v-text-field>
+                <v-text-field 
+                id="Age"
+                v-model="Age" label="อายุ*" outlined></v-text-field>
               </v-col>
               <v-col class="d-flex" cols="12" sm="3">
                 <v-select
+                  id="Status"
                   :items="Status"
                   v-model="User.Status_ID"
                   label="สถานะภาพ"
@@ -95,22 +105,23 @@
             </v-row>
             <v-row>
               <v-col cols="12" sm="6" md="4">
-                <v-text-field v-model="Career" label="อาชีพ" prepend-icon="work" outlined></v-text-field>
+                <v-text-field id="Career" v-model="Career" label="อาชีพ" prepend-icon="work" outlined></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="4">
-                <v-text-field v-model="Disease" label="โรคประจำตัว" outlined></v-text-field>
+                <v-text-field id="Disease" v-model="Disease" label="โรคประจำตัว" outlined></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="3">
-                <v-text-field v-model="PhoneNumber" label="เบอร์มือถือ" prepend-icon="phone" outlined></v-text-field>
+                <v-text-field id="PhoneNumber" v-model="PhoneNumber" label="เบอร์มือถือ" prepend-icon="phone" outlined></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="12" sm="6" md="5">
-                <v-text-field v-model="Address" label="ที่อยู่ปัจจุบัน*" prepend-icon="home" outlined></v-text-field>
+                <v-text-field id="Address" v-model="Address" label="ที่อยู่ปัจจุบัน*" prepend-icon="home" outlined></v-text-field>
               </v-col>
               <v-col class="d-flex" cols="12" sm="3">
                 <v-select
                   :items="Province"
+                  id="Province"
                   v-model="User.Province_ID"
                   label="จังหวัด"
                   item-text="provinceName"
@@ -119,24 +130,97 @@
                 ></v-select>
               </v-col>
               <v-col cols="12" sm="6" md="2">
-                <v-text-field v-model="PostalCode" label="รหัสไปรษณีย์*" outlined></v-text-field>
+                <v-text-field id="PostalCode" v-model="PostalCode" label="รหัสไปรษณีย์*" outlined></v-text-field>
               </v-col>
             </v-row>
-            <v-card-actions>
-              <v-col>
-                <div class="text-center">
-                  <v-btn rounded large color="#00838F" @click="saveUser">Save</v-btn>
-                  <v-btn color="##55B82" @click="$router.push('/')" text large>cancel</v-btn>
-                </div>
-              </v-col>
-            </v-card-actions>
-            </v-col>
-            </v-card>
-          </v-container>
+            
+            <template>
+  <div class="text-center">
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          color="#00838F"
+          rounded large
+          v-on="on"
+          @click="dialog = false"
+        >
+          Save
+        </v-btn>
+      </template>
+
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          บันทึกสำเร็จ
+        </v-card-title>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="saveUser"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      v-model="dialog1"
+      width="500"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          class=""
+          color="##55B82"
+          text large
           
+          v-on="on"
+          @click="dialog1 = false"
+        >
+          Cancle
+        </v-btn>
+      </template>
+
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          ย้อนกลับไปหน้า Login
+        </v-card-title>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="$router.push('/')"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
+
+
+
+            </v-col> 
+          </v-container>
         </v-form>
         </v-img>
-     
       </v-card>
     </v-flex>
   </div>
@@ -152,6 +236,8 @@ export default {
 
   data() {
     return {
+      dialog: false,
+      dialog1: false,
       User: {
         Title_ID: String,
         Status_ID: String,
@@ -252,7 +338,6 @@ export default {
         )
         .then(response => {
           console.log(response);
-          alert("บันทึกสำเร็จ");
           window.location.reload();
         })
         .catch(e => {
@@ -267,6 +352,12 @@ export default {
   }
 };
 </script>  
+<style>
+.desing-card{
+  width: 100%;
+  height: 100%;
+}
+</style>
 
 
 
