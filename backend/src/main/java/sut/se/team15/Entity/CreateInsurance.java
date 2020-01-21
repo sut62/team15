@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.*;
 
 //import java.util.Date;
 
@@ -26,13 +27,32 @@ public class CreateInsurance {
 	@SequenceGenerator(name="CreateInsurance_seq",sequenceName="CreateInsurance_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CreateInsurance_seq")
 	@Column(name="CreateInsurance_ID",unique = true, nullable = true)
-	private @NonNull Long CreateInsurance_id;
-	private @NonNull String CreateInsurance_name;
-	private @NonNull String CreateInsurance_accidentCoverage;
-	private @NonNull String CreateInsurance_diseaseCoverage;
-	private @NonNull String CreateInsurance_protectionRights;
-	private @NonNull String CreateInsurance_termOfProtection;
-	private @NonNull Double CreateInsurance_insurancePremium;
+	private Long CreateInsurance_id;
+
+	@NotNull
+	@Size(min = 5 ,max = 100)
+	private String CreateInsurance_name;
+
+	@NotNull
+	@Size(min = 5 ,max = 100)
+	private String CreateInsurance_accidentCoverage;
+
+	@NotNull
+	@Size(min = 5 ,max = 100)
+	private String CreateInsurance_diseaseCoverage;
+
+	@NotNull
+	@Size(min = 5 ,max = 100)
+	private String CreateInsurance_protectionRights;
+
+	@NotNull
+	@Size(min = 5 ,max = 100)
+	private String CreateInsurance_termOfProtection;
+
+	@NotNull
+	@Max(999999)
+    @Min(100)
+	private Double CreateInsurance_insurancePremium;
 
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = InsuranceType.class)
     @JoinColumn(name = "InsuranceType_ID", insertable = true)
