@@ -7,6 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.*;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -31,7 +33,11 @@ public class PrivilegeInsurance {
     @Column(name = "Privilege_Insurance_ID", unique = true, nullable = true)
 
     private @NonNull Long id;
-    private @NonNull LocalDate privilegeDate;
+
+    @NotNull
+    @FutureOrPresent
+    @Column(name = "PrivilegeDate")
+    private LocalDate privilegeDate;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Hospital.class)
     @JoinColumn(name = "Hospital_ID", insertable = true)
