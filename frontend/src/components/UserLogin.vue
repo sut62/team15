@@ -20,7 +20,13 @@
                   <v-col cols="12">
                     <v-row>
                       <v-col cols="12" sm="12">
-                        <v-text-field label="User ID" name="UserID" prepend-icon="person" type="text"></v-text-field>
+                        <v-text-field
+                          label="User ID"
+                          v-model="userID"
+                          name="UserID"
+                          prepend-icon="person"
+                          type="text"
+                        ></v-text-field>
                       </v-col>
                     </v-row>
                     <v-row>
@@ -28,25 +34,27 @@
                         <v-text-field
                           id="password"
                           label="Password"
-                          name="password"
+                          v-model="userPassword"
+                          name="Password"
                           prepend-icon="lock"
                           type="password"
                         ></v-text-field>
                       </v-col>
                     </v-row>
                     <div class="text-center">
-                      <v-btn
-                        rounded
-                        color="blue"
-                        block
-                        dark
-                        @click="$router.push('/Home')"
-                      >
+                      <v-btn rounded color="blue" block dark @click="getLoginUser">
                         <div class="font-desing">
                           <span>Login</span>
                         </div>
                       </v-btn>
-                      <v-btn class="mt-2" rounded color="grey" block dark @click="$router.push('/')">
+                      <v-btn
+                        class="mt-2"
+                        rounded
+                        color="grey"
+                        block
+                        dark
+                        @click="$router.push('/')"
+                      >
                         <div class="font-desing">
                           <span>Back</span>
                         </div>
@@ -57,7 +65,13 @@
                         <v-col cols="12" sm="12">
                           <div class="font-desing">
                             <span>สำหรับท่านที่ยังไม่เป็นสมาชิก :</span>
-                            <v-btn class="ma-2" rounded outlined color="indigo" @click="$router.push('/User')">
+                            <v-btn
+                              class="ma-2"
+                              rounded
+                              outlined
+                              color="indigo"
+                              @click="$router.push('/User')"
+                            >
                               <span>สมัครสมาชิก</span>
                             </v-btn>
                           </div>
@@ -76,7 +90,38 @@
 </template>
 
 <script>
-export default {};
+import http from "../api/http-common";
+
+export default {
+  name: "UserLogin",
+  data() {
+    return {
+      UserLogins: [],
+      userID: "",
+      userPassword: ""
+    };
+  },
+  methods: {
+    /* eslint-disable no-console */
+    getLoginUser() {
+      if (this.userID == "" || this.userPassword == "") {
+        alert("กรุณากรอก User ID และ Password");
+      } else {
+        http
+          .get("/UserLogin" + "/" + this.userID + "/" + this.userPassword)
+          .then(response => {
+            this.UserLogins = response.data;
+            console.log(response.data);
+            this.$router.push("/Home");
+          })
+          .catch(e => {
+            console.log(e);
+            alert("User ID หรือ Password ไม่ถูกต้อง");
+          });
+      }
+    }
+  }
+};
 </script>
 
 <style>
