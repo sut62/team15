@@ -57,6 +57,7 @@
             <v-col class="d-flex" cols="13" sm="8">
               <v-select
                 :items="Register"
+                id="firstName"
                 label="รายชื่อสมาชิกประกันสุขภาพ"
                 v-model="PayInsurance.RegID"
                 item-text="firstName"
@@ -72,6 +73,7 @@
             <v-col class="d-flex" cols="12" sm="6">
               <v-select
               :items="Insurance"
+              id="createInsurance"
                 label="กรมธรรม์"
                 v-model="PayInsurance.InsuranceID"
                 item-text="createInsurance_name"
@@ -82,6 +84,7 @@
 
             <v-col cols="5" sm="2" md="5">
               <v-text-field label="จำนวนเงิน" 
+              id="amount"
               v-model="Amount"
               :rules="[(v) => !!v || 'Item is required']"></v-text-field>
             </v-col>
@@ -91,6 +94,7 @@
             <v-col class="d-flex" cols="12" sm="6">
               <v-select
                       :items="Staff"
+                      id="staff_name"
                       label="พนักงานประกันสุขภาพ"
                       v-model="PayInsurance.StaffID"
                       item-text="staff_name"
@@ -106,54 +110,33 @@
 
           <v-card-actions>
             <v-col>
-                
+                <v-btn rounded large color="#D31145" @click="savePay">Save</v-btn>
                  
-                  <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <template v-slot:activator="{ on }">
-        <v-btn
-          rounded large color="#D31145"
-          dark
-          v-on="on"
-           @click="savePay"
-        >
-          save
-        </v-btn>
-      </template>
-
-      <v-card>
-        <v-card-title
-          color="#D31145"
-          primary-title
-        >
-          PayInsurance
-        </v-card-title>
-
-        <v-card-text>
-          PayInsurance is successfully. 
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="dialog = false"
-          >
-            I accept
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+                 
 
                 <v-btn  @click="cancel" text large>cancel</v-btn>
             </v-col>
           </v-card-actions>
         </v-card>
+          <div class="text-center">
+                      <v-dialog v-model="dialog" width="500">
+                        <v-card>
+                          <v-card-title class="color-theme white--text" primary-title>
+                            <div class=""  >การจ่ายเบี้ยกรมธรรม์</div>
+                          </v-card-title>
+                          <v-card-text>
+                            <div class="font-desing-2" v-if="status == true" >ยืนยันการจ่ายเบี้ยกรมธรรม์</div>
+                             <div class="font-desing-2" v-if="status == false" >กรุณากรอกข้อมูลให้ครบถ้วน</div>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <div class="font-desing">
+                              <v-btn color="primary" @click="refresh">ตกลง</v-btn>
+                            </div>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </div>
       </v-col>
     </v-content>
 
@@ -169,6 +152,7 @@ export default {
   data() {
     return {
       dialog: false,
+      status: false,
       items: [
         { icon: "home", text: "Home", route: "/Main" },
         { icon: "exit_to_app", text: "Sign Out", route: "/" }
@@ -186,6 +170,10 @@ export default {
   },
   methods: {
     /* eslint-disable no-console */
+    refresh() {
+      this.dialog = false;
+      window.location.reload();
+    },
        getRegister() {
       console.log("User");
       http
@@ -243,11 +231,13 @@ export default {
         )
         .then(responses => {
           console.log(responses);
-          window.location.reload();
+          this.status = true;
+           this.dialog = true;
          
         })
         .catch(e => {
           console.log(e);
+          this.dialog = true;
         });
     },
     cancel(){
