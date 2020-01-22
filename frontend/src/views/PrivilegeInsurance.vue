@@ -33,6 +33,7 @@
                               :items="registerInsurances"
                               item-text="createInsurance.createInsurance_name"
                               item-value="registerInsuranceId"
+                              :rules="[(v) => !!v || 'โปรดเลือกกรมธรรม์ที่สมัครแล้ว']"
                             ></v-select>
                           </v-col>
 
@@ -45,6 +46,7 @@
                               :items="hospitals"
                               item-text="hospitalName"
                               item-value="id"
+                              :rules="[(v) => !!v || 'โปรดเลือกโรงพยาบาลที่จะขอใช้สิทธิ์']"
                             ></v-select>
                           </v-col>
 
@@ -84,6 +86,7 @@
                               :items="purposeRequests"
                               item-text="purposeRequest"
                               item-value="id"
+                              :rules="[(v) => !!v || 'โปรดเลือกจุดประสงค์']"
                             ></v-select>
                           </v-col>
                           <div class="text-center">
@@ -123,12 +126,36 @@
                             <div class="font-head-desing">การขอใช้สิทธิ์กรมธรรม์</div>
                           </v-card-title>
                           <v-card-text>
-                            <div class="font-desing-2">ยืนยันการขอใช้สิทธิ์สำเร็จ</div>
+                            <div class="font-desing-2">
+                              <v-icon left>check_circle_outline</v-icon>ยืนยันการขอใช้สิทธิ์สำเร็จ
+                            </div>
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
                             <div class="font-desing">
                               <v-btn color="primary" @click="refresh">ตกลง</v-btn>
+                            </div>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+
+                      <v-dialog v-model="dialog2" width="500">
+                        <v-card>
+                          <v-card-title class="black white--text" primary-title>
+                            <div class="font-head-desing">การขอใช้สิทธิ์กรมธรรม์</div>
+                          </v-card-title>
+                          <v-card-text>
+                            <div class="font-desing-2">
+                              <v-icon left>highlight_off</v-icon>ข้อมูลไม่ถูกต้อง
+                            </div>
+                            <div class="font-desing-2">
+                              <v-icon left>highlight_off</v-icon>กรุณากรอกข้อมูลใหม่
+                            </div>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <div class="font-desing">
+                              <v-btn color="error" @click="dialog2 = false">ปิด</v-btn>
                             </div>
                           </v-card-actions>
                         </v-card>
@@ -164,6 +191,7 @@ export default {
         purposeRequest_id: ""
       },
       dialog: false,
+      dialog2: false,
       registerInsurances: [],
       hospitals: [],
       purposeRequests: []
@@ -223,10 +251,11 @@ export default {
           this.PrivilegeInsurance
         )
         .then(responses => {
-          console.log(responses);
           this.dialog = true;
+          console.log(responses);
         })
         .catch(e => {
+          this.dialog2 = true;
           console.log(e);
         });
     }
