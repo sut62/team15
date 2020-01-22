@@ -86,40 +86,38 @@
                               item-value="id"
                             ></v-select>
                           </v-col>
+                          <div class="text-center">
+                            <v-btn
+                              class="ma-2"
+                              rounded
+                              color="success"
+                              dark
+                              @click="savePrivilegeInsurance"
+                            >
+                              <div class="font-desing">
+                                <v-icon left>check</v-icon>
+                                <span>ยันยันการขอใช้สิทธิ์</span>
+                              </div>
+                            </v-btn>
+                            <v-btn
+                              class="ma-2"
+                              rounded
+                              color="warning"
+                              dark
+                              @click="$router.push('/Home')"
+                            >
+                              <div class="font-desing">
+                                <v-icon left>arrow_back</v-icon>
+                                <span>ย้อนกลับ</span>
+                              </div>
+                            </v-btn>
+                          </div>
                         </v-row>
                       </v-col>
                     </v-row>
 
                     <div class="text-center">
                       <v-dialog v-model="dialog" width="500">
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            class="ma-2"
-                            rounded
-                            color="success"
-                            dark
-                            v-on="on"
-                            @click="savePrivilegeInsurance"
-                          >
-                            <div class="font-desing">
-                              <v-icon left>check</v-icon>
-                              <span>ยันยันการขอใช้สิทธิ์</span>
-                            </div>
-                          </v-btn>
-                          <v-btn
-                            class="ma-2"
-                            rounded
-                            color="warning"
-                            dark
-                            @click="$router.push('/Home')"
-                          >
-                            <div class="font-desing">
-                              <v-icon left>arrow_back</v-icon>
-                              <span>ย้อนกลับ</span>
-                            </div>
-                          </v-btn>
-                        </template>
-
                         <v-card>
                           <v-card-title class="color-theme white--text" primary-title>
                             <div class="font-head-desing">การขอใช้สิทธิ์กรมธรรม์</div>
@@ -226,8 +224,7 @@ export default {
         )
         .then(responses => {
           console.log(responses);
-
-          window.location.reload();
+          this.dialog = true;
         })
         .catch(e => {
           console.log(e);
