@@ -26,6 +26,7 @@
                         <v-row justify="center">
                           <v-col cols="10" sm="10">
                             <v-select
+                              id="SelectInsurance"
                               label="กรมธรรม์ที่สมัครแล้ว"
                               outlined
                               v-model="PrivilegeInsurance.registerInsurance_id"
@@ -37,6 +38,7 @@
 
                           <v-col cols="10" sm="10">
                             <v-select
+                              id="SelectHospital"
                               label="โรงพยาบาลที่จะขอใช้สิทธิ์"
                               outlined
                               v-model="PrivilegeInsurance.hospital_id"
@@ -57,6 +59,7 @@
                             >
                               <template v-slot:activator="{ on }">
                                 <v-text-field
+                                  id="SelectDate"
                                   v-model="privilegeDate"
                                   label="วันที่ขอใช้สิทธิ์"
                                   prepend-icon="event"
@@ -74,6 +77,7 @@
 
                           <v-col cols="10" sm="10">
                             <v-select
+                              id="SelectPurpose"
                               label="จุดประสงค์"
                               outlined
                               v-model="PrivilegeInsurance.purposeRequest_id"
@@ -87,24 +91,50 @@
                     </v-row>
 
                     <div class="text-center">
-                      <v-btn class="ma-2" rounded color="success" dark @click="savePrivilegeInsurance">
-                        <div class="font-desing">
-                          <v-icon left>check</v-icon>
-                          <span>ยันยันการขอใช้สิทธิ์</span>
-                        </div>
-                      </v-btn>
-                      <v-btn
-                        class="ma-2"
-                        rounded
-                        color="warning"
-                        dark
-                        @click="$router.push('/Home')"
-                      >
-                        <div class="font-desing">
-                          <v-icon left>arrow_back</v-icon>
-                          <span>ย้อนกลับ</span>
-                        </div>
-                      </v-btn>
+                      <v-dialog v-model="dialog" width="500">
+                        <template v-slot:activator="{ on }">
+                          <v-btn
+                            class="ma-2"
+                            rounded
+                            color="success"
+                            dark
+                            v-on="on"
+                            @click="savePrivilegeInsurance"
+                          >
+                            <div class="font-desing">
+                              <v-icon left>check</v-icon>
+                              <span>ยันยันการขอใช้สิทธิ์</span>
+                            </div>
+                          </v-btn>
+                          <v-btn
+                            class="ma-2"
+                            rounded
+                            color="warning"
+                            dark
+                            @click="$router.push('/Home')"
+                          >
+                            <div class="font-desing">
+                              <v-icon left>arrow_back</v-icon>
+                              <span>ย้อนกลับ</span>
+                            </div>
+                          </v-btn>
+                        </template>
+
+                        <v-card>
+                          <v-card-title class="color-theme white--text" primary-title>
+                            <div class="font-head-desing">การขอใช้สิทธิ์กรมธรรม์</div>
+                          </v-card-title>
+                          <v-card-text>
+                            <div class="font-desing-2">ยืนยันการขอใช้สิทธิ์สำเร็จ</div>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <div class="font-desing">
+                              <v-btn color="primary" @click="refresh">ตกลง</v-btn>
+                            </div>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
                     </div>
                   </v-container>
                 </v-card>
@@ -135,6 +165,7 @@ export default {
         hospital_id: "",
         purposeRequest_id: ""
       },
+      dialog: false,
       registerInsurances: [],
       hospitals: [],
       purposeRequests: []
@@ -142,6 +173,10 @@ export default {
   },
   methods: {
     /* eslint-disable no-console */
+    refresh() {
+      this.dialog = false;
+      window.location.reload();
+    },
     getRegisterInsurances() {
       http
         .get("/registerInsurance")
@@ -176,7 +211,7 @@ export default {
           console.log(e);
         });
     },
-    savePrivilegeInsurance(){
+    savePrivilegeInsurance() {
       http
         .post(
           "PrivilegeInsurance/" +
@@ -191,7 +226,8 @@ export default {
         )
         .then(responses => {
           console.log(responses);
-          alert("ยืนยันการขอใช้สิทธิ์สำเร็จ");
+
+          window.location.reload();
         })
         .catch(e => {
           console.log(e);
@@ -230,5 +266,10 @@ export default {
 }
 .font-head-desing {
   font-family: "Sriracha", cursive;
+}
+.font-desing-2 {
+  font-family: "Itim", cursive;
+  font-size: 18px;
+  margin-top: 5%;
 }
 </style>
