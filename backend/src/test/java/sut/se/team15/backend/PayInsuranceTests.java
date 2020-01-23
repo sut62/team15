@@ -23,6 +23,12 @@ public class PayInsuranceTests {
 
     @Autowired
     private PayInsuranceRepository payInsuranceRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private CreateInsuranceRepository createInsuranceRepository;
+    @Autowired
+    private Insurance_staffRepository insurance_staffRepository;
 
     @BeforeEach
     public void setup() {
@@ -32,23 +38,35 @@ public class PayInsuranceTests {
 
     @Test
     void B6001025_testAmountOK() { // ใส่ข้อมูลปกติ
-        PayInsurance amount = new PayInsurance();
-        amount.setAmount(1000.00);
-    
+        PayInsurance payInsurance = new PayInsurance();
+        User user = userRepository.findById(1);
+        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
+        Insurance_staff staff = insurance_staffRepository.findById(2);
+        payInsurance.setAmount(1000.00);
+        
+        payInsurance.setStaffID(staff);
+        payInsurance.setRegID(user);
+        payInsurance.setInsID(createInsurance);
+        payInsurance = payInsuranceRepository.saveAndFlush(payInsurance);
 
-        amount = payInsuranceRepository.saveAndFlush(amount);
-
-        Optional<PayInsurance> found = payInsuranceRepository.findById(amount.getIns_id());
+        Optional<PayInsurance> found = payInsuranceRepository.findById(payInsurance.getIns_id());
         assertEquals(1000.00, found.get().getAmount());
     }
 
     @Test
-    void B6001025_testAmountMustNotBeNull() { // ใส่ข้อมูลปกติ
-        PayInsurance amounts = new PayInsurance();
+    void B6001025_testAmountMustNotBeNull() {
+        PayInsurance payInsurance = new PayInsurance();
        
-        amounts.setAmount(null);
+        User user = userRepository.findById(1);
+        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
+        Insurance_staff staff = insurance_staffRepository.findById(2);
+       
+        payInsurance.setStaffID(staff);
+        payInsurance.setRegID(user);
+        payInsurance.setInsID(createInsurance);
+        payInsurance.setAmount(null);
 
-        Set<ConstraintViolation<PayInsurance>> result = validator.validate(amounts);
+        Set<ConstraintViolation<PayInsurance>> result = validator.validate(payInsurance);
 
         // result ต้องมี error 1 ค่าเท่านั้น
         assertEquals(1, result.size());
@@ -60,12 +78,21 @@ public class PayInsuranceTests {
     }
 
     @Test
-    void B6001025_testAmountMoreThan100() { // ใส่ข้อมูลปกติ
-        PayInsurance amount = new PayInsurance();
-       
-        amount.setAmount(1000000.00);
+    void B6001025_testAmountMoreThan100() { 
+        PayInsurance payInsurance = new PayInsurance();
 
-        Set<ConstraintViolation<PayInsurance>> result = validator.validate(amount);
+        User user = userRepository.findById(1);
+        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
+        Insurance_staff staff = insurance_staffRepository.findById(2);
+
+
+        payInsurance.setStaffID(staff);
+        payInsurance.setRegID(user);
+        payInsurance.setInsID(createInsurance);
+        payInsurance.setAmount(1000000.00);
+
+
+        Set<ConstraintViolation<PayInsurance>> result = validator.validate(payInsurance);
 
         // result ต้องมี error 1 ค่าเท่านั้น
         assertEquals(1, result.size());
@@ -77,12 +104,19 @@ public class PayInsuranceTests {
     }
     
     @Test
-    void B6001025_testAmountLessThan100() { // ใส่ข้อมูลปกติ
-        PayInsurance amount = new PayInsurance();
-        
-        amount.setAmount(99.00);
+    void B6001025_testAmountLessThan100() { 
+        PayInsurance payInsurance = new PayInsurance();
 
-        Set<ConstraintViolation<PayInsurance>> result = validator.validate(amount);
+        User user = userRepository.findById(1);
+        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
+        Insurance_staff staff = insurance_staffRepository.findById(2);
+        
+        payInsurance.setStaffID(staff);
+        payInsurance.setRegID(user);
+        payInsurance.setInsID(createInsurance);
+        payInsurance.setAmount(99.00);
+
+        Set<ConstraintViolation<PayInsurance>> result = validator.validate(payInsurance);
 
         // result ต้องมี error 1 ค่าเท่านั้น
         assertEquals(1, result.size());
@@ -93,5 +127,5 @@ public class PayInsuranceTests {
         assertEquals("amount", v.getPropertyPath().toString());
     }
 
-
+   
 }
