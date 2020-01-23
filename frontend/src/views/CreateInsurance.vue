@@ -137,7 +137,7 @@
          
              <v-card-actions>
               <v-col>
-                <v-btn  rounded large color="success" @click="save">Save</v-btn>
+                <v-btn  rounded large color="#33cc66" @click="save">Save</v-btn>
                 <v-btn rounded large color="#ffffff" @click="cancel" text >cancel</v-btn>
               </v-col>
             </v-card-actions>
@@ -150,10 +150,32 @@
             <v-card-text>บันทึกสำเร็จ</v-card-text>
            <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="green darken-1" text @click="dialog = false">close</v-btn>
+              <v-btn color="#ff99ff" text @click="dialog = false">close</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog> 
+
+          <v-dialog v-model="dialog2" width="500">
+                        <v-card>
+                          <v-card-title class="red white--text" primary-title>
+                            <div class="font-head-desing">สร้างกรมธรรม์</div>
+                          </v-card-title>
+                          <v-card-text>
+                            <div class="font-desing-2">
+                              <v-icon left>highlight_off</v-icon>ข้อมูลไม่ถูกต้อง
+                            </div>
+                            <div class="font-desing-2">
+                              <v-icon left>highlight_off</v-icon>กรุณากรอกข้อมูลใหม่
+                            </div>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <div class="font-desing">
+                              <v-btn color="error" @click="dialog2 = false">ปิด</v-btn>
+                            </div>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
     </v-content>
     
 
@@ -169,6 +191,7 @@ export default {
   data() {
     return {
       dialog: false,
+      dialog2: false,
       items: [
         { icon: "home", text: "Home", route: "/Main" },
         { icon: "exit_to_app", text: "Sign Out", route: "/" }
@@ -280,6 +303,7 @@ PaymentPeriod_id: "",
         })
         .catch(e => {
           console.log(e);
+          this.dialog2 = true;
         });
       //this.submitted = true;
     },
