@@ -140,7 +140,7 @@
                   <v-btn @click="saveUser" color="#00838F" rounded large>
                     Save
                   </v-btn>
-                  <v-btn class="" @click="Cancel" color="##55B82" text large>
+                  <v-btn class="" @click="$router.push('/UserLogin')" color="##55B82" text rounded large>
                     Cancel
                   </v-btn>
                   
@@ -150,17 +150,17 @@
                       <v-dialog v-model="dialog" width="500">
                         <v-card>
                           <v-card-title class="cyan darken-3 white--text" primary-title>
-                            <div class="font-head-desing">สมัครสมาชิกประกันสุขภาพ</div>
+                            <div  style="font-size: 23px;" >สมัครสมาชิกประกันสุขภาพ</div>
                           </v-card-title>
-                          <v-card-title class="color-theme --text" primary-title>
+                          <v-card-title  style="font-size: 18px;" primary-title>
                             <div class="" >บันทึกสำเร็จ</div>
                           </v-card-title>
                           
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <div class="font-desing">
-                              <v-btn color="cyan darken-3 white--text" @click="refresh">OK</v-btn>
-                            </div>
+                            
+                              <v-btn color="cyan darken-3 white--text" style="font-size: 16px;" @click="refresh">OK</v-btn>
+                            
                           </v-card-actions>
                         </v-card>
                       </v-dialog>
@@ -169,20 +169,20 @@
             <v-dialog v-model="dialog2" width="500">
                         <v-card>
                           <v-card-title  class="cyan darken-3 white--text" primary-title>
-                            <div class="font-head-desing">สมัครสมาชิกประกันสุขภาพ</div>
+                            <div  style="font-size: 23px;">สมัครสมาชิกประกันสุขภาพ</div>
                           </v-card-title>
                           <v-card-text>
-                            <div class="font-desing-2">
+                            <div class="mt-2" style="font-size: 18px;">
                               <v-icon left>highlight_off</v-icon>ข้อมูลไม่ถูกต้อง
                             </div>
-                            <div class="font-desing-2">
+                            <div  style="font-size: 18px;" >
                               <v-icon left>highlight_off</v-icon>กรุณากรอกข้อมูลใหม่
                             </div>
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <div class="font-desing">
-                              <v-btn color="error" @click="dialog2 = false">close</v-btn>
+                            <div >
+                              <v-btn color="error" style="font-size: 16px;" @click="dialog2 = false">close</v-btn>
                             </div>
                           </v-card-actions>
                         </v-card>
