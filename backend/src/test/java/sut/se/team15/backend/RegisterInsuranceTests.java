@@ -149,7 +149,7 @@ public class RegisterInsuranceTests {
     }
 
     @Test
-    void B6010256_testCreateInsuranceSurnameLessThan5() { // Surname น้อยกว่า2
+    void b6005900_testRegisterInsuranceSurnameLessThan5() { // Surname น้อยกว่า2
          RegisterInsurance registerInsurance= new RegisterInsurance();
         registerInsurance.setName("Name");
         registerInsurance.setSurname("Sur");
