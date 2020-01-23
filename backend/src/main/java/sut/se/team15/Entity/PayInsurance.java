@@ -18,7 +18,7 @@ import javax.persistence.Entity;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "PAYINSURANCE")
+@Table(name = "PAYINSURANCE ")
 public class PayInsurance {
     @Id
     @SequenceGenerator(name = "payinsurance_seq", sequenceName = "payinsurance_seq")
