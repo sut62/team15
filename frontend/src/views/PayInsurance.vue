@@ -121,17 +121,38 @@
           <div class="text-center">
                       <v-dialog v-model="dialog" width="500">
                         <v-card>
-                          <v-card-title class="color-theme white--text" primary-title>
+                          <v-card-title  class="#D31145 white--text" primary-title>
                             <div class=""  >การจ่ายเบี้ยกรมธรรม์</div>
                           </v-card-title>
                           <v-card-text>
-                            <div class="font-desing-2" v-if="status == true" >ยืนยันการจ่ายเบี้ยกรมธรรม์</div>
-                             <div class="font-desing-2" v-if="status == false" >กรุณากรอกข้อมูลให้ครบถ้วน</div>
+                            <div class="" >ยืนยันการจ่ายเบี้ยกรมธรรม์</div>
+                             
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <div class="font-desing">
+                            <div class="">
                               <v-btn color="primary" @click="refresh">ตกลง</v-btn>
+                            </div>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                      <v-dialog v-model="dialog2" width="500">
+                        <v-card>
+                          <v-card-title   class="#D31145 white--text" primary-title>
+                            <div class="">การจ่ายเบี้ยกรมธรรม์</div>
+                          </v-card-title>
+                          <v-card-text>
+                            <div class="">
+                              <v-icon left>highlight_off</v-icon>ข้อมูลไม่ถูกต้อง
+                            </div>
+                            <div class="">
+                              <v-icon left>highlight_off</v-icon>กรุณากรอกข้อมูลใหม่
+                            </div>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <div class="">
+                              <v-btn color="error" @click="dialog2 = false">ปิด</v-btn>
                             </div>
                           </v-card-actions>
                         </v-card>
@@ -152,7 +173,7 @@ export default {
   data() {
     return {
       dialog: false,
-      status: false,
+      dialog2: false,
       items: [
         { icon: "home", text: "Home", route: "/Main" },
         { icon: "exit_to_app", text: "Sign Out", route: "/" }
@@ -231,13 +252,13 @@ export default {
         )
         .then(responses => {
           console.log(responses);
-          this.status = true;
+          
            this.dialog = true;
          
         })
         .catch(e => {
           console.log(e);
-          this.dialog = true;
+          this.dialog2 = true;
         });
     },
     cancel(){
