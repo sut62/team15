@@ -13,7 +13,7 @@ import Promotion from "../views/Promotion.vue";
 import PayInsurance from "../views/PayInsurance.vue";
 import User from "../views/User.vue";
 import UserSearch from "../views/UserSearch.vue";
-
+import HospitalSearch from '../views/HospitalSearch.vue'
 import Home from "../views/Home.vue";
 import RegisterInsurance from "../views/RegisterInsurance.vue";
 import ChangeRegister from "../views/ChangeRegister.vue";
@@ -42,6 +42,11 @@ const routes = [
     path: "/Hospital",
     name: "Hospital",
     component: Hospital
+  },
+  {
+    path: '/HospitalSearch',
+    name: 'HospitalSearch',
+    component: HospitalSearch
   },
   {
     path: "/PayInsurance",
