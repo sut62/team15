@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.stream.Collectors;
+import java.util.List;
 
 import sut.se.team15.Repository.*;
 import sut.se.team15.Entity.*;
@@ -46,6 +47,13 @@ public class UserController {
                 .collect(Collectors.toList()).get(0);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<User> Users(@PathVariable String userId) {
+        List<User> user = userRepository.findByUserid(userId);
+        return user; 
+    }
+
+    
     @PostMapping("/User/{UserId}/{Password}/{Title_ID}/{FirstName}/{LastName}/{BirthDays}/{Age}/{Status_ID}/{Career}/{Disease}/{PhoneNumber}/{Address}/{Province_ID}/{PostalCode}")
     public User newUser(User newUser,
             @PathVariable String UserId,
@@ -88,7 +96,6 @@ public class UserController {
         newUser.setAddress(Address);
         newUser.setProvince(province);
         newUser.setPostalCode(PostalCode);
-
 
         return userRepository.save(newUser);
     }
