@@ -275,7 +275,7 @@ export default {
       if (this.Hospital.RegionID == 1) {
         for (this.i = 0; this.i < this.n1; this.i++) {
           if (this.Province1[this.i] == this.Hospital.ProvinceID) {
-            this.Hospital.ProvinceID = this.ProvinceId1[this.i]-1;
+            this.Hospital.ProvinceID = this.ProvinceId1[this.i];
             break;
           }
         }
@@ -283,7 +283,7 @@ export default {
       if (this.Hospital.RegionID == 2) {
         for (this.i = 0; this.i < this.n2; this.i++) {
           if (this.Province2[this.i] == this.Hospital.ProvinceID) {
-            this.Hospital.ProvinceID = this.ProvinceId2[this.i]-1;
+            this.Hospital.ProvinceID = this.ProvinceId2[this.i];
             break;
           }
         }
@@ -291,7 +291,7 @@ export default {
       if (this.Hospital.RegionID == 3) {
         for (this.i = 0; this.i < this.n3; this.i++) {
           if (this.Province3[this.i] == this.Hospital.ProvinceID) {
-            this.Hospital.ProvinceID = this.ProvinceId3[this.i]-1;
+            this.Hospital.ProvinceID = this.ProvinceId3[this.i];
             break;
           }
         }
@@ -299,7 +299,7 @@ export default {
       if (this.Hospital.RegionID == 4) {
         for (this.i = 0; this.i < this.n4; this.i++) {
           if (this.Province4[this.i] == this.Hospital.ProvinceID) {
-            this.Hospital.ProvinceID = this.ProvinceId4[this.i]-1;
+            this.Hospital.ProvinceID = this.ProvinceId4[this.i];
             break;
           }
         }
