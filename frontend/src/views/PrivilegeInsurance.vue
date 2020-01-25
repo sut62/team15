@@ -1,16 +1,16 @@
 <template>
   <v-app>
     <v-content>
-      <ToolBars></ToolBars>
       <div
         class="img-background"
         v-bind:style="{'background-image': 'url(' + require('../assets/background-1.jpg') + ')'}"
       >
+        <ToolBars></ToolBars>
         <v-container>
           <v-layout justify-center>
             <v-row justify="center">
               <v-col cols="12" sm="6">
-                <v-card class="card-desing-1" outlined>
+                <v-card class="card-desing-1">
                   <div class="color-theme">
                     <v-card-title class="white--text">
                       <v-layout justify-center>
@@ -89,6 +89,7 @@
                               :rules="[(v) => !!v || 'โปรดเลือกจุดประสงค์']"
                             ></v-select>
                           </v-col>
+
                           <div class="text-center">
                             <v-btn
                               class="ma-2"
@@ -209,7 +210,6 @@ export default {
         .then(response => {
           this.registerInsurances = response.data;
           console.log(response.data);
-          console.log(this.registerInsurances.name);
         })
         .catch(e => {
           console.log(e);
@@ -277,7 +277,7 @@ export default {
   background-size: cover;
 }
 .card-desing-1 {
-  margin-top: 0%;
+  margin-top: 1%;
   width: auto;
   background-color: rgba(255, 255, 255, 0.8) !important;
 }
