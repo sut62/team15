@@ -14,7 +14,7 @@
                   <v-card-title class="black--text">
                     <v-layout justify-center>
                       <div class="font-head-desing">
-                        <span>ขอใช้สิทธิ์กรมธรรม์</span>
+                        <span>ยกเลิกสิทธิ์กรมธรรม์</span>
                       </div>
                     </v-layout>
                   </v-card-title>
