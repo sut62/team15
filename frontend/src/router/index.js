@@ -8,6 +8,7 @@ import SingInAdmin from "../components/SingInAdmin.vue"
 
 import CreateInsurance from '../views/CreateInsurance.vue'
 import Hospital from '../views/Hospital.vue'
+import RenewInsurance from '../views/RenewInsurance.vue'
 import PayInsurance from '../views/PayInsurance.vue'
 import User from '../views/User.vue'
 
@@ -42,6 +43,11 @@ const routes = [
     path: '/PayInsurance',
     name: 'PayInsurance',
     component: PayInsurance
+  },
+  {
+    path: '/RenewInsurance',
+    name: 'RenewInsurance',
+    component: RenewInsurance
   },
   {
     path: '/User',
