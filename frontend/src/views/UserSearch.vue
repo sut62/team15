@@ -37,6 +37,7 @@
                     </v-row>
                   </v-col>
                 </v-app-bar>
+
                 <v-flex>
                   <div v-if="table">
                     <v-card class="mx-auto" max-width="1200">
@@ -47,6 +48,17 @@
                     </v-card>
                   </div>
                 </v-flex>
+
+                <template>
+                  <div class="text-right" >
+                    <v-btn
+                      class= "mt-10"
+                      @click="$router.push('/UserLogin')"
+                      color="##55B82"
+                      rounded large
+                    >BACK</v-btn>
+                  </div>
+                </template>
 
                 <v-dialog v-model="dialog" max-width="290">
                   <v-card>
