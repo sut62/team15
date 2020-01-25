@@ -245,4 +245,5 @@ export default {
     this.$vuetify.theme.dark = true;
   }
 };
+
 </script>
