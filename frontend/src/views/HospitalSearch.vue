@@ -65,8 +65,8 @@
               <v-col>
                 <v-row>
                   <v-spacer />
-                  <v-text-field solo-inverted flat hide-details label="Search" />
-                  <v-btn dark large @click="postBin()" icon>
+                  <v-text-field solo-inverted flat hide-details label="Search" v-model="Searching" />
+                  <v-btn dark large @click="Search()" icon>
                     <v-icon>search</v-icon>
                   </v-btn>
                   <v-spacer />
@@ -90,8 +90,9 @@
         <v-dialog v-model="dialog" max-width="290">
           <v-card>
             <br />
-            <v-card-text v-if="status == true">Successfully</v-card-text>
-            <v-card-text v-else>Not found</v-card-text>
+            <v-card-text v-if="status==0">Enter information in the search.</v-card-text>
+            <v-card-text v-if="status==1">Not found.</v-card-text>
+            <v-card-text v-if="status==2">Successfully</v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="green darken-1" text @click="dialog = false">close</v-btn>
@@ -113,7 +114,9 @@ import http from "../api/http-common";
 export default {
   data() {
     return {
-      status: false,
+      dessert: [],
+      Searching: null,
+      status: 0,
       dialog: false,
       Hospital: {
         ProvinceID: "",
@@ -187,9 +190,31 @@ export default {
           console.log(e);
         });
     },
-    cancel() {
-      window.location.reload();
-    },
+    Search() {
+      console.log(this.Searching);
+      if (this.Searching == "" || this.Searching == null) {
+        this.status = 0;
+        this.dialog = true;
+        this.getHospital();
+        return;
+      }
+      http
+        .get("/HospitalSearch/" + this.Searching)
+        .then(response => {
+
+          if (response.data== "" || response.data == null) {
+            this.status = 1;
+            this.dialog = true;
+          } else {
+            this.GetHospital = response.data;
+            this.status = 2;
+            this.dialog = true;
+          }
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   },
   mounted() {
     this.getHospital();
