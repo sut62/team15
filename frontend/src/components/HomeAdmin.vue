@@ -11,7 +11,7 @@
           </v-btn>
         </template>
 
-        <v-card height="mx-auto" width="200" dark>
+         <v-card height="mx-auto" width="250" dark>
           <v-list>
             <v-list-item @click="$router.push('/HomeAdmin')">
               <v-col class="8">
@@ -19,11 +19,24 @@
               </v-col>
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item>
+                       <v-list-item @click="$router.push('/')">
+              <v-col class="8">
+                <v-icon>exit_to_app</v-icon>
+              </v-col>
+              <v-list-item-title>Sign Out</v-list-item-title>
+            </v-list-item>
+             <v-divider></v-divider>
             <v-list-item @click="$router.push('/Hospital')">
               <v-col class="8">
                 <v-icon>apartment</v-icon>
               </v-col>
               <v-list-item-title>Hospital</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="$router.push('/HospitalSearch')">
+              <v-col class="8">
+                <v-icon>search</v-icon>
+              </v-col>
+              <v-list-item-title>HospitalSearch</v-list-item-title>
             </v-list-item>
             <v-list-item @click="$router.push('/CreateInsurance')">
               <v-col class="8">
@@ -48,12 +61,6 @@
                 <v-icon>event</v-icon>
               </v-col>
               <v-list-item-title>RenewInsurance</v-list-item-title>
-            </v-list-item>
-            <v-list-item @click="$router.push('/')">
-              <v-col class="8">
-                <v-icon>exit_to_app</v-icon>
-              </v-col>
-              <v-list-item-title>Sign Out</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-card>
