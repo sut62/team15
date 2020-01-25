@@ -2,8 +2,8 @@
   <v-app id="inspire" >
     <v-app-bar app clipped-left
      dark
-    color="#D31145">
-      <v-toolbar-title>PayInsurance</v-toolbar-title>
+    color="#0288D1">
+      <v-toolbar-title>RenewInsurance</v-toolbar-title>
       <v-spacer />
      <v-menu bottom left>
         <template v-slot:activator="{ on }">
@@ -97,7 +97,7 @@
 
           <v-card-actions>
             <v-col>
-                <v-btn rounded large color="#D31145" @click="saveRenew">Save</v-btn>
+                <v-btn rounded large color="#0288D1" @click="saveRenew">Save</v-btn>
                  
                  
 
@@ -148,7 +148,7 @@
       </v-col>
     </v-content>
 
-    <v-footer app color="#D31145">
+    <v-footer app color="#0288D1">
       <span>&copy; 2019</span>
     </v-footer>
   </v-app>
