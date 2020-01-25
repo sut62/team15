@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,13 @@ public class HospitalController {
         return hospitalRepository.findAll().stream().collect(Collectors.toList());
     }
 
+    @GetMapping("/HospitalSearch/{hospital}")
+    public List<Hospital> hospitals(@PathVariable String hospital) {
+        List<Hospital> hospitals = hospitalRepository.findByhospitalName(hospital);
+        return hospitals;
+    }
+  
+
     @PostMapping("/AddHospital/{Type}/{Region}/{Province}/{Name}/{Location}/{Telephone}")
     public Hospital newHospital(Hospital newHospital, @PathVariable long Type,
             @PathVariable long Region, @PathVariable long Province,  @PathVariable String Name, @PathVariable String Location, @PathVariable String Telephone) {
@@ -44,7 +52,7 @@ public class HospitalController {
         HospitalType TypeID = hospitalTypeRepository.findById(Type);
         Region RegionID = regionRepository.findById(Region);
         Province ProvinceID = provinceRepository.findById(Province);
-
+        
         newHospital.setHospitalTypeId(TypeID);
         newHospital.setRegionId(RegionID);
         newHospital.setProvinceId(ProvinceID);
@@ -53,5 +61,6 @@ public class HospitalController {
         newHospital.setTelephoneNumber(Telephone);
 
         return hospitalRepository.save(newHospital);
+        
     }
 }
