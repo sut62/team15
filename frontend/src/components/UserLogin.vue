@@ -5,6 +5,7 @@
         class="img-background"
         v-bind:style="{'background-image': 'url(' + require('../assets/Login.jpg') + ')'}"
       >
+        <ToolBarUser></ToolBarUser>
         <v-container>
           <v-layout justify-center>
             <v-card class="card-desing-2" outlined>
@@ -78,6 +79,45 @@
                         </v-col>
                       </v-row>
                     </div>
+                    <div class="text-center">
+                      <v-dialog v-model="dialog" width="500">
+                        <v-card>
+                          <v-card-title class="black white--text" primary-title>
+                            <div class="font-head-desing">เข้าสู่ระบบไม่สำเร็จ</div>
+                          </v-card-title>
+                          <v-card-text>
+                            <div class="font-desing-2">
+                              <v-icon left>highlight_off</v-icon>กรุณากรอก User ID และ Password
+                            </div>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <div class="font-desing">
+                              <v-btn color="error" @click="dialog = false">ปิด</v-btn>
+                            </div>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+
+                      <v-dialog v-model="dialog2" width="500">
+                        <v-card>
+                          <v-card-title class="black white--text" primary-title>
+                            <div class="font-head-desing">เข้าสู่ระบบไม่สำเร็จ</div>
+                          </v-card-title>
+                          <v-card-text>
+                            <div class="font-desing-2">
+                              <v-icon left>highlight_off</v-icon>User ID หรือ Password ไม่ถูกต้อง
+                            </div>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <div class="font-desing-2">
+                              <v-btn color="error" @click="dialog2 = false">ปิด</v-btn>
+                            </div>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </div>
                   </v-col>
                 </v-row>
               </v-container>
@@ -90,33 +130,40 @@
 </template>
 
 <script>
+import ToolBarUser from "../components/ToolBarUser";
 import http from "../api/http-common";
 
 export default {
   name: "UserLogin",
+  components: {
+    ToolBarUser
+  },
   data() {
     return {
       UserLogins: [],
       userID: "",
-      userPassword: ""
+      userPassword: "",
+      dialog: false,
+      dialog2: false
     };
   },
   methods: {
     /* eslint-disable no-console */
     getLoginUser() {
       if (this.userID == "" || this.userPassword == "") {
-        alert("กรุณากรอก User ID และ Password");
+        this.dialog = true;
       } else {
         http
           .get("/UserLogin" + "/" + this.userID + "/" + this.userPassword)
           .then(response => {
             this.UserLogins = response.data;
             console.log(response.data);
+            this.dialog = true;
             this.$router.push("/Home");
           })
           .catch(e => {
             console.log(e);
-            alert("User ID หรือ Password ไม่ถูกต้อง");
+            this.dialog2 = true;
           });
       }
     }
@@ -133,7 +180,7 @@ export default {
   background-size: cover;
 }
 .card-desing-2 {
-  margin-top: 10%;
+  margin-top: 5%;
   width: auto;
   background-color: rgba(255, 255, 255) !important;
 }
@@ -146,5 +193,10 @@ export default {
 }
 .font-desing {
   font-family: "Itim", cursive;
+}
+.font-desing-2 {
+  font-family: "Itim", cursive;
+  font-size: 18px;
+  margin-top: 5%;
 }
 </style>

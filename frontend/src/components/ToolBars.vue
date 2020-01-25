@@ -38,9 +38,9 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
-            <v-list-tile-content>
+            <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-tile-content>
+            </v-list-item-content>
           </v-list-item>
         </div>
       </v-list>
@@ -61,9 +61,19 @@ export default {
           link: "/RegisterInsurance"
         },
         {
+          icon: "edit",
+          title: "เปลี่ยนแปลงกรมธรรม์",
+          link: "/ChangeRegister"
+        },
+        {
           icon: "assignment_turned_in",
           title: "ขอใช้สิทธิ์กรมธรรม์",
           link: "/PrivilegeInsurance"
+        },
+        {
+          icon: "cancel",
+          title: "ยกเลิกสิทธิ์กรมธรรม์",
+          link: "/CancelPrivilege"
         },
         { icon: "exit_to_app", title: "ออกจากระบบ", link: "/UserLogin" }
       ]
