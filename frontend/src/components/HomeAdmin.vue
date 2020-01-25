@@ -37,6 +37,12 @@
               </v-col>
               <v-list-item-title>PayInsurance</v-list-item-title>
             </v-list-item>
+             <v-list-item @click="$router.push('/Promotion')">
+              <v-col class="8">
+                <v-icon>mdi-message-text</v-icon>
+              </v-col>
+              <v-list-item-title>Promotion</v-list-item-title>
+            </v-list-item>
             <v-list-item @click="$router.push('/RenewInsurance')">
               <v-col class="8">
                 <v-icon>event</v-icon>
