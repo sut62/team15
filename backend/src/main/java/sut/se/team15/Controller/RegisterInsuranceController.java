@@ -5,9 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 import java.util.Collection;
 import java.util.stream.Collectors;
+
 
 import sut.se.team15.Entity.*;
 import sut.se.team15.Repository.*;
@@ -35,6 +38,33 @@ public class RegisterInsuranceController {
     @GetMapping("/registerInsurance")
     public Collection<RegisterInsurance> registerInsurances() {
         return registerInsuranceRepository.findAll().stream().collect(Collectors.toList());
+    }
+
+    
+    @PutMapping("/registerInsurance/{registerid}/{Userid}/{Insuranceid}/{Personid}/{Titleid}/{name}/{Surname}")
+    public RegisterInsurance newsaveChangeInsurance(RegisterInsurance newsaveChangeInsurance, 
+    @PathVariable long registerid,
+    @PathVariable long Userid,
+    @PathVariable long Insuranceid, 
+     @PathVariable long Personid,
+    @PathVariable long Titleid,
+    @PathVariable String name, 
+    @PathVariable String Surname) {
+    
+       
+        CreateInsurance createInsurance = createInsuranceRepository.findById(Insuranceid);
+        Title title = titleRepository.findById(Titleid);
+        Person person  = personRepository.findById(Personid);
+        User user = userRepository.findById(Userid);
+      
+        newsaveChangeInsurance.setRegisterInsuranceId(registerid);
+        newsaveChangeInsurance.setUser(user);
+        newsaveChangeInsurance.setCreateInsurance(createInsurance);
+        newsaveChangeInsurance.setPerson(person);
+        newsaveChangeInsurance.setTitle(title);
+        newsaveChangeInsurance.setName(name);
+        newsaveChangeInsurance.setSurname(Surname);
+        return registerInsuranceRepository.save(newsaveChangeInsurance);
     }
 
     @PostMapping("/registerInsurance/{User_id}/{Insurance_id}/{Person_id}/{Title_id}/{Firstname}/{Surname}")
