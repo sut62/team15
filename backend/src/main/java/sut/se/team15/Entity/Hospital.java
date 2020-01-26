@@ -42,7 +42,7 @@ public class Hospital {
     
     @NotNull
     @Column(name = "TelephoneNumber")
-    @Pattern(regexp = "\\d{10}")
+    @Size(min = 9, max = 10)
     private String telephoneNumber;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = HospitalType.class)
