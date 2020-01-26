@@ -72,13 +72,14 @@
           <v-container fluid>
             <v-row>
               <v-col cols="5" sm="2" md="6">
-                <v-text-field label="ชื่อโปรโมชั่น" :rules="[(v) => !!v || 'Item is required']" 
+                <v-text-field id="NamePro" label="ชื่อโปรโมชั่น" :rules="[(v) => !!v || 'Item is required']" 
                    v-model="Name"></v-text-field>
               </v-col>
               <v-col class="d-flex" cols="12" sm="6">
                 <v-select
                 v-model="Promotion.Insurance_id"
                   :items="InsuranceID"
+                  id="Name"
                   label="ชื่อกรมธรรม์"
                     item-value="createInsurance_id"
                     item-text="createInsurance_name"
@@ -89,6 +90,7 @@
               </v-col>
               <v-col cols="5" sm="2" md="6">
                 <v-text-field
+                  id="Dis"
                   label="ส่วนลดเบี้ยประกัน"
                   :rules="[(v) => !!v || 'Item is required']"
                   v-model="Discounts"
