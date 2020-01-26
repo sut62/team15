@@ -472,7 +472,7 @@ public class UserTests {
         user.setLastName("LastName");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-25", formatter);
+        LocalDate BirthDay = LocalDate.parse("2024-01-25", formatter);
         user.setBirthDay(BirthDay);
 
         user.setAge((long)20);
