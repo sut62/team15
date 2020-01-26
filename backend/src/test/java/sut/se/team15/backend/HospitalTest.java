@@ -48,7 +48,7 @@ public class HospitalTest {
 
     // BeUnique
     @Test
-    void B5917440_testHospitalBeUnique() {
+    void B5917440_testHospitalBeUnique() { //ใส่ข้อมูลซ้ำ
         // สร้าง person object
         Hospital p1 = new Hospital();
         p1.setHospitalName("โรงพยาบาลมหาวิทยาลัยเทคโนโลยีสุรนารี");
@@ -69,7 +69,7 @@ public class HospitalTest {
 
     // BeNull
     @Test
-    void B5917440_testHospitalNameBeNull() { // ใส่ข้อมูลปกติ
+    void B5917440_testHospitalNameBeNull() { // ใส่ข้อมูลทที่เป็นnull
         Hospital hospital = new Hospital();
 
         hospital.setHospitalName(null);
@@ -88,7 +88,7 @@ public class HospitalTest {
     }
 
     @Test
-    void B5917440_testLocationDetailsBeNull() { // ใส่ข้อมูลปกติ
+    void B5917440_testLocationDetailsBeNull() { // ใส่ข้อมูลทที่เป็นnull
         Hospital hospital = new Hospital();
 
         hospital.setHospitalName("โรงพยาบาลมหาวิทยาลัยเทคโนโลยีสุรนารี");
@@ -107,7 +107,7 @@ public class HospitalTest {
     }
 
     @Test
-    void B5917440_testTelephoneNumberBeNull() { // ใส่ข้อมูลปกติ
+    void B5917440_testTelephoneNumberBeNull() { // ใส่ข้อมูลทที่เป็นnull
         Hospital hospital = new Hospital();
 
         hospital.setHospitalName("โรงพยาบาลมหาวิทยาลัยเทคโนโลยีสุรนารี");
@@ -125,46 +125,9 @@ public class HospitalTest {
         assertEquals("telephoneNumber", error.getPropertyPath().toString());
     }
 
-    // TelephoneNumberBe10Digits
-    @Test
-    void B5917440_testTelephoneNumberNotBe9Digits() {
-        Hospital hospital = new Hospital();
-        hospital.setHospitalName("โรงพยาบาลมหาวิทยาลัยเทคโนโลยีสุรนารี");
-        hospital.setLocationDetails("มหาวิทยาลัยเทคโนโลยีสุรนารี");
-        hospital.setTelephoneNumber("123456789"); // 9 digits
-
-        Set<ConstraintViolation<Hospital>> result = validator.validate(hospital);
-
-        // result ต้องมี error 1 ค่าเท่านั้น
-        assertEquals(1, result.size());
-
-        // error message ตรงชนิด และถูก field
-        ConstraintViolation<Hospital> error = result.iterator().next();
-        assertEquals("must match \"\\d{10}\"", error.getMessage());
-        assertEquals("telephoneNumber", error.getPropertyPath().toString());
-    }
-
-    @Test
-    void B5917440_testTelephoneNumberNotBe11Digits() {
-        Hospital hospital = new Hospital();
-        hospital.setHospitalName("โรงพยาบาลมหาวิทยาลัยเทคโนโลยีสุรนารี");
-        hospital.setLocationDetails("มหาวิทยาลัยเทคโนโลยีสุรนารี");
-        hospital.setTelephoneNumber("123456789101"); // 11 digits
-
-        Set<ConstraintViolation<Hospital>> result = validator.validate(hospital);
-
-        // result ต้องมี error 1 ค่าเท่านั้น
-        assertEquals(1, result.size());
-
-        // error message ตรงชนิด และถูก field
-        ConstraintViolation<Hospital> error = result.iterator().next();
-        assertEquals("must match \"\\d{10}\"", error.getMessage());
-        assertEquals("telephoneNumber", error.getPropertyPath().toString());
-    }
-
     //NotBeSize
     @Test
-    void B5917440_testhospitalNameNotBeMinSize() { // ใส่ข้อมูลปกติ
+    void B5917440_testhospitalNameNotBeMinSize() { // ใส่ข้อมูลที่ขนาดน้อยกว่าที่ size กำหนด
 
         Hospital hospital = new Hospital();
         hospital.setHospitalName("โรงพยาบาล");
@@ -182,7 +145,7 @@ public class HospitalTest {
         assertEquals("hospitalName", error.getPropertyPath().toString());
     }
     @Test
-    void B5917440_testHospitalNameNotBeMaxSize() { // ใส่ข้อมูลปกติ
+    void B5917440_testHospitalNameNotBeMaxSize() { // ใส่ข้อมูลที่ขนาดมากกว่าที่ size กำหนด
 
         Hospital hospital = new Hospital();
         hospital.setHospitalName("1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล1โรงพยาบาล");
@@ -202,7 +165,7 @@ public class HospitalTest {
 
 
     @Test
-    void B5917440_testLocationDetailsNotBeMinSize() { // ใส่ข้อมูลปกติ
+    void B5917440_testLocationDetailsNotBeMinSize() { // ใส่ข้อมูลที่ขนาดน้อยกว่าที่ size กำหนด
 
         Hospital hospital = new Hospital();
         hospital.setHospitalName("มหาวิทยาลัยเทคโนโลยีสุรนารี");
@@ -220,7 +183,7 @@ public class HospitalTest {
         assertEquals("locationDetails", error.getPropertyPath().toString());
     }
     @Test
-    void B5917440_testLocationDetailsNotBeMaxSize() { // ใส่ข้อมูลปกติ
+    void B5917440_testLocationDetailsNotBeMaxSize() { // ใส่ข้อมูลที่ขนาดมากกว่าที่ size กำหนด
 
         Hospital hospital = new Hospital();
         hospital.setHospitalName("มหาวิทยาลัยเทคโนโลยีสุรนารี");
@@ -236,6 +199,42 @@ public class HospitalTest {
         ConstraintViolation<Hospital> error = result.iterator().next();
         assertEquals("size must be between 10 and 300", error.getMessage());
         assertEquals("locationDetails", error.getPropertyPath().toString());
+    }
+    @Test
+    void B5917440_testTelephoneNumberNotBeMinSize() { // ใส่ข้อมูลที่ขนาดน้อยกว่าที่ size กำหนด
+
+        Hospital hospital = new Hospital();
+        hospital.setHospitalName("มหาวิทยาลัยเทคโนโลยีสุรนารี");
+        hospital.setLocationDetails("มหาวิทยาลัยเทคโนโลยีสุรนารี");
+        hospital.setTelephoneNumber("12345678");
+
+        Set<ConstraintViolation<Hospital>> result = validator.validate(hospital);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Hospital> error = result.iterator().next();
+        assertEquals("size must be between 9 and 10", error.getMessage());
+        assertEquals("telephoneNumber", error.getPropertyPath().toString());
+    }
+    @Test
+    void B5917440_testTelephoneNumberNotBeMaxSize() { // ใส่ข้อมูลที่ขนาดน้อยกว่าที่ size กำหนด
+
+        Hospital hospital = new Hospital();
+        hospital.setHospitalName("มหาวิทยาลัยเทคโนโลยีสุรนารี");
+        hospital.setLocationDetails("มหาวิทยาลัยเทคโนโลยีสุรนารี");
+        hospital.setTelephoneNumber("12345678901");
+
+        Set<ConstraintViolation<Hospital>> result = validator.validate(hospital);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Hospital> error = result.iterator().next();
+        assertEquals("size must be between 9 and 10", error.getMessage());
+        assertEquals("telephoneNumber", error.getPropertyPath().toString());
     }
 
 }
