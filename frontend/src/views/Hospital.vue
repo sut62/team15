@@ -12,21 +12,21 @@
           </v-btn>
         </template>
 
- <v-card height="mx-auto" width="250" dark>
+        <v-card height="mx-auto"  width="250" dark>
           <v-list>
             <v-list-item @click="$router.push('/HomeAdmin')">
-              <v-col class="8">
+              <v-col  id="H1" class="8">
                 <v-icon>home</v-icon>
               </v-col>
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item>
-                       <v-list-item @click="$router.push('/')">
+            <v-list-item  id="H2" @click="$router.push('/')">
               <v-col class="8">
                 <v-icon>exit_to_app</v-icon>
               </v-col>
               <v-list-item-title>Sign Out</v-list-item-title>
             </v-list-item>
-             <v-divider></v-divider>
+            <v-divider></v-divider>
             <v-list-item @click="$router.push('/Hospital')">
               <v-col class="8">
                 <v-icon>apartment</v-icon>
@@ -51,7 +51,7 @@
               </v-col>
               <v-list-item-title>PayInsurance</v-list-item-title>
             </v-list-item>
-             <v-list-item @click="$router.push('/Promotion')">
+            <v-list-item @click="$router.push('/Promotion')">
               <v-col class="8">
                 <v-icon>mdi-message-text</v-icon>
               </v-col>
@@ -79,10 +79,11 @@
                 <v-col>
                   <v-row>
                     <v-col class="d-flex" cols="12" sm="8">
-                      <v-text-field label="Hospital Name" v-model="HospitalName"></v-text-field>
+                      <v-text-field id="Hospital" class="Hospitals"  label="Hospital Name" v-model="HospitalName"></v-text-field>
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="4">
                       <v-select
+                      id="Hospital" class="Hospitals" 
                         :items="Type"
                         label="Hospital Type"
                         v-model="Hospital.TypeID"
@@ -93,10 +94,11 @@
                       ></v-select>
                     </v-col>
                   </v-row>
-                  <v-text-field color="white" label="Location Details" v-model="LocationDetails"></v-text-field>
+                  <v-text-field id="Hospital" class="Hospitals"  color="white" label="Location Details" v-model="LocationDetails"></v-text-field>
                   <v-row>
                     <v-col class="d-flex" cols="12" sm="4">
                       <v-select
+                      id="Hospital" class="Hospitals" 
                         :items="Region"
                         label="Region"
                         v-model="Hospital.RegionID"
@@ -108,6 +110,7 @@
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="8" v-if="this.Hospital.RegionID == 1">
                       <v-select
+                      id="Hospital" class="Hospitals" 
                         :items="Province1"
                         label="Province"
                         v-model="Hospital.ProvinceID"
@@ -117,6 +120,7 @@
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="8" v-else-if="this.Hospital.RegionID == 2">
                       <v-select
+                      id="Hospital" class="Hospitals" 
                         :items="Province2"
                         label="Province"
                         v-model="Hospital.ProvinceID"
@@ -126,6 +130,7 @@
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="8" v-else-if="this.Hospital.RegionID == 3">
                       <v-select
+                      id="Hospital" class="Hospitals" 
                         :items="Province3"
                         label="Province"
                         v-model="Hospital.ProvinceID"
@@ -135,6 +140,7 @@
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="8" v-else-if="this.Hospital.RegionID == 4">
                       <v-select
+                      id="Hospital" class="Hospitals" 
                         :items="Province4"
                         label="Province"
                         v-model="Hospital.ProvinceID"
@@ -144,6 +150,7 @@
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="8" v-else>
                       <v-select
+                      id="Hospital" class="Hospitals" 
                         :items="Province"
                         label="Province"
                         v-model="Hospital.ProvinceID"
@@ -154,7 +161,7 @@
                       ></v-select>
                     </v-col>
                   </v-row>
-                  <v-text-field color="white" label="Telephone number" v-model="TelephoneNumber"></v-text-field>
+                  <v-text-field id="Hospital" class="Hospitals"  color="white" label="Telephone number" v-model="TelephoneNumber"></v-text-field>
                 </v-col>
               </v-col>
             </v-card-text>
@@ -163,8 +170,8 @@
 
             <v-card-actions>
               <v-col>
-                <v-btn rounded large color="success" @click="save">Save</v-btn>
-                <v-btn color="#ffffff" @click="cancel()" text large>cancel</v-btn>
+                <v-btn id="Hospital" class="Hospitals"  rounded large color="success" @click="save">Save</v-btn>
+                <v-btn id="Hospital" class="Hospitals"  color="#ffffff" @click="cancel()" text large>cancel</v-btn>
               </v-col>
             </v-card-actions>
           </v-card>
