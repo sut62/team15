@@ -10,7 +10,7 @@
           </v-btn>
         </template>
 
-        <v-card height="mx-auto" width="200" dark>
+         <v-card height="mx-auto" width="250" dark>
           <v-list>
             <v-list-item @click="$router.push('/HomeAdmin')">
               <v-col class="8">
@@ -18,11 +18,24 @@
               </v-col>
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item>
+                       <v-list-item @click="$router.push('/')">
+              <v-col class="8">
+                <v-icon>exit_to_app</v-icon>
+              </v-col>
+              <v-list-item-title>Sign Out</v-list-item-title>
+            </v-list-item>
+             <v-divider></v-divider>
             <v-list-item @click="$router.push('/Hospital')">
               <v-col class="8">
                 <v-icon>apartment</v-icon>
               </v-col>
               <v-list-item-title>Hospital</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="$router.push('/HospitalSearch')">
+              <v-col class="8">
+                <v-icon>search</v-icon>
+              </v-col>
+              <v-list-item-title>HospitalSearch</v-list-item-title>
             </v-list-item>
             <v-list-item @click="$router.push('/CreateInsurance')">
               <v-col class="8">
@@ -36,28 +49,35 @@
               </v-col>
               <v-list-item-title>PayInsurance</v-list-item-title>
             </v-list-item>
-            <v-list-item @click="$router.push('/')">
+             <v-list-item @click="$router.push('/Promotion')">
               <v-col class="8">
-                <v-icon>exit_to_app</v-icon>
+                <v-icon>mdi-message-text</v-icon>
               </v-col>
-              <v-list-item-title>Sign Out</v-list-item-title>
+              <v-list-item-title>Promotion</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="$router.push('/RenewInsurance')">
+              <v-col class="8">
+                <v-icon>event</v-icon>
+              </v-col>
+              <v-list-item-title>RenewInsurance</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-card>
       </v-menu>
     </v-app-bar>
 
-    <v-content>
+     <v-content>
       <v-col align="center">
         <v-card eight="mx-auto" width="800" dark>
           <v-container fluid>
             <v-row>
               <v-col cols="5" sm="2" md="6">
-                <v-text-field label="ชื่อกรมธรรม์" :rules="[(v) => !!v || 'Item is required']"  v-model="Name"></v-text-field>
+                <v-text-field id="Name" label="ชื่อกรมธรรม์" :rules="[(v) => !!v || 'Item is required']"  v-model="Name"></v-text-field>
               </v-col>
               <v-col class="d-flex" cols="12" sm="6">
                 <v-select
                   :items="insuranceType"
+                  id="insuranceTypes"
                   label="ประเภทกรมธรรม์"
                   v-model="CreateInsurance.InsuranceType_id"
                   item-text="insuranceType_name"
@@ -69,17 +89,19 @@
               </v-col>
               <v-col cols="5" sm="2" md="6">
                 <v-text-field
+                  id="AccidentCoverages"
                   label="คุ้มครองอุบัติเหตุ"
                   :rules="[(v) => !!v || 'Item is required']"
                   v-model="AccidentCoverage"
                 ></v-text-field>
               </v-col>
               <v-col cols="5" sm="2" md="6">
-                <v-text-field label="คุ้มครองโรค" :rules="[(v) => !!v || 'Item is required']" v-model="DiseaseCoverage"></v-text-field>
+                <v-text-field id="DiseaseCoverages" label="คุ้มครองโรค" :rules="[(v) => !!v || 'Item is required']" v-model="DiseaseCoverage"></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <v-textarea
                   name="input-7-1"
+                  id="ProtectionRight"
                   label="สิทธิการคุ้มครอง"
                   hint="Hint text"
                   :rules="[(v) => !!v || 'Item is required']"
@@ -89,6 +111,7 @@
               <v-col cols="12" md="6">
                 <v-textarea
                   name="input-7-1"
+                   id="TermOfProtections"
                   label="เงื่อนไขการคุ้มครอง"
                   hint="Hint text"
                   :rules="[(v) => !!v || 'Item is required']"
@@ -98,6 +121,7 @@
               <v-col class="d-flex" cols="12" sm="6">
                 <v-select
                   :items="contractDueDates"
+                   id="ContractDueDates"
                   label="วันครบกำหนดสัญญา"
                   v-model="CreateInsurance.ContractDueDate_id"
                   item-text="contractDueDate_name"
@@ -113,11 +137,12 @@
           <v-container fluid>
             <v-row>
               <v-col cols="5" sm="2" md="6">
-                <v-text-field label="เบี้ยประกัน" :rules="[(v) => !!v || 'Item is required']" v-model="InsurancePremium"></v-text-field>
+                <v-text-field   id="InsurancePremiums" label="เบี้ยประกัน" :rules="[(v) => !!v || 'Item is required']" v-model="InsurancePremium"></v-text-field>
               </v-col>
               <v-col class="d-flex" cols="12" sm="6">
                 <v-select
                   :items="paymentPeriods"
+                  id="PaymentPeriods"
                   label="ระยะเวลาชำระเบี้ยประกัน"
                   v-model="CreateInsurance.PaymentPeriod_id"
                   item-text="paymentPeriod_name"
@@ -177,6 +202,7 @@
                         </v-card>
                       </v-dialog>
     </v-content>
+    
     
 
     <v-footer app color="#A60814">
