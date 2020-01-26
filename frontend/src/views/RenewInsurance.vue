@@ -26,6 +26,12 @@
               </v-col>
               <v-list-item-title>Hospital</v-list-item-title>
             </v-list-item>
+            <v-list-item @click="$router.push('/HospitalSearch')">
+              <v-col class="8">
+                <v-icon>search</v-icon>
+              </v-col>
+              <v-list-item-title>HospitalSearch</v-list-item-title>
+            </v-list-item>
             <v-list-item @click="$router.push('/CreateInsurance')">
               <v-col class="8">
                 <v-icon>add_to_photos</v-icon>
@@ -37,6 +43,12 @@
                 <v-icon>call_to_action</v-icon>
               </v-col>
               <v-list-item-title>PayInsurance</v-list-item-title>
+            </v-list-item>
+             <v-list-item @click="$router.push('/Promotion')">
+              <v-col class="8">
+                <v-icon>mdi-message-text</v-icon>
+              </v-col>
+              <v-list-item-title>Promotion</v-list-item-title>
             </v-list-item>
             <v-list-item @click="$router.push('/RenewInsurance')">
               <v-col class="8">
