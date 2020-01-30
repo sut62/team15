@@ -90,6 +90,17 @@
                             ></v-select>
                           </v-col>
 
+                          <v-col cols="10" sm="10">
+                            <v-text-field
+                              id="EnterSignedPlace"
+                              label="ขอใช้สิทธิ์ ณ"
+                              hint="ป้อนระหว่าง 5-200 ตัวอักษร"
+                              v-model="SignedPlace"
+                              outlined
+                              :rules="[(v) => !!v || 'โปรดกรอกขอใช้สิทธิ์ ณ']"
+                            ></v-text-field>
+                          </v-col>
+
                           <div class="text-center">
                             <v-btn
                               class="ma-2"
@@ -191,6 +202,7 @@ export default {
         hospital_id: "",
         purposeRequest_id: ""
       },
+      SignedPlace: "",
       dialog: false,
       dialog2: false,
       registerInsurances: [],
@@ -247,7 +259,9 @@ export default {
             "/" +
             this.privilegeDate +
             "/" +
-            this.PrivilegeInsurance.purposeRequest_id,
+            this.PrivilegeInsurance.purposeRequest_id +
+            "/" +
+            this.SignedPlace,
           this.PrivilegeInsurance
         )
         .then(responses => {
