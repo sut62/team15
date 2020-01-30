@@ -27,17 +27,21 @@ import javax.persistence.FetchType;
 @EqualsAndHashCode
 @Table(name = "Privilege_Insurance")
 public class PrivilegeInsurance {
+
     @Id
     @SequenceGenerator(name = "Privilege_Insurance_SEQ", sequenceName = "Privilege_Insurance_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Privilege_Insurance_SEQ")
     @Column(name = "Privilege_Insurance_ID", unique = true, nullable = true)
-
-    private @NonNull Long id;
+    private Long id;
 
     @NotNull
     @FutureOrPresent
     @Column(name = "PrivilegeDate")
     private LocalDate privilegeDate;
+
+    @NotNull
+    @Size(min = 5, max = 200)
+    private String privileSignedPlace;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Hospital.class)
     @JoinColumn(name = "Hospital_ID", insertable = true)
