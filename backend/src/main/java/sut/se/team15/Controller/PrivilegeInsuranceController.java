@@ -39,10 +39,11 @@ public class PrivilegeInsuranceController {
         return privilegeInsuranceRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/PrivilegeInsurance/{registerInsurance_id}/{hospital_id}/{privilegeDates}/{purposeRequest_id}")
+    @PostMapping("/PrivilegeInsurance/{registerInsurance_id}/{hospital_id}/{privilegeDates}/{purposeRequest_id}/{signedPlace}")
     public PrivilegeInsurance newPrivilegeInsurance(PrivilegeInsurance newPrivilegeInsurance,
-            @PathVariable long registerInsurance_id, @PathVariable long hospital_id, @PathVariable String privilegeDates, @PathVariable long purposeRequest_id
-            ) {
+            @PathVariable long registerInsurance_id, @PathVariable long hospital_id,
+            @PathVariable String privilegeDates, @PathVariable long purposeRequest_id,
+            @PathVariable String signedPlace) {
 
         RegisterInsurance registerInsurance = registerInsuranceRepository.findById(registerInsurance_id);
         Hospital hospital = hospitalRepository.findById(hospital_id);
@@ -55,6 +56,7 @@ public class PrivilegeInsuranceController {
         newPrivilegeInsurance.setHospital(hospital);
         newPrivilegeInsurance.setPrivilegeDate(privilegeDate);
         newPrivilegeInsurance.setPurposeRequest(purposeRequest);
+        newPrivilegeInsurance.setPrivileSignedPlace(signedPlace);
 
         return privilegeInsuranceRepository.save(newPrivilegeInsurance);
     }
