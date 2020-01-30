@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -19,7 +18,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
 public class PrivilegeInsuranceTests {
@@ -42,42 +40,20 @@ public class PrivilegeInsuranceTests {
     }
 
     @Test
-    void B5917099_testPrivilegeDateOKFuture() { // ใส่ข้อมูลปกติ
-
-        RegisterInsurance registerInsurance = registerInsuranceRepository.findById(1);
-        Hospital hospital = hospitalRepository.findById(2);
-        PurposeRequest purposeRequest = purposeRequestRepository.findById(3);
-
-        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate privilegeDate = LocalDate.parse("2021-01-01", formatter);
-
-        privilegeinsurance.setRegisterInsurance(registerInsurance);
-        privilegeinsurance.setHospital(hospital);
-        privilegeinsurance.setPrivilegeDate(privilegeDate);
-        privilegeinsurance.setPurposeRequest(purposeRequest);
-        privilegeinsurance = privilegeInsuranceRepository.saveAndFlush(privilegeinsurance);
-
-        Optional<PrivilegeInsurance> found = privilegeInsuranceRepository.findById(privilegeinsurance.getId());
-        assertEquals(privilegeDate, found.get().getPrivilegeDate());
-    }
-
-    @Test
     void B5917099_testPrivilegeDateOKPresent() { // ใส่ข้อมูลปกติ
 
+        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
+
         RegisterInsurance registerInsurance = registerInsuranceRepository.findById(1);
         Hospital hospital = hospitalRepository.findById(2);
         PurposeRequest purposeRequest = purposeRequestRepository.findById(3);
-
-        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
-
         LocalDate privilegeDate = LocalDate.now();
 
         privilegeinsurance.setRegisterInsurance(registerInsurance);
         privilegeinsurance.setHospital(hospital);
         privilegeinsurance.setPrivilegeDate(privilegeDate);
         privilegeinsurance.setPurposeRequest(purposeRequest);
+        privilegeinsurance.setPrivileSignedPlace("suranaree university of technology");
         privilegeinsurance = privilegeInsuranceRepository.saveAndFlush(privilegeinsurance);
 
         Optional<PrivilegeInsurance> found = privilegeInsuranceRepository.findById(privilegeinsurance.getId());
@@ -87,16 +63,17 @@ public class PrivilegeInsuranceTests {
     @Test
     void B5917099_testPrivilegeDateMustNotBeNull() {
 
+        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
+
         RegisterInsurance registerInsurance = registerInsuranceRepository.findById(1);
         Hospital hospital = hospitalRepository.findById(2);
         PurposeRequest purposeRequest = purposeRequestRepository.findById(3);
-
-        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
 
         privilegeinsurance.setRegisterInsurance(registerInsurance);
         privilegeinsurance.setHospital(hospital);
         privilegeinsurance.setPrivilegeDate(null);
         privilegeinsurance.setPurposeRequest(purposeRequest);
+        privilegeinsurance.setPrivileSignedPlace("suranaree university of technology");
 
         Set<ConstraintViolation<PrivilegeInsurance>> result = validator.validate(privilegeinsurance);
 
@@ -112,11 +89,11 @@ public class PrivilegeInsuranceTests {
     @Test
     void B5917099_testPrivilegeDateWrongFormatPast() {
 
+        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
+
         RegisterInsurance registerInsurance = registerInsuranceRepository.findById(1);
         Hospital hospital = hospitalRepository.findById(2);
         PurposeRequest purposeRequest = purposeRequestRepository.findById(3);
-
-        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate privilegeDate = LocalDate.parse("2020-01-01", formatter);
@@ -125,6 +102,7 @@ public class PrivilegeInsuranceTests {
         privilegeinsurance.setHospital(hospital);
         privilegeinsurance.setPrivilegeDate(privilegeDate);
         privilegeinsurance.setPurposeRequest(purposeRequest);
+        privilegeinsurance.setPrivileSignedPlace("suranaree university of technology");
 
         Set<ConstraintViolation<PrivilegeInsurance>> result = validator.validate(privilegeinsurance);
 
@@ -138,20 +116,90 @@ public class PrivilegeInsuranceTests {
     }
 
     @Test
-    void B5917099_testPurposeRequestMustBeUnique() {
-        // สร้าง PurposeRequest object
-        PurposeRequest p1 = new PurposeRequest();
+    void B5917099_testPrivileSignedPlaceMustNotBeNull() {
 
-        p1.setPurposeRequest("ค่ารักษาอุบัติเหตุ");
-        purposeRequestRepository.saveAndFlush(p1);
+        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
 
-        // คาดหวังว่า DataIntegrityViolationException จะถูก throw
-        assertThrows(DataIntegrityViolationException.class, () -> {
-            // สร้าง PurposeRequest object ตัวที่ 2
-            PurposeRequest p2 = new PurposeRequest();
+        RegisterInsurance registerInsurance = registerInsuranceRepository.findById(1);
+        Hospital hospital = hospitalRepository.findById(2);
+        PurposeRequest purposeRequest = purposeRequestRepository.findById(3);
+        LocalDate privilegeDate = LocalDate.now();
 
-            p2.setPurposeRequest("ค่ารักษาอุบัติเหตุ");
-            purposeRequestRepository.saveAndFlush(p2);
-        });
+        privilegeinsurance.setRegisterInsurance(registerInsurance);
+        privilegeinsurance.setHospital(hospital);
+        privilegeinsurance.setPrivilegeDate(privilegeDate);
+        privilegeinsurance.setPurposeRequest(purposeRequest);
+        privilegeinsurance.setPrivileSignedPlace(null);
+
+        Set<ConstraintViolation<PrivilegeInsurance>> result = validator.validate(privilegeinsurance);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<PrivilegeInsurance> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("privileSignedPlace", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B5917099_testPrivileSignedPlaceMustNotBeSizeThen4() {
+
+        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
+
+        RegisterInsurance registerInsurance = registerInsuranceRepository.findById(1);
+        Hospital hospital = hospitalRepository.findById(2);
+        PurposeRequest purposeRequest = purposeRequestRepository.findById(3);
+        LocalDate privilegeDate = LocalDate.now();
+
+        privilegeinsurance.setRegisterInsurance(registerInsurance);
+        privilegeinsurance.setHospital(hospital);
+        privilegeinsurance.setPrivilegeDate(privilegeDate);
+        privilegeinsurance.setPurposeRequest(purposeRequest);
+        privilegeinsurance.setPrivileSignedPlace("SUTT");
+
+        Set<ConstraintViolation<PrivilegeInsurance>> result = validator.validate(privilegeinsurance);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<PrivilegeInsurance> v = result.iterator().next();
+        assertEquals("size must be between 5 and 200", v.getMessage());
+        assertEquals("privileSignedPlace", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B5917099_testPrivileSignedPlaceMustNotBeSizeThen201() {
+
+        PrivilegeInsurance privilegeinsurance = new PrivilegeInsurance();
+
+        String privileSignedPlace = "";
+        int i = 0;
+        while (i < 201) {
+            privileSignedPlace += "s";
+            i++;
+        }
+
+        RegisterInsurance registerInsurance = registerInsuranceRepository.findById(1);
+        Hospital hospital = hospitalRepository.findById(2);
+        PurposeRequest purposeRequest = purposeRequestRepository.findById(3);
+        LocalDate privilegeDate = LocalDate.now();
+
+        privilegeinsurance.setRegisterInsurance(registerInsurance);
+        privilegeinsurance.setHospital(hospital);
+        privilegeinsurance.setPrivilegeDate(privilegeDate);
+        privilegeinsurance.setPurposeRequest(purposeRequest);
+        privilegeinsurance.setPrivileSignedPlace(privileSignedPlace);
+
+        Set<ConstraintViolation<PrivilegeInsurance>> result = validator.validate(privilegeinsurance);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<PrivilegeInsurance> v = result.iterator().next();
+        assertEquals("size must be between 5 and 200", v.getMessage());
+        assertEquals("privileSignedPlace", v.getPropertyPath().toString());
     }
 }
