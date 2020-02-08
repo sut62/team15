@@ -75,8 +75,8 @@
             <v-row>
             <v-col class="d-flex" cols="13" sm="8">
               <v-select
-                :items="Register"
-                id="firstName"
+                :items="Register" 
+                id="firstName" class="PayInsurances"
                 label="รายชื่อสมาชิกประกันสุขภาพ"
                 v-model="PayInsurance.RegID"
                 item-text="firstName"
@@ -92,7 +92,7 @@
             <v-col class="d-flex" cols="12" sm="6">
               <v-select
               :items="Insurance"
-              id="createInsurance"
+              id="createInsurance" class="PayInsurances"
                 label="กรมธรรม์"
                 v-model="PayInsurance.InsuranceID"
                 item-text="createInsurance_name"
@@ -103,7 +103,7 @@
 
             <v-col cols="5" sm="2" md="5">
               <v-text-field label="จำนวนเงิน" 
-              id="amount"
+              id="amount" class="PayInsurances"
               v-model="Amount"
               :rules="[(v) => !!v || 'Item is required']"></v-text-field>
             </v-col>
@@ -113,7 +113,7 @@
             <v-col class="d-flex" cols="12" sm="6">
               <v-select
                       :items="Staff"
-                      id="staff_name"
+                      id="staff_name" class="PayInsurances"
                       label="พนักงานประกันสุขภาพ"
                       v-model="PayInsurance.StaffID"
                       item-text="staff_name"
