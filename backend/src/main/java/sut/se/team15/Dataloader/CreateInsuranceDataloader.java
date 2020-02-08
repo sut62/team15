@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 public class CreateInsuranceDataloader implements ApplicationRunner {
 
 	@Autowired
+	private CreateInsuranceRepository createInsuranceRepository;
+	
+	@Autowired
 	private InsuranceTypeRepository insuranceTypeRepository;
 	@Autowired
 	private PaymentPeriodRepository paymentPeriodRepository;
@@ -40,7 +43,23 @@ public class CreateInsuranceDataloader implements ApplicationRunner {
 			contractDueDatedb.setContractDueDate_name(contractDueDates);
 			contractDueDateRepository.save(contractDueDatedb);
 		});
-		
+
+		CreateInsurance createInsurance = new CreateInsurance();
+		createInsurance.setCreateInsurance_name("ประกันอุบัติเหตุการเดินทาง");
+		createInsurance.setCreateInsurance_accidentCoverage("คุ้มครองอุบัติเหตุ");
+		createInsurance.setCreateInsurance_diseaseCoverage("คุ้มครองโรคประจำตัว");
+		createInsurance.setCreateInsurance_protectionRights("ค่ารักษาพยาบาล");
+		createInsurance.setCreateInsurance_termOfProtection("รักษาเฉพาะโรงพยาบาลในเครือเท่านั่น");
+		createInsurance.setCreateInsurance_insurancePremium((double)30000);
+
+		InsuranceType InsuranceTypeId = insuranceTypeRepository.findById(1);
+		ContractDueDate ContractDueDateId = contractDueDateRepository.findById(1);
+		PaymentPeriod PaymentPeriodId = paymentPeriodRepository.findById(1);
+
+		createInsurance.setInsuranceTypeId(InsuranceTypeId);
+		createInsurance.setContractDueDateId(ContractDueDateId);
+		createInsurance.setPaymentPeriodId(PaymentPeriodId);
+		createInsuranceRepository.save(createInsurance);
 
         insuranceTypeRepository.findAll().forEach(System.out::println);
 		paymentPeriodRepository.findAll().forEach(System.out::println);
