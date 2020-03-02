@@ -10,38 +10,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 
-
 @Data
 @Entity
 @NoArgsConstructor
-@Table(
-   uniqueConstraints = @UniqueConstraint(columnNames = {"HospitalName","LocationDetails","TelephoneNumber"})
-)
+@Table
 public class Hospital {
-	@Id
-	@SequenceGenerator(name="Hospital_seq",sequenceName="Hospital_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="Hospital_seq")
-	@Column(name="Hospital_ID",unique = true, nullable = true)
+    @Id
+    @SequenceGenerator(name = "Hospital_seq", sequenceName = "Hospital_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Hospital_seq")
+    @Column(name = "Hospital_ID", unique = true, nullable = true)
     private @NonNull Long id;
-    
+
     @NotNull
-    @Column(name = "HospitalName")
     @Size(min = 10, max = 300)
     private String hospitalName;
-    
-    @NotNull 
-    @Column(name = "LocationDetails")
+
+    @NotNull
     @Size(min = 10, max = 300)
     private String locationDetails;
-    
+
     @NotNull
-    @Column(name = "TelephoneNumber")
     @Size(min = 9, max = 10)
     private String telephoneNumber;
 
@@ -56,6 +49,5 @@ public class Hospital {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Province.class)
     @JoinColumn(name = "Province_ID", insertable = true)
     private Province ProvinceId;
-
 
 }
