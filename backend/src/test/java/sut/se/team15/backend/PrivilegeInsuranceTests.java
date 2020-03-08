@@ -202,4 +202,77 @@ public class PrivilegeInsuranceTests {
         assertEquals("size must be between 5 and 200", v.getMessage());
         assertEquals("privileSignedPlace", v.getPropertyPath().toString());
     }
+
+    @Test
+    void B5917099_testPurposeRequestOK() { // ใส่ข้อมูลปกติ
+
+        PurposeRequest purposeRequest = new PurposeRequest();
+        
+        purposeRequest.setPurposeRequest("ค่ารักษาอุบัติเหตุ");
+        purposeRequest = purposeRequestRepository.saveAndFlush(purposeRequest);
+
+        Optional<PurposeRequest> found = purposeRequestRepository.findById(purposeRequest.getId());
+        assertEquals("ค่ารักษาอุบัติเหตุ", found.get().getPurposeRequest());
+    }
+
+    @Test
+    void B5917099_testPurposeRequestMustNotBeNull() { // ใส่ข้อมูลปกติ
+
+        PurposeRequest purposeRequests = new PurposeRequest();
+
+        purposeRequests.setPurposeRequest(null);
+
+        Set<ConstraintViolation<PurposeRequest>> result = validator.validate(purposeRequests);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<PurposeRequest> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("purposeRequest", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B5917099_estPurposeRequestMustNotBeSizeThen201() {
+
+        PurposeRequest purposeRequests = new PurposeRequest();
+
+        String purposeRequest = "";
+        int i = 0;
+        while (i < 201) {
+            purposeRequest += "I";
+            i++;
+        }
+
+        purposeRequests.setPurposeRequest(purposeRequest);
+
+        Set<ConstraintViolation<PurposeRequest>> result = validator.validate(purposeRequests);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<PurposeRequest> v = result.iterator().next();
+        assertEquals("size must be between 5 and 200", v.getMessage());
+        assertEquals("purposeRequest", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B5917099_estPurposeRequestMustNotBeSizeThen4() {
+
+        PurposeRequest purposeRequests = new PurposeRequest();
+
+        purposeRequests.setPurposeRequest("iiii");
+
+        Set<ConstraintViolation<PurposeRequest>> result = validator.validate(purposeRequests);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<PurposeRequest> v = result.iterator().next();
+        assertEquals("size must be between 5 and 200", v.getMessage());
+        assertEquals("purposeRequest", v.getPropertyPath().toString());
+    }
 }

@@ -4,8 +4,8 @@ import lombok.*;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -19,8 +19,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name = "Purpose_Request", 
-    uniqueConstraints = @UniqueConstraint(columnNames = { "Purpose_Request_ID" }))
+@Table(name = "Purpose_Request")
 public class PurposeRequest {
     @Id
     @SequenceGenerator(name = "Purpose_Request_SEQ", sequenceName = "Purpose_Request_SEQ")
@@ -29,6 +28,7 @@ public class PurposeRequest {
     private @NonNull Long id;
 
     @NotNull
+    @Size(min=5, max=200)
     @Column(name = "Purpose_Request_ID")
     private String purposeRequest;
 }
