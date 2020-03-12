@@ -3,8 +3,7 @@ package sut.se.team15.Entity;
 import lombok.*;
 
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -14,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 
 
 @Data
@@ -32,8 +31,5 @@ public class Province {
 	@Size(min = 3, max = 20)
 	private String provinceName;
 
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Region.class)
-    @JoinColumn(name = "Region_ID", insertable = true)
-    private Region regionId;
 
 }

@@ -22,9 +22,6 @@ public class ProvinceTest {
 
     private Validator validator;
 
-    
-    @Autowired
-    private RegionRepository regionRepository;
     @Autowired
     private ProvinceRepository provinceRepository;
 
@@ -38,10 +35,8 @@ public class ProvinceTest {
     @Test
     void B5917440_testProvinceOK() { // ใส่ข้อมูลปกติ
         Province province = new Province();
-        Region region = regionRepository.findById(1);
         
         province.setProvinceName("กรุงเทพ");
-        province.setRegionId(region);
         
 
         province = provinceRepository.saveAndFlush(province);
@@ -54,10 +49,9 @@ public class ProvinceTest {
     @Test
     void B5917440_testProvinceNameBeNull() { // ใส่ข้อมูลทที่เป็นnull
         Province province = new Province();
-        Region region = regionRepository.findById(1);
         
         province.setProvinceName(null);
-        province.setRegionId(region);
+
 
         Set<ConstraintViolation<Province>> result = validator.validate(province);
 
@@ -75,10 +69,8 @@ public class ProvinceTest {
     void B5917440_testProvinceNameNotBeMinSize() { // ใส่ข้อมูลที่ขนาดน้อยกว่าที่ size กำหนด
 
         Province province = new Province();
-        Region region = regionRepository.findById(1);
         
         province.setProvinceName("เล");
-        province.setRegionId(region);
 
         Set<ConstraintViolation<Province>> result = validator.validate(province);
 
@@ -95,10 +87,8 @@ public class ProvinceTest {
     void B5917440_testProvinceNameNotBeMaxSize() { // ใส่ข้อมูลที่ขนาดมากกว่าที่ size กำหนด
 
         Province province = new Province();
-        Region region = regionRepository.findById(1);
         
         province.setProvinceName("จังหวัดพระนครศรีอยุธยา");
-        province.setRegionId(region);
 
         Set<ConstraintViolation<Province>> result = validator.validate(province);
 
