@@ -40,7 +40,7 @@ public class HospitalController {
 
     @GetMapping("/HospitalSearch/{hospital}")
     public List<Hospital> hospitals(@PathVariable String hospital) {
-        List<Hospital> hospitals = hospitalRepository.findByhospitalName(hospital);
+        List<Hospital> hospitals = hospitalRepository.findByHospitalName(hospital);
         return hospitals;
     }
   
