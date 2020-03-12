@@ -12,15 +12,15 @@
           </v-btn>
         </template>
 
-        <v-card height="mx-auto"  width="250" dark>
+        <v-card height="mx-auto" width="250" dark>
           <v-list>
             <v-list-item @click="$router.push('/HomeAdmin')">
-              <v-col  id="H1" class="8">
+              <v-col id="H1" class="8">
                 <v-icon>home</v-icon>
               </v-col>
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item>
-            <v-list-item  id="H2" @click="$router.push('/')">
+            <v-list-item id="H2" @click="$router.push('/')">
               <v-col class="8">
                 <v-icon>exit_to_app</v-icon>
               </v-col>
@@ -79,11 +79,17 @@
                 <v-col>
                   <v-row>
                     <v-col class="d-flex" cols="12" sm="8">
-                      <v-text-field id="Hospital" class="Hospitals"  label="Hospital Name" v-model="HospitalName"></v-text-field>
+                      <v-text-field
+                        id="Hospital"
+                        class="Hospitals"
+                        label="Hospital Name"
+                        v-model="HospitalName"
+                      ></v-text-field>
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="4">
                       <v-select
-                      id="Hospital" class="Hospitals" 
+                        id="Hospital"
+                        class="Hospitals"
                         :items="Type"
                         label="Hospital Type"
                         v-model="Hospital.TypeID"
@@ -94,11 +100,18 @@
                       ></v-select>
                     </v-col>
                   </v-row>
-                  <v-text-field id="Hospital" class="Hospitals"  color="white" label="Location Details" v-model="LocationDetails"></v-text-field>
+                  <v-text-field
+                    id="Hospital"
+                    class="Hospitals"
+                    color="white"
+                    label="Location Details"
+                    v-model="LocationDetails"
+                  ></v-text-field>
                   <v-row>
                     <v-col class="d-flex" cols="12" sm="4">
                       <v-select
-                      id="Hospital" class="Hospitals" 
+                        id="Hospital"
+                        class="Hospitals"
                         :items="Region"
                         label="Region"
                         v-model="Hospital.RegionID"
@@ -108,49 +121,10 @@
                         outlined
                       ></v-select>
                     </v-col>
-                    <v-col class="d-flex" cols="12" sm="8" v-if="this.Hospital.RegionID == 1">
+                    <v-col class="d-flex" cols="12" sm="8">
                       <v-select
-                      id="Hospital" class="Hospitals" 
-                        :items="Province1"
-                        label="Province"
-                        v-model="Hospital.ProvinceID"
-                        :rules="[(v) => !!v || 'Item is required']"
-                        outlined
-                      ></v-select>
-                    </v-col>
-                    <v-col class="d-flex" cols="12" sm="8" v-else-if="this.Hospital.RegionID == 2">
-                      <v-select
-                      id="Hospital" class="Hospitals" 
-                        :items="Province2"
-                        label="Province"
-                        v-model="Hospital.ProvinceID"
-                        :rules="[(v) => !!v || 'Item is required']"
-                        outlined
-                      ></v-select>
-                    </v-col>
-                    <v-col class="d-flex" cols="12" sm="8" v-else-if="this.Hospital.RegionID == 3">
-                      <v-select
-                      id="Hospital" class="Hospitals" 
-                        :items="Province3"
-                        label="Province"
-                        v-model="Hospital.ProvinceID"
-                        :rules="[(v) => !!v || 'Item is required']"
-                        outlined
-                      ></v-select>
-                    </v-col>
-                    <v-col class="d-flex" cols="12" sm="8" v-else-if="this.Hospital.RegionID == 4">
-                      <v-select
-                      id="Hospital" class="Hospitals" 
-                        :items="Province4"
-                        label="Province"
-                        v-model="Hospital.ProvinceID"
-                        :rules="[(v) => !!v || 'Item is required']"
-                        outlined
-                      ></v-select>
-                    </v-col>
-                    <v-col class="d-flex" cols="12" sm="8" v-else>
-                      <v-select
-                      id="Hospital" class="Hospitals" 
+                        id="Hospital"
+                        class="Hospitals"
                         :items="Province"
                         label="Province"
                         v-model="Hospital.ProvinceID"
@@ -161,7 +135,13 @@
                       ></v-select>
                     </v-col>
                   </v-row>
-                  <v-text-field id="Hospital" class="Hospitals"  color="white" label="Telephone number" v-model="TelephoneNumber"></v-text-field>
+                  <v-text-field
+                    id="Hospital"
+                    class="Hospitals"
+                    color="white"
+                    label="Telephone number"
+                    v-model="TelephoneNumber"
+                  ></v-text-field>
                 </v-col>
               </v-col>
             </v-card-text>
@@ -170,8 +150,22 @@
 
             <v-card-actions>
               <v-col>
-                <v-btn id="Hospital" class="Hospitals"  rounded large color="success" @click="save">Save</v-btn>
-                <v-btn id="Hospital" class="Hospitals"  color="#ffffff" @click="cancel()" text large>cancel</v-btn>
+                <v-btn
+                  id="Hospital"
+                  class="Hospitals"
+                  rounded
+                  large
+                  color="success"
+                  @click="save"
+                >Save</v-btn>
+                <v-btn
+                  id="Hospital"
+                  class="Hospitals"
+                  color="#ffffff"
+                  @click="cancel()"
+                  text
+                  large
+                >cancel</v-btn>
               </v-col>
             </v-card-actions>
           </v-card>
@@ -215,20 +209,7 @@ export default {
       HospitalName: "",
       LocationDetails: "",
       TelephoneNumber: "",
-      Province: [],
-      Province1: [],
-      Province2: [],
-      Province3: [],
-      Province4: [],
-      ProvinceId1: [],
-      ProvinceId2: [],
-      ProvinceId3: [],
-      ProvinceId4: [],
-      n1: 0,
-      n2: 0,
-      n3: 0,
-      n4: 0,
-      i: 0
+      Province: []
     };
   },
   methods: {
@@ -252,7 +233,6 @@ export default {
         .then(response => {
           this.Province = response.data;
           console.log(response.data);
-          this.separate();
         })
         .catch(e => {
           console.log(e);
@@ -270,72 +250,21 @@ export default {
           console.log(e);
         });
     },
-    separate() {
-      for (this.i = 0; this.i < 77; this.i++) {
-        if (this.Province[this.i].regionId.id == 1) {
-          this.Province1[this.n1] = this.Province[this.i].provinceName;
-          this.ProvinceId1[this.n1++] = this.Province[this.i].id;
-        } else if (this.Province[this.i].regionId.id == 2) {
-          this.Province2[this.n2] = this.Province[this.i].provinceName;
-          this.ProvinceId2[this.n2++] = this.Province[this.i].id;
-        } else if (this.Province[this.i].regionId.id == 3) {
-          this.Province3[this.n3] = this.Province[this.i].provinceName;
-          this.ProvinceId3[this.n3++] = this.Province[this.i].id;
-        } else {
-          this.Province4[this.n4] = this.Province[this.i].provinceName;
-          this.ProvinceId4[this.n4++] = this.Province[this.i].id;
-        }
-      }
-      console.log(this.Province1);
-      console.log(this.Province2);
-      console.log(this.Province3);
-      console.log(this.Province4);
-    },
-    convert() {
-      if (this.Hospital.RegionID == 1) {
-        for (this.i = 0; this.i < this.n1; this.i++) {
-          if (this.Province1[this.i] == this.Hospital.ProvinceID) {
-            this.Hospital.ProvinceID = this.ProvinceId1[this.i];
-            break;
-          }
-        }
-      }
-      if (this.Hospital.RegionID == 2) {
-        for (this.i = 0; this.i < this.n2; this.i++) {
-          if (this.Province2[this.i] == this.Hospital.ProvinceID) {
-            this.Hospital.ProvinceID = this.ProvinceId2[this.i];
-            break;
-          }
-        }
-      }
-      if (this.Hospital.RegionID == 3) {
-        for (this.i = 0; this.i < this.n3; this.i++) {
-          if (this.Province3[this.i] == this.Hospital.ProvinceID) {
-            this.Hospital.ProvinceID = this.ProvinceId3[this.i];
-            break;
-          }
-        }
-      }
-      if (this.Hospital.RegionID == 4) {
-        for (this.i = 0; this.i < this.n4; this.i++) {
-          if (this.Province4[this.i] == this.Hospital.ProvinceID) {
-            this.Hospital.ProvinceID = this.ProvinceId4[this.i];
-            break;
-          }
-        }
-      }
-    },
+
     cancel() {
       window.location.reload();
     },
     save() {
       console.log("Save");
-      this.convert();
+
       console.log(this.Hospital.ProvinceID);
       if (
         this.HospitalName == "" ||
         this.LocationDetails == "" ||
-        this.TelephoneNumber == ""
+        this.TelephoneNumber == "" ||
+        this.Hospital.TypeID == "" ||
+        this.Hospital.RegionID == "" ||
+        this.Hospital.ProvinceID == ""
       ) {
         this.dialog = true;
         return;
