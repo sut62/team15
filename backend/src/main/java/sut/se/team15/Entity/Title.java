@@ -6,13 +6,11 @@ import javax.persistence.Id;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-//import javax.persistence.FetchType;
+import javax.validation.constraints.NotNull;
 
-//import javax.persistence.OneToMany;
+
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-//import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,18 +25,8 @@ public class Title {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="Title_seq")
 	@Column(name="Title_ID",unique = true, nullable = true)
 	private @NonNull Long id;
-	private @NonNull String Title;
+	
+	@NotNull
+	private String Title;
 
-	/*@OneToMany(fetch = FetchType.EAGER)
-	private Collection<User> user;*/
-
-	/*public Title(String TitleName){
-		this.TitleName = TitleName;
-	}
-	public void  setTitlename(String TitleName){
-		this.TitleName = TitleName;
-	}
-	public String getTitlename(){
-		return TitleName;
-	}*/
 }

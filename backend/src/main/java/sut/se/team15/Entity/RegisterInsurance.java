@@ -11,7 +11,9 @@ import javax.persistence.FetchType;
 
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -44,10 +46,12 @@ public class RegisterInsurance {
 	private  User user;
 
 	@NotNull
+	@Pattern(regexp = "\\D+")
 	@Size(min = 2 ,max = 200)
 	private  String name;
 
 	@NotNull
+	@Pattern(regexp = "\\D+")
 	@Size(min = 5 ,max = 200)
 	private String surname;
 }
