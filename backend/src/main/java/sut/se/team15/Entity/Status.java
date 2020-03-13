@@ -6,14 +6,10 @@ import javax.persistence.Id;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-//import javax.persistence.FetchType;
+import javax.validation.constraints.NotNull;
 
-//import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-//import java.sql.Date;
-//import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +24,9 @@ public class Status {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="Status_seq")
 	@Column(name="Status_ID",unique = true, nullable = true)
 	private @NonNull Long id;
-	private @NonNull String StatusName;
+
+	@NotNull
+	private  String StatusName;
 	
 
 	/*@OneToMany(fetch = FetchType.EAGER)
