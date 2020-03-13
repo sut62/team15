@@ -1,11 +1,19 @@
 package sut.se.team15.backend;
 
+import sut.se.team15.Repository.ProvinceRepository;
+import sut.se.team15.Repository.StatusRepository;
+import sut.se.team15.Repository.TitleRepository;
 import sut.se.team15.Repository.UserRepository;
+import sut.se.team15.Entity.Province;
+import sut.se.team15.Entity.Title;
 import sut.se.team15.Entity.User;
+import sut.se.team15.Entity.Status;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+//import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -17,17 +25,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Set;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @DataJpaTest
 public class UserTests {
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+
     private Validator validator;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TitleRepository titleRepository;
+
+    @Autowired
+    private StatusRepository statusRepository;
+    
+    @Autowired
+    private ProvinceRepository provinceRepository;
 
     @BeforeEach
     public void setup() {
@@ -41,24 +61,27 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("12345678");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         user = userRepository.saveAndFlush(user);
 
         Optional<User> found = userRepository.findById(user.getId());
         assertEquals("1234567890123", found.get().getUserid());
+        assertEquals(BirthDay, found.get().getBirthDay());
     }
 
     @Test
@@ -66,18 +89,20 @@ public class UserTests {
         User user = new User();
         user.setUserid(null);
         user.setPassword("12345678");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -96,18 +121,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("12345678901234");
         user.setPassword("12345678");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -126,18 +153,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("123456789012");
         user.setPassword("12345678");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -156,18 +185,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword(null);
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -182,10 +213,12 @@ public class UserTests {
     }
 
     @Test
-    void B6005924_testPaswordMustNotBeSizeThen17() {
+    void B6005924_testPasswordMustNotBeSizeThen17() {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("PasswordPasswordPassword");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
 
@@ -194,10 +227,14 @@ public class UserTests {
         user.setBirthDay(BirthDay);
 
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -212,10 +249,12 @@ public class UserTests {
     }
 
     @Test
-    void B6005924_testPaswordMustNotBeSizeThen7() {
+    void B6005924_testPasswordMustNotBeSizeThen7() {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Passwor");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
 
@@ -224,10 +263,14 @@ public class UserTests {
         user.setBirthDay(BirthDay);
 
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -239,6 +282,40 @@ public class UserTests {
         ConstraintViolation<User> v = result.iterator().next();
         assertEquals("size must be between 8 and 16", v.getMessage());
         assertEquals("password", v.getPropertyPath().toString());
+    }
+
+    // BeNull
+    @Test
+    void B6005924_testTitleMustNotBeNull() { // ใส่ข้อมูลที่เป็น null
+
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        Title title = new Title();
+        title.setTitle(null);
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
+        user.setPostalCode((long)30000);
+
+        Set<ConstraintViolation<Title>> result = validator.validate(title);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Title> error = result.iterator().next();
+        assertEquals("must not be null", error.getMessage());
+        assertEquals("Title", error.getPropertyPath().toString());
     }
 
     @Test
@@ -246,18 +323,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName(null);
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -284,18 +363,20 @@ public class UserTests {
 
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName(FirstName);
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -314,18 +395,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("a");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -344,18 +427,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName(null);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -382,18 +467,20 @@ public class UserTests {
 
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName(LastName);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -412,18 +499,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("L");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
-        user.setBirthDay(BirthDay);
-
+        user.setBirthDay(BirthDay );
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -442,14 +531,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
+        user.setBirthDay(null);
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -464,22 +559,28 @@ public class UserTests {
     }
 
     @Test
-    void B6005924_testBirthDayWrongFormatPast() {
+    void B6005924_testBirthDayWrongFormatFutureOrPresent() {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2024-01-25", formatter);
+        LocalDate BirthDay = LocalDate.parse("2022-01-25", formatter);
         user.setBirthDay(BirthDay);
 
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -498,18 +599,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge(null);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -528,18 +631,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)105);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -558,18 +663,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)4);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -582,23 +689,61 @@ public class UserTests {
         assertEquals("must be greater than or equal to 5", v.getMessage());
         assertEquals("Age", v.getPropertyPath().toString());
     }
+
+    // BeNull
+    @Test
+    void B6005924_testStatusMustNotBeNull() { // ใส่ข้อมูลที่เป็น null
+
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        Status status = new Status();
+        status.setStatusName(null);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
+        user.setPostalCode((long)30000);
+
+        Set<ConstraintViolation<Status>> result = validator.validate(status);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Status> error = result.iterator().next();
+        assertEquals("must not be null", error.getMessage());
+        assertEquals("StatusName", error.getPropertyPath().toString());
+    }
+
+
     @Test
     void B6005924_testCareerMustNotBeNull() {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer(null);
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -625,6 +770,8 @@ public class UserTests {
 
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
 
@@ -633,10 +780,14 @@ public class UserTests {
         user.setBirthDay(BirthDay);
 
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer(Career);
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -655,18 +806,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Care");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -685,18 +838,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease(null);
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -723,18 +878,20 @@ public class UserTests {
 
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease(Disease);
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -753,18 +910,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Dise");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -783,18 +942,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber(null);
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -821,18 +982,20 @@ public class UserTests {
 
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber(PhoneNumber);
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -851,18 +1014,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -881,18 +1046,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress(null);
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -919,18 +1086,20 @@ public class UserTests {
 
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress(Address);
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -949,18 +1118,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Addr");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)30000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -974,24 +1145,59 @@ public class UserTests {
         assertEquals("Address", v.getPropertyPath().toString());
     }
 
+    // BeNull
+    @Test
+    void B6005924_testProvinceMustNotBeNull() { // ใส่ข้อมูลที่เป็น null
+
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        Status status = new Status();
+        status.setStatusName(null);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        Province province = new Province();
+        province.setProvinceName(null);
+        user.setPostalCode((long)30000);
+
+        Set<ConstraintViolation<Province>> result = validator.validate(province);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Province> error = result.iterator().next();
+        assertEquals("must not be null", error.getMessage());
+        assertEquals("provinceName", error.getPropertyPath().toString());
+    }
 
     @Test
     void B6005924_testPostalCodeMustNotBeNull() {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode(null);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -1010,18 +1216,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)100000);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
@@ -1040,18 +1248,20 @@ public class UserTests {
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("Password");
+        Title title  = titleRepository.findById(1);
+        user.setTitle(title);
         user.setFirstName("FirstName");
         user.setLastName("LastName");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
         user.setBirthDay(BirthDay);
-
         user.setAge((long)20);
+        Status status = statusRepository.findById(1);
+        user.setStatus(status);
         user.setCareer("Career");
         user.setDisease("Disease");
         user.setPhoneNumber("0123456789");
         user.setAddress("Address");
+        Province province = provinceRepository.findById(1);
+        user.setProvince(province);
         user.setPostalCode((long)9999);
 
         Set<ConstraintViolation<User>> result = validator.validate(user);
