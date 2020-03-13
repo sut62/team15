@@ -38,7 +38,7 @@ public class TitleTests {
         title = titleRepository.saveAndFlush(title);
 
         Optional<Title> found = titleRepository.findById(title.getId());
-        assertEquals(1, found.get().getId());
+        assertEquals(title, found.get());
     }
 
     // BeNull
