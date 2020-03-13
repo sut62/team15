@@ -28,10 +28,12 @@ public class RenewInsurance {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
     @JoinColumn(name = "USER_ID", insertable = true)
+    @NotNull
     private User useID;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = RegisterInsurance.class)
     @JoinColumn(name = "REGISTER_ID", insertable = true)
+    @NotNull
     private RegisterInsurance regID;
 
     
