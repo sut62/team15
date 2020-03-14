@@ -58,6 +58,7 @@ public class UserTests {
     // ตั้งชื่อ test ให้สอดคล้องกับสิ่งที่ต้อง test
     @Test
     void B6005924_testUserIdOKWith13Digits() { // ใส่ข้อมูลปกติ
+
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("12345678");
@@ -282,40 +283,6 @@ public class UserTests {
         ConstraintViolation<User> v = result.iterator().next();
         assertEquals("size must be between 8 and 16", v.getMessage());
         assertEquals("password", v.getPropertyPath().toString());
-    }
-
-    // BeNull
-    @Test
-    void B6005924_testTitleMustNotBeNull() { // ใส่ข้อมูลที่เป็น null
-
-        User user = new User();
-        user.setUserid("1234567890123");
-        user.setPassword("12345678");
-        Title title = new Title();
-        title.setTitle(null);
-        user.setFirstName("FirstName");
-        user.setLastName("LastName");
-        user.setBirthDay(BirthDay);
-        user.setAge((long)20);
-        Status status = statusRepository.findById(1);
-        user.setStatus(status);
-        user.setCareer("Career");
-        user.setDisease("Disease");
-        user.setPhoneNumber("0123456789");
-        user.setAddress("Address");
-        Province province = provinceRepository.findById(1);
-        user.setProvince(province);
-        user.setPostalCode((long)30000);
-
-        Set<ConstraintViolation<Title>> result = validator.validate(title);
-
-        // result ต้องมี error 1 ค่าเท่านั้น
-        assertEquals(1, result.size());
-
-        // error message ตรงชนิด และถูก field
-        ConstraintViolation<Title> error = result.iterator().next();
-        assertEquals("must not be null", error.getMessage());
-        assertEquals("Title", error.getPropertyPath().toString());
     }
 
     @Test
@@ -689,41 +656,6 @@ public class UserTests {
         assertEquals("must be greater than or equal to 5", v.getMessage());
         assertEquals("Age", v.getPropertyPath().toString());
     }
-
-    // BeNull
-    @Test
-    void B6005924_testStatusMustNotBeNull() { // ใส่ข้อมูลที่เป็น null
-
-        User user = new User();
-        user.setUserid("1234567890123");
-        user.setPassword("12345678");
-        Title title  = titleRepository.findById(1);
-        user.setTitle(title);
-        user.setFirstName("FirstName");
-        user.setLastName("LastName");
-        user.setBirthDay(BirthDay);
-        user.setAge((long)20);
-        Status status = new Status();
-        status.setStatusName(null);
-        user.setCareer("Career");
-        user.setDisease("Disease");
-        user.setPhoneNumber("0123456789");
-        user.setAddress("Address");
-        Province province = provinceRepository.findById(1);
-        user.setProvince(province);
-        user.setPostalCode((long)30000);
-
-        Set<ConstraintViolation<Status>> result = validator.validate(status);
-
-        // result ต้องมี error 1 ค่าเท่านั้น
-        assertEquals(1, result.size());
-
-        // error message ตรงชนิด และถูก field
-        ConstraintViolation<Status> error = result.iterator().next();
-        assertEquals("must not be null", error.getMessage());
-        assertEquals("StatusName", error.getPropertyPath().toString());
-    }
-
 
     @Test
     void B6005924_testCareerMustNotBeNull() {
@@ -1143,40 +1075,6 @@ public class UserTests {
         ConstraintViolation<User> v = result.iterator().next();
         assertEquals("size must be between 5 and 250", v.getMessage());
         assertEquals("Address", v.getPropertyPath().toString());
-    }
-
-    // BeNull
-    @Test
-    void B6005924_testProvinceMustNotBeNull() { // ใส่ข้อมูลที่เป็น null
-
-        User user = new User();
-        user.setUserid("1234567890123");
-        user.setPassword("12345678");
-        Title title  = titleRepository.findById(1);
-        user.setTitle(title);
-        user.setFirstName("FirstName");
-        user.setLastName("LastName");
-        user.setBirthDay(BirthDay);
-        user.setAge((long)20);
-        Status status = new Status();
-        status.setStatusName(null);
-        user.setCareer("Career");
-        user.setDisease("Disease");
-        user.setPhoneNumber("0123456789");
-        user.setAddress("Address");
-        Province province = new Province();
-        province.setProvinceName(null);
-        user.setPostalCode((long)30000);
-
-        Set<ConstraintViolation<Province>> result = validator.validate(province);
-
-        // result ต้องมี error 1 ค่าเท่านั้น
-        assertEquals(1, result.size());
-
-        // error message ตรงชนิด และถูก field
-        ConstraintViolation<Province> error = result.iterator().next();
-        assertEquals("must not be null", error.getMessage());
-        assertEquals("provinceName", error.getPropertyPath().toString());
     }
 
     @Test
