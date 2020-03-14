@@ -29,6 +29,16 @@ public class RegisterInsurance {
 	@Column(name = "RegisterInsurance_ID", unique = true, nullable = true)
 	private  Long RegisterInsuranceId;
 	
+	@NotNull
+	@Pattern(regexp = "\\D+")
+	@Size(min = 2 ,max = 200)
+	private  String name;
+
+	@NotNull
+	@Pattern(regexp = "\\D+")
+	@Size(min = 5 ,max = 200)
+	private String surname;
+
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = CreateInsurance.class)
 	@JoinColumn(name = "CreateInsuranceId", insertable = true)
 	@NotNull
@@ -49,13 +59,5 @@ public class RegisterInsurance {
 	@NotNull
 	private  User user;
 
-	@NotNull
-	@Pattern(regexp = "\\D+")
-	@Size(min = 2 ,max = 200)
-	private  String name;
-
-	@NotNull
-	@Pattern(regexp = "\\D+")
-	@Size(min = 5 ,max = 200)
-	private String surname;
+	
 }
