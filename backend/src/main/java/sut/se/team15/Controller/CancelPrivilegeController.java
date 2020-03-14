@@ -41,7 +41,6 @@ public class CancelPrivilegeController {
         PrivilegeInsurance privilegeInsurance = privilegeInsuranceRepository.findById(privilegeInsurance_id);
 
         newCancelPrivilege.setPrivilegeInsurance(privilegeInsurance);
-        newCancelPrivilege.setStatusInsurance("ยกเลิกแล้ว");
         newCancelPrivilege.setCancelDate(new Date());
         
         return cancelPrivilegeRepository.save(newCancelPrivilege);

@@ -35,10 +35,6 @@ public class CancelPrivilege {
     private @NonNull Long id;
 
     @NotNull
-    @Size(min = 5, max = 10)
-    private String statusInsurance;
-
-    @NotNull
     private Date cancelDate;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = PrivilegeInsurance.class)
