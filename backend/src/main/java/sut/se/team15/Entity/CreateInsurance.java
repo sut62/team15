@@ -54,14 +54,18 @@ public class CreateInsurance {
     @Min(100)
 	private Double CreateInsurance_insurancePremium;
 
+	
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = InsuranceType.class)
     @JoinColumn(name = "InsuranceType_ID", insertable = true)
     private InsuranceType InsuranceTypeId;
 
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ContractDueDate.class)
     @JoinColumn(name = "ContractDueDate_ID", insertable = true)
 	private ContractDueDate ContractDueDateId;
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = PaymentPeriod.class)
     @JoinColumn(name = "PaymentPeriod_ID", insertable = true)
 	private PaymentPeriod PaymentPeriodId;

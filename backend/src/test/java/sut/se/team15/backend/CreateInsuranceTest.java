@@ -57,6 +57,7 @@ public class CreateInsuranceTest {
         createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
         createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
         createInsurance.setCreateInsurance_insurancePremium(500.00);
+        
 
         Set<ConstraintViolation<CreateInsurance>> result = validator.validate(createInsurance);
 
