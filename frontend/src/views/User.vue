@@ -319,13 +319,14 @@ export default {
         });
     },
 
-     Cancel(){
+    Cancel(){
       window.location.reload();
     },
     refresh() {
       this.dialog = false;
       window.location.reload();
     },
+    
   },
   mounted() {
     this.getTitle();
