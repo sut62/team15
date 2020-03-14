@@ -180,7 +180,6 @@ export default {
           text: "เลขประจำตัวผู้ขอใช้สิทธิ์",
           value: "privilegeInsurance.registerInsurance.user.userid"
         },
-        { text: "สถานะ", value: "statusInsurance" }
       ],
       CancelPrivilege: {
         privilegeInsurance_id: ""
