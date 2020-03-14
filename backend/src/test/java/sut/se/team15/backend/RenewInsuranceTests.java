@@ -30,8 +30,20 @@ public class RenewInsuranceTests {
     @Autowired
     private RegisterInsuranceRepository registerInsuranceRepository;
     @Autowired
-    private Insurance_staffRepository insurance_staffRepository;
+    private CreateInsuranceRepository createInsuranceRepository;
 
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Autowired
+    private TitleRepository titleRepository;
+    @Autowired
+    private InsuranceTypeRepository insuranceTypeRepository;
+    @Autowired
+    private ContractDueDateRepository contractDueDateRepository;
+    @Autowired
+    private PaymentPeriodRepository paymentPeriodRepository;
+    
     @BeforeEach
     public void setup() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -40,7 +52,7 @@ public class RenewInsuranceTests {
 
     @Test
     void B6001025_testRenewInsuranceOK() { // ใส่ข้อมูลปกติ
-        
+        /**set ข้อมูลของ user**/
         User user = new User();
         user.setUserid("1234567890123");
         user.setPassword("12345678");
@@ -59,12 +71,47 @@ public class RenewInsuranceTests {
         user.setPostalCode((long)30000);
 
         user = userRepository.saveAndFlush(user);
-        /****************************************** */
-        RegisterInsurance registerInsurance= new RegisterInsurance();
+        /**************set ข้อมูลของ register insurance********************* */
+        
+
+        CreateInsurance createInsurance = new CreateInsurance();
+
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+        insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+        ContractDueDate contractDueDate = new ContractDueDate();
+        contractDueDate.setContractDueDate_name("1 ปี");
+        contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+         PaymentPeriod paymentPeriod = new PaymentPeriod();
+         paymentPeriod.setPaymentPeriod_name("3 เดือน");
+         paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setInsuranceTypeId(insuranceType);
+        createInsurance.setContractDueDateId(contractDueDate);
+        createInsurance.setPaymentPeriodId(paymentPeriod);
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
+        registerInsurance.setUser(user);
+        registerInsurance.setCreateInsurance(createInsurance);
+        registerInsurance.setPerson(person);
+        registerInsurance.setTitle(title);
         registerInsurance.setName("Name");
         registerInsurance.setSurname("Surname");
-       
-
+     
         registerInsurance = registerInsuranceRepository.saveAndFlush(registerInsurance);
         /**************************************************/
         RenewInsurance renewInsurance = new RenewInsurance();
@@ -79,31 +126,67 @@ public class RenewInsuranceTests {
 
     @Test
     void B6001025_testUserMustNotBeNull() {
-        User user = new User();
-        user.setUserid("1234567890123");
-        user.setPassword("12345678");
-        user.setFirstName("FirstName");
-        user.setLastName("LastName");
+       /**set ข้อมูลของ user**/
+       User user = new User();
+       user.setUserid("1234567890123");
+       user.setPassword("12345678");
+       user.setFirstName("FirstName");
+       user.setLastName("LastName");
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
-        user.setBirthDay(BirthDay);
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+       LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+       user.setBirthDay(BirthDay);
 
-        user.setAge((long)20);
-        user.setCareer("Career");
-        user.setDisease("Disease");
-        user.setPhoneNumber("0123456789");
-        user.setAddress("Address");
-        user.setPostalCode((long)30000);
+       user.setAge((long)20);
+       user.setCareer("Career");
+       user.setDisease("Disease");
+       user.setPhoneNumber("0123456789");
+       user.setAddress("Address");
+       user.setPostalCode((long)30000);
 
-        user = userRepository.saveAndFlush(user);
-        /****************************************** */
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        registerInsurance.setName("Name");
-        registerInsurance.setSurname("Surname");
+       user = userRepository.saveAndFlush(user);
+       /**************set ข้อมูลของ register insurance********************* */
        
 
-        registerInsurance = registerInsuranceRepository.saveAndFlush(registerInsurance);
+       CreateInsurance createInsurance = new CreateInsurance();
+
+       InsuranceType insuranceType = new InsuranceType();
+       insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+       insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+       ContractDueDate contractDueDate = new ContractDueDate();
+       contractDueDate.setContractDueDate_name("1 ปี");
+       contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+        PaymentPeriod paymentPeriod = new PaymentPeriod();
+        paymentPeriod.setPaymentPeriod_name("3 เดือน");
+        paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+       createInsurance.setCreateInsurance_name("CreateInsurance_name");
+       createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+       createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+       createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+       createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+       createInsurance.setInsuranceTypeId(insuranceType);
+       createInsurance.setContractDueDateId(contractDueDate);
+       createInsurance.setPaymentPeriodId(paymentPeriod);
+       createInsurance.setCreateInsurance_insurancePremium(500.00);
+       createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+       Person person = new Person();
+       person.setPersontype("มารดา");
+       person = personRepository.saveAndFlush(person);
+
+       Title title = new Title();
+       title.setTitle("นางสาว");
+       title = titleRepository.saveAndFlush(title);
+
+       RegisterInsurance registerInsurance = new RegisterInsurance();
+       registerInsurance.setUser(user);
+       registerInsurance.setCreateInsurance(createInsurance);
+       registerInsurance.setPerson(person);
+       registerInsurance.setTitle(title);
+       registerInsurance.setName("Name");
+       registerInsurance.setSurname("Surname");
+    
+       registerInsurance = registerInsuranceRepository.saveAndFlush(registerInsurance);
         /**************************************************/
         RenewInsurance renewInsurance = new RenewInsurance();
         renewInsurance.setUseID(null);
@@ -123,31 +206,67 @@ public class RenewInsuranceTests {
 
     @Test
     void B6001025_testRegisterInsurenceMustNotBeNull() {
-        User user = new User();
-        user.setUserid("1234567890123");
-        user.setPassword("12345678");
-        user.setFirstName("FirstName");
-        user.setLastName("LastName");
+      /**set ข้อมูลของ user**/
+      User user = new User();
+      user.setUserid("1234567890123");
+      user.setPassword("12345678");
+      user.setFirstName("FirstName");
+      user.setLastName("LastName");
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
-        user.setBirthDay(BirthDay);
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+      user.setBirthDay(BirthDay);
 
-        user.setAge((long)20);
-        user.setCareer("Career");
-        user.setDisease("Disease");
-        user.setPhoneNumber("0123456789");
-        user.setAddress("Address");
-        user.setPostalCode((long)30000);
+      user.setAge((long)20);
+      user.setCareer("Career");
+      user.setDisease("Disease");
+      user.setPhoneNumber("0123456789");
+      user.setAddress("Address");
+      user.setPostalCode((long)30000);
 
-        user = userRepository.saveAndFlush(user);
-        /****************************************** */
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        registerInsurance.setName("Name");
-        registerInsurance.setSurname("Surname");
-       
+      user = userRepository.saveAndFlush(user);
+      /**************set ข้อมูลของ register insurance********************* */
+      
 
-        registerInsurance = registerInsuranceRepository.saveAndFlush(registerInsurance);
+      CreateInsurance createInsurance = new CreateInsurance();
+
+      InsuranceType insuranceType = new InsuranceType();
+      insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+      insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+      ContractDueDate contractDueDate = new ContractDueDate();
+      contractDueDate.setContractDueDate_name("1 ปี");
+      contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+       PaymentPeriod paymentPeriod = new PaymentPeriod();
+       paymentPeriod.setPaymentPeriod_name("3 เดือน");
+       paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+      createInsurance.setCreateInsurance_name("CreateInsurance_name");
+      createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+      createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+      createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+      createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+      createInsurance.setInsuranceTypeId(insuranceType);
+      createInsurance.setContractDueDateId(contractDueDate);
+      createInsurance.setPaymentPeriodId(paymentPeriod);
+      createInsurance.setCreateInsurance_insurancePremium(500.00);
+      createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+      Person person = new Person();
+      person.setPersontype("มารดา");
+      person = personRepository.saveAndFlush(person);
+
+      Title title = new Title();
+      title.setTitle("นางสาว");
+      title = titleRepository.saveAndFlush(title);
+
+      RegisterInsurance registerInsurance = new RegisterInsurance();
+      registerInsurance.setUser(user);
+      registerInsurance.setCreateInsurance(createInsurance);
+      registerInsurance.setPerson(person);
+      registerInsurance.setTitle(title);
+      registerInsurance.setName("Name");
+      registerInsurance.setSurname("Surname");
+   
+      registerInsurance = registerInsuranceRepository.saveAndFlush(registerInsurance);
         /**************************************************/
         RenewInsurance renewInsurance = new RenewInsurance();
         renewInsurance.setUseID(user);
