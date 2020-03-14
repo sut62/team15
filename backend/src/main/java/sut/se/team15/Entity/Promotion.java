@@ -36,12 +36,10 @@ public class Promotion {
 
     @NotNull
 	@FutureOrPresent
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate Promotion_StartDate;
 
     @NotNull
     @FutureOrPresent
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate Promotion_EndDate;
 
 	@NotNull
@@ -49,6 +47,7 @@ public class Promotion {
     @Min(100)
 	private Double promotion_Discount;
 
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = CreateInsurance.class)
 	@JoinColumn(name = "CreateInsurance_ID", insertable = true)
 	private CreateInsurance createInsurance;
