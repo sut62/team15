@@ -93,11 +93,11 @@
                           <v-col cols="10" sm="10">
                             <v-text-field
                               id="EnterSignedPlace"
-                              label="ขอใช้สิทธิ์ ณ"
+                              label="ที่อยู่ ณ วันขอใช้สิทธิ์"
                               hint="ป้อนระหว่าง 5-200 ตัวอักษร"
                               v-model="SignedPlace"
                               outlined
-                              :rules="[(v) => !!v || 'โปรดกรอกขอใช้สิทธิ์ ณ']"
+                              :rules="[(v) => !!v || 'โปรดกรอกที่อยู่ ณ วันขอใช้สิทธิ์']"
                             ></v-text-field>
                           </v-col>
 
