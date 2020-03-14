@@ -11,6 +11,9 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Set;
 
@@ -36,9 +39,6 @@ public class RegisterInsuranceTests {
     @Autowired
     private TitleRepository titleRepository;
     
-
-    
-
     @BeforeEach
     public void setup() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -47,13 +47,41 @@ public class RegisterInsuranceTests {
 
     @Test
     void B6005900_testRegisterInsuranceOK() { // RegisterInsurance ใส่ข้อมูลปกติ
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-    
-        User user = userRepository.findById(1);
-        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
-        Person person = personRepository.findById(1);
-        Title title = titleRepository.findById(1);
 
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        user.setPostalCode((long)30000);
+        user = userRepository.saveAndFlush(user);
+
+        CreateInsurance createInsurance = new CreateInsurance();
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
         registerInsurance.setUser(user);
         registerInsurance.setCreateInsurance(createInsurance);
         registerInsurance.setPerson(person);
@@ -71,13 +99,40 @@ public class RegisterInsuranceTests {
 
     @Test
     void B6005900_testRegisterInsuranceNameMustNotBeNull() { // Name มีค่า null
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        
-        User user = userRepository.findById(1);
-        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
-        Person person = personRepository.findById(1);
-        Title title = titleRepository.findById(1);
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        user.setPostalCode((long)30000);
+        user = userRepository.saveAndFlush(user);
 
+        CreateInsurance createInsurance = new CreateInsurance();
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
         registerInsurance.setUser(user);
         registerInsurance.setCreateInsurance(createInsurance);
         registerInsurance.setPerson(person);
@@ -97,17 +152,45 @@ public class RegisterInsuranceTests {
     }
     @Test
     void B6005900_testRegisterInsuranceNameNotDigital() { // Name ไม่มีตัวเลข
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        User user = userRepository.findById(1);
-        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
-        Person person = personRepository.findById(1);
-        Title title = titleRepository.findById(1);
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        user.setPostalCode((long)30000);
+        user = userRepository.saveAndFlush(user);
 
+        CreateInsurance createInsurance = new CreateInsurance();
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
         registerInsurance.setUser(user);
         registerInsurance.setCreateInsurance(createInsurance);
         registerInsurance.setPerson(person);
         registerInsurance.setTitle(title);
-        registerInsurance.setName("123name");
+        registerInsurance.setName("123Name");
         registerInsurance.setSurname("Surname");
 
           Set<ConstraintViolation<RegisterInsurance>> result = validator.validate(registerInsurance);
@@ -123,17 +206,44 @@ public class RegisterInsuranceTests {
 
      @Test
     void B6005900_testRegisterInsuranceNameMoreThan200() { // Nameมากกว่า200
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        User user = userRepository.findById(1);
-        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
-        Person person = personRepository.findById(1);
-        Title title = titleRepository.findById(1);
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        user.setPostalCode((long)30000);
+        user = userRepository.saveAndFlush(user);
 
+        CreateInsurance createInsurance = new CreateInsurance();
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
         registerInsurance.setUser(user);
         registerInsurance.setCreateInsurance(createInsurance);
         registerInsurance.setPerson(person);
         registerInsurance.setTitle(title);
-
 
         String Name = "" ;
         int i = 0;
@@ -158,17 +268,45 @@ public class RegisterInsuranceTests {
 
     @Test
     void B6005900_testRegisterInsuranceNameLessThan2() { // Name น้อยกว่า2
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        User user = userRepository.findById(1);
-        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
-        Person person = personRepository.findById(1);
-        Title title = titleRepository.findById(1);
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        user.setPostalCode((long)30000);
+        user = userRepository.saveAndFlush(user);
 
+        CreateInsurance createInsurance = new CreateInsurance();
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
         registerInsurance.setUser(user);
         registerInsurance.setCreateInsurance(createInsurance);
         registerInsurance.setPerson(person);
         registerInsurance.setTitle(title);
-        registerInsurance.setName("n");
+        registerInsurance.setName("N");
         registerInsurance.setSurname("Surname");
 
           Set<ConstraintViolation<RegisterInsurance>> result = validator.validate(registerInsurance);
@@ -184,12 +322,40 @@ public class RegisterInsuranceTests {
 
     @Test
     void B6005900_testRegisterInsuranceSurnameMustNotBeNull() { // Surname มีค่า null
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        User user = userRepository.findById(1);
-        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
-        Person person = personRepository.findById(1);
-        Title title = titleRepository.findById(2);
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        user.setPostalCode((long)30000);
+        user = userRepository.saveAndFlush(user);
 
+        CreateInsurance createInsurance = new CreateInsurance();
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
         registerInsurance.setUser(user);
         registerInsurance.setCreateInsurance(createInsurance);
         registerInsurance.setPerson(person);
@@ -210,18 +376,46 @@ public class RegisterInsuranceTests {
 
     @Test
     void B6005900_testRegisterInsuranceSurnameNotDigital() { // SurName ไม่มีตัวเลข
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        User user = userRepository.findById(1);
-        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
-        Person person = personRepository.findById(1);
-        Title title = titleRepository.findById(1);
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        user.setPostalCode((long)30000);
+        user = userRepository.saveAndFlush(user);
 
+        CreateInsurance createInsurance = new CreateInsurance();
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
         registerInsurance.setUser(user);
         registerInsurance.setCreateInsurance(createInsurance);
         registerInsurance.setPerson(person);
         registerInsurance.setTitle(title);
-        registerInsurance.setName("์Name");
-        registerInsurance.setSurname("Surname123");
+        registerInsurance.setName("Name");
+        registerInsurance.setSurname("surname123");
 
           Set<ConstraintViolation<RegisterInsurance>> result = validator.validate(registerInsurance);
 
@@ -236,18 +430,45 @@ public class RegisterInsuranceTests {
 
     @Test
     void B6005900_testRegisterInsuranceSurnameMoreThan200() { // Surnameมากกว่า200
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        User user = userRepository.findById(1);
-        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
-        Person person = personRepository.findById(1);
-        Title title = titleRepository.findById(1);
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        user.setPostalCode((long)30000);
+        user = userRepository.saveAndFlush(user);
 
+        CreateInsurance createInsurance = new CreateInsurance();
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
         registerInsurance.setUser(user);
         registerInsurance.setCreateInsurance(createInsurance);
         registerInsurance.setPerson(person);
         registerInsurance.setTitle(title);
-
-
+    
         String Surname = "" ;
         int i = 0;
         while(i<201){
@@ -271,12 +492,40 @@ public class RegisterInsuranceTests {
 
     @Test
     void B6005900_testRegisterInsuranceSurnameLessThan5() { // Surname น้อยกว่า5
-        RegisterInsurance registerInsurance= new RegisterInsurance();
-        User user = userRepository.findById(1);
-        CreateInsurance createInsurance = createInsuranceRepository.findById(1);
-        Person person = personRepository.findById(1);
-        Title title = titleRepository.findById(1);
+        User user = new User();
+        user.setUserid("1234567890123");
+        user.setPassword("12345678");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+        user.setBirthDay(BirthDay);
+        user.setAge((long)20);
+        user.setCareer("Career");
+        user.setDisease("Disease");
+        user.setPhoneNumber("0123456789");
+        user.setAddress("Address");
+        user.setPostalCode((long)30000);
+        user = userRepository.saveAndFlush(user);
 
+        CreateInsurance createInsurance = new CreateInsurance();
+        createInsurance.setCreateInsurance_name("CreateInsurance_name");
+        createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+        createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+        createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+        createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+        createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+        Person person = new Person();
+        person.setPersontype("มารดา");
+        person = personRepository.saveAndFlush(person);
+
+        Title title = new Title();
+        title.setTitle("นางสาว");
+        title = titleRepository.saveAndFlush(title);
+
+        RegisterInsurance registerInsurance = new RegisterInsurance();
         registerInsurance.setUser(user);
         registerInsurance.setCreateInsurance(createInsurance);
         registerInsurance.setPerson(person);
@@ -296,105 +545,222 @@ public class RegisterInsuranceTests {
     }
 
     @Test
-    void B6005900_testPersonOk() { //Person มีค่าเป็น null
-        
-        Person person = new Person();
+    void B6005900_testUserMustNotBeNull() { //คอมโบ User notnull
 
-        person.setPersontype("มารดา");
-        person = personRepository.saveAndFlush(person);
+      User user = new User();
+      user.setUserid("1234567890123");
+      user.setPassword("12345678");
+      user.setFirstName("FirstName");
+      user.setLastName("LastName");
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+      user.setBirthDay(BirthDay);
+      user.setAge((long)20);
+      user.setCareer("Career");
+      user.setDisease("Disease");
+      user.setPhoneNumber("0123456789");
+      user.setAddress("Address");
+      user.setPostalCode((long)30000);
+      user = userRepository.saveAndFlush(user);
 
-        Optional<Person> found = personRepository.findById(person.getPersonId());
-        assertEquals("มารดา", found.get().getPersontype());
-    }
+      CreateInsurance createInsurance = new CreateInsurance();
+      createInsurance.setCreateInsurance_name("CreateInsurance_name");
+      createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+      createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+      createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+      createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+      createInsurance.setCreateInsurance_insurancePremium(500.00);
+      createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
 
-    @Test
-    void B6005900_testPersonMustNotBeNull() { // Personใส่ข้อมูลปกติ
+      Person person = new Person();
+      person.setPersontype("มารดา");
+      person = personRepository.saveAndFlush(person);
 
-        Person person = new Person();
+      Title title = new Title();
+      title.setTitle("นางสาว");
+      title = titleRepository.saveAndFlush(title);
 
-        person.setPersontype(null);
+     RegisterInsurance registerInsurance = new RegisterInsurance();
+     registerInsurance.setUser(null);
+     registerInsurance.setCreateInsurance(createInsurance);
+     registerInsurance.setPerson(person);
+     registerInsurance.setTitle(title);
+     registerInsurance.setName("name");
+     registerInsurance.setSurname("surname");
 
-        Set<ConstraintViolation<Person>> result = validator.validate(person);
+        Set<ConstraintViolation<RegisterInsurance>> result = validator.validate(registerInsurance);
 
         // result ต้องมี error 1 ค่าเท่านั้น
         assertEquals(1, result.size());
 
         // error message ตรงชนิด และถูก field
-        ConstraintViolation<Person> v = result.iterator().next();
+        ConstraintViolation<RegisterInsurance> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
-        assertEquals("Persontype", v.getPropertyPath().toString());
+        assertEquals("user", v.getPropertyPath().toString());
     }
 
     @Test
-    void B6005900_testPersonMustNotBeSizeThen201() { // Person มากกว่า 200
+    void B6005900_testCreateInsuranceMustNotBeNull() { //คอมโบ CreateInsurance notnull
 
-        Person person = new Person();
+      User user = new User();
+      user.setUserid("1234567890123");
+      user.setPassword("12345678");
+      user.setFirstName("FirstName");
+      user.setLastName("LastName");
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+      user.setBirthDay(BirthDay);
+      user.setAge((long)20);
+      user.setCareer("Career");
+      user.setDisease("Disease");
+      user.setPhoneNumber("0123456789");
+      user.setAddress("Address");
+      user.setPostalCode((long)30000);
+      user = userRepository.saveAndFlush(user);
 
-        String persontype = "";
-        int i = 0;
-        while (i < 201) {
-            persontype += "I";
-            i++;
-        }
+      CreateInsurance createInsurance = new CreateInsurance();
+      createInsurance.setCreateInsurance_name("CreateInsurance_name");
+      createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+      createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+      createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+      createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+      createInsurance.setCreateInsurance_insurancePremium(500.00);
+      createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
 
-        person.setPersontype(persontype);
+      Person person = new Person();
+      person.setPersontype("มารดา");
+      person = personRepository.saveAndFlush(person);
 
-        Set<ConstraintViolation<Person>> result = validator.validate(person);
+      Title title = new Title();
+      title.setTitle("นางสาว");
+      title = titleRepository.saveAndFlush(title);
+
+     RegisterInsurance registerInsurance = new RegisterInsurance();
+     registerInsurance.setUser(user);
+     registerInsurance.setCreateInsurance(null);
+     registerInsurance.setPerson(person);
+     registerInsurance.setTitle(title);
+     registerInsurance.setName("name");
+     registerInsurance.setSurname("surname");
+
+        Set<ConstraintViolation<RegisterInsurance>> result = validator.validate(registerInsurance);
 
         // result ต้องมี error 1 ค่าเท่านั้น
         assertEquals(1, result.size());
 
         // error message ตรงชนิด และถูก field
-        ConstraintViolation<Person> v = result.iterator().next();
-        assertEquals("size must be between 2 and 200", v.getMessage());
-        assertEquals("Persontype", v.getPropertyPath().toString());
-    }
-
-    @Test
-    void B6005900_testPersonMustNotBeSizeThen2() {         // Person น้อยกว่า 2
-
-        Person person = new Person();
-
-        person.setPersontype("p");
-
-        Set<ConstraintViolation<Person>> result = validator.validate(person);
-
-        // result ต้องมี error 1 ค่าเท่านั้น
-        assertEquals(1, result.size());
-
-        // error message ตรงชนิด และถูก field
-        ConstraintViolation<Person> v = result.iterator().next();
-        assertEquals("size must be between 2 and 200", v.getMessage());
-        assertEquals("Persontype", v.getPropertyPath().toString());
-    }
-
-    @Test
-    void B6005900_testTitleOk() { //Title ปกติ
-        
-        Title title = new Title();
-
-        title.setTitle("นางสาว");
-        title = titleRepository.saveAndFlush(title);
-
-        Optional<Title> found = titleRepository.findById(title.getId());
-        assertEquals("นางสาว", found.get().getTitle());
-    }
-
-    @Test
-    void B6005900_testTitleMustNotBeNull() { //Title notnull
-
-        Title title = new Title();
-
-        title.setTitle(null);
-
-        Set<ConstraintViolation<Title>> result = validator.validate(title);
-
-        // result ต้องมี error 1 ค่าเท่านั้น
-        assertEquals(1, result.size());
-
-        // error message ตรงชนิด และถูก field
-        ConstraintViolation<Title> v = result.iterator().next();
+        ConstraintViolation<RegisterInsurance> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
-        assertEquals("Title", v.getPropertyPath().toString());
+        assertEquals("CreateInsurance", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B6005900_testPersonMustNotBeNull() { //คอมโบ Person notnull
+
+      User user = new User();
+      user.setUserid("1234567890123");
+      user.setPassword("12345678");
+      user.setFirstName("FirstName");
+      user.setLastName("LastName");
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+      user.setBirthDay(BirthDay);
+      user.setAge((long)20);
+      user.setCareer("Career");
+      user.setDisease("Disease");
+      user.setPhoneNumber("0123456789");
+      user.setAddress("Address");
+      user.setPostalCode((long)30000);
+      user = userRepository.saveAndFlush(user);
+
+      CreateInsurance createInsurance = new CreateInsurance();
+      createInsurance.setCreateInsurance_name("CreateInsurance_name");
+      createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+      createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+      createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+      createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+      createInsurance.setCreateInsurance_insurancePremium(500.00);
+      createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+      Person person = new Person();
+      person.setPersontype("มารดา");
+      person = personRepository.saveAndFlush(person);
+
+      Title title = new Title();
+      title.setTitle("นางสาว");
+      title = titleRepository.saveAndFlush(title);
+
+     RegisterInsurance registerInsurance = new RegisterInsurance();
+     registerInsurance.setUser(user);
+     registerInsurance.setCreateInsurance(createInsurance);
+     registerInsurance.setPerson(null);
+     registerInsurance.setTitle(title);
+     registerInsurance.setName("name");
+     registerInsurance.setSurname("surname");
+
+        Set<ConstraintViolation<RegisterInsurance>> result = validator.validate(registerInsurance);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<RegisterInsurance> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("person", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void B6005900_testTitleMustNotBeNull() { //คอมโบ Title notnull
+
+      User user = new User();
+      user.setUserid("1234567890123");
+      user.setPassword("12345678");
+      user.setFirstName("FirstName");
+      user.setLastName("LastName");
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      LocalDate BirthDay = LocalDate.parse("2020-01-10", formatter);
+      user.setBirthDay(BirthDay);
+      user.setAge((long)20);
+      user.setCareer("Career");
+      user.setDisease("Disease");
+      user.setPhoneNumber("0123456789");
+      user.setAddress("Address");
+      user.setPostalCode((long)30000);
+      user = userRepository.saveAndFlush(user);
+
+      CreateInsurance createInsurance = new CreateInsurance();
+      createInsurance.setCreateInsurance_name("CreateInsurance_name");
+      createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
+      createInsurance.setCreateInsurance_diseaseCoverage("CreateInsurance_diseaseCoverage");
+      createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
+      createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
+      createInsurance.setCreateInsurance_insurancePremium(500.00);
+      createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
+      Person person = new Person();
+      person.setPersontype("มารดา");
+      person = personRepository.saveAndFlush(person);
+
+      Title title = new Title();
+      title.setTitle("นางสาว");
+      title = titleRepository.saveAndFlush(title);
+
+     RegisterInsurance registerInsurance = new RegisterInsurance();
+     registerInsurance.setUser(user);
+     registerInsurance.setCreateInsurance(createInsurance);
+     registerInsurance.setPerson(person);
+     registerInsurance.setTitle(null);
+     registerInsurance.setName("name");
+     registerInsurance.setSurname("surname");
+
+        Set<ConstraintViolation<RegisterInsurance>> result = validator.validate(registerInsurance);
+
+        // result ต้องมี error 1 ค่าเท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<RegisterInsurance> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("title", v.getPropertyPath().toString());
     }
 }
