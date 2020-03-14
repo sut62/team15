@@ -31,6 +31,12 @@ public class PayInsuranceTests {
     private CreateInsuranceRepository createInsuranceRepository;
     @Autowired
     private Insurance_staffRepository insurance_staffRepository;
+    @Autowired
+    private InsuranceTypeRepository insuranceTypeRepository;
+    @Autowired
+    private ContractDueDateRepository contractDueDateRepository;
+    @Autowired
+    private PaymentPeriodRepository paymentPeriodRepository;
 
     @BeforeEach
     public void setup() {
@@ -40,6 +46,18 @@ public class PayInsuranceTests {
 
     @Test
     void B6001025_testAmountOK() { // ใส่ข้อมูลปกติ
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+        insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+       
+        ContractDueDate contractDueDate = new ContractDueDate();
+        contractDueDate.setContractDueDate_name("1 ปี");
+        contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+      
+         PaymentPeriod paymentPeriod = new PaymentPeriod();
+         paymentPeriod.setPaymentPeriod_name("3 เดือน");
+         paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+
         CreateInsurance createInsurance = new CreateInsurance();
         createInsurance.setCreateInsurance_name("CreateInsurance_name");
         createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
@@ -47,8 +65,12 @@ public class PayInsuranceTests {
         createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
         createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
         createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance.setInsuranceTypeId(insuranceType);
+        createInsurance.setContractDueDateId(contractDueDate);
+        createInsurance.setPaymentPeriodId(paymentPeriod);
 
         createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
+
         /***************************************************************/
         User user = new User();
         user.setUserid("1234567890123");
@@ -89,6 +111,18 @@ public class PayInsuranceTests {
 
     @Test
     void B6001025_testAmountMustNotBeNull() {
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+        insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+       
+        ContractDueDate contractDueDate = new ContractDueDate();
+        contractDueDate.setContractDueDate_name("1 ปี");
+        contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+      
+         PaymentPeriod paymentPeriod = new PaymentPeriod();
+         paymentPeriod.setPaymentPeriod_name("3 เดือน");
+         paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+
         CreateInsurance createInsurance = new CreateInsurance();
         createInsurance.setCreateInsurance_name("CreateInsurance_name");
         createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
@@ -96,6 +130,9 @@ public class PayInsuranceTests {
         createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
         createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
         createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance.setInsuranceTypeId(insuranceType);
+        createInsurance.setContractDueDateId(contractDueDate);
+        createInsurance.setPaymentPeriodId(paymentPeriod);
 
         createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
         /***************************************************************/
@@ -144,6 +181,18 @@ public class PayInsuranceTests {
   
     @Test
     void B6001025_testAmountMoreThan100() { 
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+        insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+       
+        ContractDueDate contractDueDate = new ContractDueDate();
+        contractDueDate.setContractDueDate_name("1 ปี");
+        contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+      
+         PaymentPeriod paymentPeriod = new PaymentPeriod();
+         paymentPeriod.setPaymentPeriod_name("3 เดือน");
+         paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+
         CreateInsurance createInsurance = new CreateInsurance();
         createInsurance.setCreateInsurance_name("CreateInsurance_name");
         createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
@@ -151,6 +200,9 @@ public class PayInsuranceTests {
         createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
         createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
         createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance.setInsuranceTypeId(insuranceType);
+        createInsurance.setContractDueDateId(contractDueDate);
+        createInsurance.setPaymentPeriodId(paymentPeriod);
 
         createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
         /***************************************************************/
@@ -200,6 +252,18 @@ public class PayInsuranceTests {
     
     @Test
     void B6001025_testAmountLessThan100() { 
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+        insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+       
+        ContractDueDate contractDueDate = new ContractDueDate();
+        contractDueDate.setContractDueDate_name("1 ปี");
+        contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+      
+         PaymentPeriod paymentPeriod = new PaymentPeriod();
+         paymentPeriod.setPaymentPeriod_name("3 เดือน");
+         paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+
         CreateInsurance createInsurance = new CreateInsurance();
         createInsurance.setCreateInsurance_name("CreateInsurance_name");
         createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
@@ -207,6 +271,9 @@ public class PayInsuranceTests {
         createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
         createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
         createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance.setInsuranceTypeId(insuranceType);
+        createInsurance.setContractDueDateId(contractDueDate);
+        createInsurance.setPaymentPeriodId(paymentPeriod);
 
         createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
         /***************************************************************/
@@ -259,6 +326,18 @@ public class PayInsuranceTests {
     @Test
     void B6001025_testInsurance_stafftMustNotBeNull() { // ใส่ข้อมูลปกติ
 
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+        insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+       
+        ContractDueDate contractDueDate = new ContractDueDate();
+        contractDueDate.setContractDueDate_name("1 ปี");
+        contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+      
+         PaymentPeriod paymentPeriod = new PaymentPeriod();
+         paymentPeriod.setPaymentPeriod_name("3 เดือน");
+         paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+
         CreateInsurance createInsurance = new CreateInsurance();
         createInsurance.setCreateInsurance_name("CreateInsurance_name");
         createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
@@ -266,6 +345,9 @@ public class PayInsuranceTests {
         createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
         createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
         createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance.setInsuranceTypeId(insuranceType);
+        createInsurance.setContractDueDateId(contractDueDate);
+        createInsurance.setPaymentPeriodId(paymentPeriod);
 
         createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
         /***************************************************************/
@@ -316,6 +398,18 @@ public class PayInsuranceTests {
     @Test
     void B6001025_testCreateInsuranceMustNotBeNull() {
 
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+        insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+       
+        ContractDueDate contractDueDate = new ContractDueDate();
+        contractDueDate.setContractDueDate_name("1 ปี");
+        contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+      
+         PaymentPeriod paymentPeriod = new PaymentPeriod();
+         paymentPeriod.setPaymentPeriod_name("3 เดือน");
+         paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+
         CreateInsurance createInsurance = new CreateInsurance();
         createInsurance.setCreateInsurance_name("CreateInsurance_name");
         createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
@@ -323,6 +417,9 @@ public class PayInsuranceTests {
         createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
         createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
         createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance.setInsuranceTypeId(insuranceType);
+        createInsurance.setContractDueDateId(contractDueDate);
+        createInsurance.setPaymentPeriodId(paymentPeriod);
 
         createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
         /***************************************************************/
@@ -373,6 +470,18 @@ public class PayInsuranceTests {
     @Test
     void B6001025_testUserMustNotBeNull() {
 
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setInsuranceType_name("ประเภทอุบัติเหตุ");
+        insuranceType = insuranceTypeRepository.saveAndFlush(insuranceType);
+       
+        ContractDueDate contractDueDate = new ContractDueDate();
+        contractDueDate.setContractDueDate_name("1 ปี");
+        contractDueDate = contractDueDateRepository.saveAndFlush(contractDueDate);
+      
+         PaymentPeriod paymentPeriod = new PaymentPeriod();
+         paymentPeriod.setPaymentPeriod_name("3 เดือน");
+         paymentPeriod = paymentPeriodRepository.saveAndFlush(paymentPeriod);
+
         CreateInsurance createInsurance = new CreateInsurance();
         createInsurance.setCreateInsurance_name("CreateInsurance_name");
         createInsurance.setCreateInsurance_accidentCoverage("CreateInsurance_accidentCoverage");
@@ -380,6 +489,9 @@ public class PayInsuranceTests {
         createInsurance.setCreateInsurance_protectionRights("CreateInsurance_protectionRights");
         createInsurance.setCreateInsurance_termOfProtection("CreateInsurance_termOfProtection");
         createInsurance.setCreateInsurance_insurancePremium(500.00);
+        createInsurance.setInsuranceTypeId(insuranceType);
+        createInsurance.setContractDueDateId(contractDueDate);
+        createInsurance.setPaymentPeriodId(paymentPeriod);
 
         createInsurance = createInsuranceRepository.saveAndFlush(createInsurance);
         /***************************************************************/
